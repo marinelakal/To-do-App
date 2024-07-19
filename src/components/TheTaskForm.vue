@@ -52,10 +52,9 @@
 
 
 
-
-
  
 <style>
+    
   .subtext {
     font-size: 1.5rem; 
     color: #999999; 

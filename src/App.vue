@@ -1,17 +1,21 @@
 <template>
   <h1 class="title">TODOS</h1>
   <the-task-form></the-task-form>
+  <the-task-table></the-task-table>
 </template>
 
 <script>
     import TheTaskForm from './components/TheTaskForm.vue';
-
+    import TheTaskTable from './components/TheTaskTable.vue';
     export default {
         components: {
-            TheTaskForm
+            TheTaskForm,
+            TheTaskTable
         }
     }
 </script>
+
+
 
 <style scoped>
 .title {
