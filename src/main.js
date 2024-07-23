@@ -2,6 +2,24 @@ import { createApp } from 'vue';
 
 import { VDateInput } from 'vuetify/labs/VDateInput'
 
+import { createRouter, createWebHistory } from 'vue-router';
+
+import TheTaskTable from './components/Tasks/TheTaskTable.vue' ;
+
+import TheCategory from './components/Categories/TheCategory.vue' ;
+
+
+import App from './App.vue'
+
+const router = createRouter ({
+  history: createWebHistory (),
+  routes: [
+    { path: '/tasks', component: TheTaskTable },
+    { path: '/categories', component: TheCategory }
+  ]
+});
+
+
 
 // Vuetify
 import 'vuetify/styles'
@@ -18,6 +36,7 @@ const vuetify = createVuetify({
   })
 
 
-import App from './App.vue'
 
-createApp(App).use(vuetify).mount('#app');
+
+
+createApp(App).use(router).use(vuetify).mount('#app');

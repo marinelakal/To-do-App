@@ -1,4 +1,5 @@
 <template>
+  <the-task-form></the-task-form>
     <div class="table-container">
     <v-card
       title="Tasks"
@@ -25,7 +26,9 @@
 
 
   <script>
+    import TheTaskForm from './TheTaskForm.vue'
     export default {
+    components: { TheTaskForm },
       data () {
         return {
           search: '',
