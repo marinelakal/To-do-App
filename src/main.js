@@ -8,8 +8,11 @@ import TheTaskTable from './components/Tasks/TheTaskTable.vue' ;
 
 import TheCategory from './components/Categories/TheCategory.vue' ;
 
+import { createPinia } from 'pinia'
 
 import App from './App.vue'
+
+const pinia = createPinia()
 
 const router = createRouter ({
   history: createWebHistory (),
@@ -39,4 +42,4 @@ const vuetify = createVuetify({
 
 
 
-createApp(App).use(router).use(vuetify).mount('#app');
+createApp(App).use(pinia).use(router).use(vuetify).mount('#app');
