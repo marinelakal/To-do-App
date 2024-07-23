@@ -1,7 +1,7 @@
 <template>
 
     <v-sheet class="mx-auto" width="300">
-        <v-form fast-fail @submit.prevent>
+        <v-form fast-fail @submit.prevent ref="form">
             <p>Add a category</p>
             <v-text-field
             label="Name"
@@ -15,7 +15,7 @@
                 submit
                 </v-btn>
 
-                <v-btn>
+                <v-btn @click="reset">
                 clear
                 </v-btn>
             </div>
@@ -23,9 +23,22 @@
         </v-form>
     </v-sheet>
 
+    <the-category-table></the-category-table>
     
                 
 </template>
+
+<script>
+    import TheCategoryTable from './TheCategoryTable.vue'
+    export default {
+    components: { TheCategoryTable },
+    methods: {
+      reset() {
+        this.$refs.form.reset()
+      }
+    }
+    }
+  </script>
 
 <style scoped>
 .v-sheet {

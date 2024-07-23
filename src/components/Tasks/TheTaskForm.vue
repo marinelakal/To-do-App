@@ -4,12 +4,20 @@
         What needs to be done?
     </div>
     <v-sheet class="mx-auto" width="300">
-      <v-form fast-fail @submit.prevent>
+      <v-form fast-fail @submit.prevent ref="form">
         <v-text-field
+          v-model="name"
           label="Name"
+          :rules="nameRules"
+          required
         ></v-text-field>
   
-        <v-textarea label="Description"></v-textarea>
+        <v-textarea 
+          v-model="description"
+          label="Description"
+          :rules="descriptionRules"
+          required
+        ></v-textarea>
 
         <v-date-input
             label="Select a date"
@@ -18,14 +26,17 @@
             variant="solo"
       ></v-date-input>
 
-        <v-select
+        <v-select 
+            v-model="select"
             label="Select Category"
+            :rules="selectRules"
+            required
             :items="['Personal', 'Work', 'Leisure', 'Misc']"
         ></v-select>
 
         
         <v-container>
-            <v-radio-group>
+            <v-radio-group v-model="radios">
                 <v-radio label="Low" value="one" color="green"></v-radio>
                 <v-radio label="Medium" value="two" color="orange"></v-radio>
                 <v-radio label="High" value="three" color="red"></v-radio>
@@ -40,7 +51,7 @@
         submit
         </v-btn>
 
-        <v-btn>
+        <v-btn @click="reset">
         clear
         </v-btn>
     </div>
@@ -50,7 +61,46 @@
 
 </template>
 
+<script>
+  export default {
+    data: () => ({
+      valid: false,
+      name: '',
+      description: '',
+      radios: "one",
+      select: '',
+      nameRules: [
+        value => {
+          if (value) return true
 
+          return 'Name is required.'
+        }
+      ],
+      descriptionRules: [
+      value => {
+          if (value) return true
+
+          return 'Description is required.'
+        }
+      ],
+      selectRules: [
+      value => {
+          if (value) return true
+
+          return 'Category is required.'
+        }
+      ],
+      
+      
+    }),
+
+    methods: {
+      reset() {
+        this.$refs.form.reset()
+      }
+    }
+  }
+</script>
 
  
 <style>
