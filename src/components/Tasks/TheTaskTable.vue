@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { useTodoListStore } from '@/stores/useTodoListStore';
 export default {
   props: {
     newItems: {
@@ -62,9 +63,13 @@ export default {
     };
   },
   computed: {
+    todoStore() {
+      return useTodoListStore();
+    },
     filteredItems() {
+      const items = this.todoStore.todoList;
       if (this.search) {
-        return this.newItems.filter(item => 
+        return items.filter(item => 
           item.name.includes(this.search) ||
           item.description.includes(this.search) ||
           item.date.includes(this.search) ||
@@ -72,7 +77,7 @@ export default {
           item.criticality.includes(this.search)
         );
       }
-      return this.newItems;
+      return items;
     }
   }
 };

@@ -9,9 +9,6 @@ export const useTodoListStore = defineStore('todoList' , {
     actions: {
         addTodo(todo) {
           this.todoList.push(todo);
-        },
-        clearTodos() {
-          this.todoList = [];
         }
       }
 })
