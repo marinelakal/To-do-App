@@ -127,7 +127,7 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
         // Use the Pinia store to add the todo
         const todoStore = useTodoListStore();
         console.log('Current todo list:', todoStore.todoList);
-        todoStore.addTodo(submission);
+        //todoStore.addTodo(submission);
 
         // Reset the form
         this.reset();
