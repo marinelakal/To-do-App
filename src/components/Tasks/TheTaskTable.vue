@@ -47,12 +47,18 @@ export default {
     return {
       search: '',
       headers: [
-        { text: 'Name', value: 'name' },
-        { text: 'Description', value: 'description' },
-        { text: 'Date', value: 'date' },
-        { text: 'Category', value: 'category' },
-        { text: 'Criticality', value: 'criticality' }
-      ]
+          {
+            align: 'start',
+            key: 'name',
+            sortable: false,
+            title: 'Name',
+          },
+          { key: 'description', title: 'Description' },
+          { key: 'date', title: 'Date' },
+          { key: 'category', title: 'Category' },
+          { key: 'criticality', title: 'Criticality' },
+          
+        ],
     };
   },
   computed: {
