@@ -6,7 +6,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import TheTaskApp from './components/Tasks/TheTaskApp.vue'
 
-import TheCategory from './components/Categories/TheCategory.vue' ;
+import TheCategory from './components/Categories/TheCategoryApp.vue' ;
 
 import { createPinia } from 'pinia'
 

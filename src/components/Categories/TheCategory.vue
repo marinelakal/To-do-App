@@ -23,15 +23,15 @@
         </v-form>
     </v-sheet>
 
-    <the-category-table></the-category-table>
+    <!--<the-category-table></the-category-table>-->
     
                 
 </template>
 
 <script>
-    import TheCategoryTable from './TheCategoryTable.vue'
+    //import TheCategoryTable from './TheCategoryTable.vue'
     export default {
-    components: { TheCategoryTable },
+    //components: { TheCategoryTable },
     methods: {
       reset() {
         this.$refs.form.reset()

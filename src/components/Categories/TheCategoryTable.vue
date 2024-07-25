@@ -2,9 +2,7 @@
     <v-table height="300px">
     <thead>
       <tr>
-        <th class="text-left">
-          Name
-        </th>
+        
         
       </tr>
     </thead>
