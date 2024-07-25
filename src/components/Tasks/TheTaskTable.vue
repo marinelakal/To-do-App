@@ -5,6 +5,9 @@
     <v-card flat>
       <v-card-title>
         Tasks
+        <v-btn @click="toggleDescriptionContent">
+          {{ showDescriptionContent ? 'Hide' : 'Show' }} Description Content
+        </v-btn>
       </v-card-title>
       <template v-slot:text>
         <v-text-field
@@ -24,7 +27,7 @@
         <template v-slot:item="{ item }">
           <tr>
             <td>{{ item.name }}</td>
-            <td>{{ item.description }}</td>
+            <td>{{ showDescriptionContent ? item.description : '' }}</td>
             <td>{{ item.date }}</td>
             <td>{{ item.category }}</td>
             <td>{{ item.criticality }}</td>
@@ -47,19 +50,19 @@ export default {
   data() {
     return {
       search: '',
+      showDescriptionContent: true,
       headers: [
-          {
-            align: 'start',
-            key: 'name',
-            sortable: false,
-            title: 'Name',
-          },
-          { key: 'description', title: 'Description' },
-          { key: 'date', title: 'Date' },
-          { key: 'category', title: 'Category' },
-          { key: 'criticality', title: 'Criticality' },
-          
-        ],
+        {
+          align: 'start',
+          key: 'name',
+          sortable: false,
+          title: 'Name',
+        },
+        { key: 'description', title: 'Description' },
+        { key: 'date', title: 'Date' },
+        { key: 'category', title: 'Category' },
+        { key: 'criticality', title: 'Criticality' },
+      ],
     };
   },
   computed: {
@@ -71,13 +74,18 @@ export default {
       if (this.search) {
         return items.filter(item => 
           item.name.includes(this.search) ||
-          item.description.includes(this.search) ||
+          (this.showDescriptionContent && item.description.includes(this.search)) ||
           item.date.includes(this.search) ||
           item.category.includes(this.search) ||
           item.criticality.includes(this.search)
         );
       }
       return items;
+    }
+  },
+  methods: {
+    toggleDescriptionContent() {
+      this.showDescriptionContent = !this.showDescriptionContent;
     }
   }
 };
