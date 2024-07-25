@@ -4,7 +4,7 @@ import { VDateInput } from 'vuetify/labs/VDateInput'
 
 import { createRouter, createWebHistory } from 'vue-router';
 
-import TheTaskTable from './components/Tasks/TheTaskTable.vue' ;
+import TheTaskApp from './components/Tasks/TheTaskApp.vue'
 
 import TheCategory from './components/Categories/TheCategory.vue' ;
 
@@ -17,7 +17,7 @@ const pinia = createPinia()
 const router = createRouter ({
   history: createWebHistory (),
   routes: [
-    { path: '/tasks', component: TheTaskTable },
+    { path: '/tasks', component: TheTaskApp },
     { path: '/categories', component: TheCategory }
   ]
 });
