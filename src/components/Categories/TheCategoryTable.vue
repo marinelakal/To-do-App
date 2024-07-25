@@ -21,25 +21,14 @@
 </template>
 
 <script>
+  import { useCategoryStore } from '@/stores/useCategoryStore';
   export default {
-    data () {
-      return {
-        categories: [
-          {
-            name: 'Personal',
-          },
-          {
-            name: 'Work',
-          },
-          {
-            name: 'Leisure',
-          },
-          {
-            name: 'Misc',
-          }
-        ],
-      }
-    },
+    computed: {
+      categories() {
+        const categoryStore = useCategoryStore();
+        return categoryStore.categories;
+      },
+  },
   }
 </script>
 

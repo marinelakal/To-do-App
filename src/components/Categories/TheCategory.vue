@@ -1,16 +1,20 @@
 <template>
 
     <v-sheet class="mx-auto" width="300">
-        <v-form fast-fail @submit.prevent ref="form">
+        <v-form fast-fail v-model="valid" @submit.prevent="submitForm" ref="form">
             <p>Add a category</p>
             <v-text-field
+            v-model="name"
             label="Name"
+            :rules="nameRules"
+            required
             ></v-text-field>
 
             <div class="button-container">
                 <v-btn
                 class="me-4"
                 type="submit"
+                :disabled="!valid"
                 >
                 submit
                 </v-btn>
@@ -22,21 +26,40 @@
 
         </v-form>
     </v-sheet>
-
-    <!--<the-category-table></the-category-table>-->
-    
-                
+ 
 </template>
 
 <script>
-    //import TheCategoryTable from './TheCategoryTable.vue'
+    import { useCategoryStore } from '@/stores/useCategoryStore';
     export default {
-    //components: { TheCategoryTable },
-    methods: {
-      reset() {
-        this.$refs.form.reset()
+      data() {
+        return {
+          name: '',
+          valid: false,
+          nameRules: [
+          value => {
+            if (value) return true
+
+            return 'Name is required.'
+          }
+        ]
+        };
+      },
+      methods: {
+        submitForm() {
+          if (this.$refs.form.validate()) {
+            const categoryStore = useCategoryStore();
+            if (this.name) {
+              categoryStore.addCategory(this.name);
+              this.reset();
+            }
+          }
+        },
+        reset() {
+          this.$refs.form.reset()
+          this.valid = false
+        }
       }
-    }
     }
   </script>
 
