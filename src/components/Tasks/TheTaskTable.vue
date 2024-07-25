@@ -5,7 +5,7 @@
     <v-card flat>
       <v-card-title>
         Tasks
-        <v-btn @click="toggleDescriptionContent">
+        <v-btn class="show-hide" @click="toggleDescriptionContent">
           {{ showDescriptionContent ? 'Hide' : 'Show' }} Description Content
         </v-btn>
       </v-card-title>
@@ -41,12 +41,12 @@
 <script>
 import { useTodoListStore } from '@/stores/useTodoListStore';
 export default {
-  props: {
-    newItems: {
-      type: Array,
-      required: true,
-    }
-  },
+  //props: {
+   // newItems: {
+    //  type: Array,
+    //  required: true,
+   // }
+  //},
   data() {
     return {
       search: '',
@@ -99,5 +99,10 @@ export default {
   margin-top: 20px;
   display: flex;
   justify-content: center; 
+}
+.show-hide {
+  background-color: #cde8e4b9;
+  display: flex;
+  justify-content: center;
 }
 </style>
