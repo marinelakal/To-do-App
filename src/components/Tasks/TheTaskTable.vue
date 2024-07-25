@@ -1,10 +1,11 @@
+
+
 <template>
-  
-    <div class="table-container">
-    <v-card
-      title="Tasks"
-      flat
-    >
+  <div class="table-container">
+    <v-card flat>
+      <v-card-title>
+        Tasks
+      </v-card-title>
       <template v-slot:text>
         <v-text-field
           v-model="search"
@@ -15,46 +16,69 @@
           single-line
         ></v-text-field>
       </template>
-  
       <v-data-table
         :headers="headers"
+        :items="filteredItems"
         :search="search"
-      ></v-data-table>
+      >
+        <template v-slot:item="{ item }">
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.criticality }}</td>
+          </tr>
+        </template>
+      </v-data-table>
     </v-card>
-</div>
-  </template>
+  </div>
+</template>
 
-
-  <script>
-    export default {
-    
-      data () {
-        return {
-          search: '',
-          headers: [
-            {
-              align: 'start',
-              key: 'name',
-              sortable: false,
-              title: 'Name',
-            },
-            { key: 'description', title: 'Description' },
-            { key: 'date', title: 'Date' },
-            { key: 'category', title: 'Category' },
-            { key: 'criticality', title: 'Criticality' }
-          ]
-        }
-      },
+<script>
+export default {
+  props: {
+    newItems: {
+      type: Array,
+      required: true,
     }
-  </script>
+  },
+  data() {
+    return {
+      search: '',
+      headers: [
+        { text: 'Name', value: 'name' },
+        { text: 'Description', value: 'description' },
+        { text: 'Date', value: 'date' },
+        { text: 'Category', value: 'category' },
+        { text: 'Criticality', value: 'criticality' }
+      ]
+    };
+  },
+  computed: {
+    filteredItems() {
+      if (this.search) {
+        return this.newItems.filter(item => 
+          item.name.includes(this.search) ||
+          item.description.includes(this.search) ||
+          item.date.includes(this.search) ||
+          item.category.includes(this.search) ||
+          item.criticality.includes(this.search)
+        );
+      }
+      return this.newItems;
+    }
+  }
+};
+</script>
 
 <style>
-    .v-card , .v-data-table{
-        background-color: #cde8e4b9;
-    }
-    .table-container {
-        margin-top: 20px;
-        display: flex;
-        justify-content:center; 
-    }
+.v-card, .v-data-table {
+  background-color: #cde8e4b9;
+}
+.table-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center; 
+}
 </style>

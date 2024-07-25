@@ -4,7 +4,7 @@
         What needs to be done?
     </div>
     <v-sheet class="mx-auto" width="300">
-      <v-form fast-fail @submit.prevent ref="form">
+      <v-form fast-fail v-model="valid" @submit.prevent="submit" ref="form">
         <v-text-field
           v-model="name"
           label="Name"
@@ -20,6 +20,7 @@
         ></v-textarea>
 
         <v-date-input
+            v-model="date"
             label="Select a date"
             prepend-icon=""
             
@@ -47,6 +48,7 @@
         <v-btn
         class="me-4"
         type="submit"
+        :disabled="!valid"
         >
         submit
         </v-btn>
@@ -62,13 +64,15 @@
 </template>
 
 <script>
+import { useTodoListStore } from '@/stores/useTodoListStore';
   export default {
     data: () => ({
       valid: false,
       name: '',
       description: '',
       radios: "one",
-      select: '',
+      select: '', 
+      date: null,
       nameRules: [
         value => {
           if (value) return true
@@ -90,16 +94,46 @@
           return 'Category is required.'
         }
       ],
+      criticalityMap: {
+          one: 'Low',
+          two: 'Medium',
+          three: 'High'
+        }
       
       
     }),
 
     methods: {
       reset() {
-        this.$refs.form.reset()
-      }
+        this.$refs.form.reset();
+        this.valid = false; 
+      },
+      submit() {
+      if (this.$refs.form.validate()) { 
+        const formattedDate = this.date ? new Date(this.date).toLocaleDateString() : '';
+        const submission = {
+          name: this.name,
+          description: this.description,
+          date: formattedDate,
+          category: this.select,
+          criticality: this.criticalityMap[this.radios]
+        };
+        console.log('Form submission:', submission); // Debugging line
+        // Emit the current form data
+        this.$emit('submit-form', submission);
+
+        // Use the Pinia store to add the todo
+        const todoStore = useTodoListStore();
+        console.log('Current todo list:', todoStore.todoList);
+        todoStore.addTodo(submission);
+
+        // Reset the form
+        this.reset();
     }
+    }
+      
   }
+}
 </script>
 
  
