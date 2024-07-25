@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="table-container">
     <v-card flat>
@@ -27,7 +25,7 @@
         <template v-slot:item="{ item }">
           <tr>
             <td>{{ item.name }}</td>
-            <td>{{ showDescriptionContent ? item.description : '' }}</td>
+            <td>{{ showDescriptionContent ? truncatedDescription(item.description) : '' }}</td>
             <td>{{ item.date }}</td>
             <td>{{ item.category }}</td>
             <td>{{ item.criticality }}</td>
@@ -43,9 +41,9 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
 export default {
   //props: {
    // newItems: {
-    //  type: Array,
-    //  required: true,
-   // }
+     //  type: Array,
+     //  required: true,
+    // }
   //},
   data() {
     return {
@@ -86,6 +84,12 @@ export default {
   methods: {
     toggleDescriptionContent() {
       this.showDescriptionContent = !this.showDescriptionContent;
+    },
+    truncatedDescription(description) {
+      if (description.length > 20) {
+        return description.substring(0, 20) + '...';
+      }
+      return description;
     }
   }
 };
