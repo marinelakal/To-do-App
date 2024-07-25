@@ -21,6 +21,7 @@
 
         <v-date-input
             v-model="date"
+            :min="minDate"
             label="Select a date"
             prepend-icon=""
             
@@ -98,7 +99,8 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
           one: 'Low',
           two: 'Medium',
           three: 'High'
-        }
+      },
+      minDate: new Date().toISOString().split('T')[0]
       
       
     }),
