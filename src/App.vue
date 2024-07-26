@@ -9,7 +9,7 @@
 
 
 <script>
-    import TabsItem from './components/TabsItem.vue'
+    import TabsItem from './components/Tabs/TabsItem.vue'
     export default {
         components: {
             TabsItem,
