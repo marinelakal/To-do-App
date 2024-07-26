@@ -13,5 +13,8 @@ export const useCategoryStore = defineStore('category',{
         addCategory(name) {
           this.categories.push({ name });
         },
+        deleteCategory(index) {
+          this.categories.splice(index, 1);
+        }
       },
 });

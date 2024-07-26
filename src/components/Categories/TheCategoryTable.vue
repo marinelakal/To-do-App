@@ -13,6 +13,15 @@
         :key="item.name"
       >
         <td>{{ item.name }}</td>
+        <!--<button @click="del(index)">X</button>-->
+        <td>
+          <v-icon
+            @click="del(index)"
+            class="delete-icon"
+          >
+            mdi-delete
+          </v-icon>
+        </td>
         
       </tr>
     </tbody>
@@ -22,13 +31,25 @@
 
 <script>
   import { useCategoryStore } from '@/stores/useCategoryStore';
+  import { mdiDelete } from '@mdi/js';
   export default {
+    data() {
+    return {
+      mdiDelete
+    };
+  },
     computed: {
       categories() {
         const categoryStore = useCategoryStore();
         return categoryStore.categories;
       },
   },
+  methods: {
+    del(index) {
+      const categoryStore = useCategoryStore();
+      categoryStore.deleteCategory(index);
+    }
+  }
   }
 </script>
 
@@ -40,7 +61,10 @@
         justify-content:center; 
     }
 
-
+.delete-icon {
+cursor: pointer;
+color: red; /* Optional: Change the color of the delete icon */
+}
 
 
 </style>
