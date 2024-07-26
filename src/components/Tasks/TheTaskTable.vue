@@ -29,14 +29,7 @@
             <td>{{ item?.date || 'N/A' }}</td>
             <td>{{ item?.category || 'N/A' }}</td>
             <td>{{ item?.criticality || 'N/A' }}</td>
-            <td>
-              <v-icon
-                @click="toggleImportant(index)"
-                :class="{ 'important-icon': item?.important }"
-              >
-                {{ item?.important ? 'mdi-star' : 'mdi-star-outline' }}
-              </v-icon>
-            </td>
+          
             <td>
               <v-icon
                 @click="deleteTask(index)"
@@ -45,6 +38,26 @@
                 mdi-delete
               </v-icon>
             </td>
+
+            <td>
+              <v-icon
+                @click="duplicateTask(index)"
+                class="duplicate-icon"
+              >
+                mdi-content-copy
+              </v-icon>
+            </td>
+
+
+            <td>
+              <v-icon
+                @click="toggleImportant(index)"
+                :class="{ 'important-icon': item?.important }"
+              >
+                {{ item?.important ? 'mdi-star' : 'mdi-star-outline' }}
+              </v-icon>
+            </td>
+            
           </tr>
         </template>
       </v-data-table>
@@ -54,7 +67,7 @@
 
 <script>
 import { useTodoListStore } from '@/stores/useTodoListStore';
-import { mdiDelete } from '@mdi/js';
+import { mdiDelete , mdiContentCopy } from '@mdi/js';
 export default {
   //props: {
    // newItems: {
@@ -65,6 +78,7 @@ export default {
   data() {
     return {
       mdiDelete,
+      mdiContentCopy,
       search: '',
       showDescriptionContent: true,
       headers: [
@@ -156,6 +170,13 @@ export default {
 
       // Remove the task at the specified index
       todoStore.todoList.splice(index, 1);
+    },duplicateTask(index) {
+      const todoStore = this.todoStore;
+      if (index < 0 || index >= todoStore.todoList.length) {
+        console.error('Invalid index for duplication:', index);
+        return;
+      }
+      todoStore.duplicateTask(index);
     }
   }
 };
