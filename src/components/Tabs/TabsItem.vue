@@ -32,17 +32,13 @@
 
 
 <style>
-/* Helper classes */
-
 .text-basil {
   color: #4d837b !important;
 }
-
 .v-tabs {
   display: flex;
   justify-content: center;
 }
-
 a {
 text-decoration: none;}
 
@@ -53,27 +49,22 @@ text-decoration: none;}
   list-style: none;
   padding: 0;
   margin: 0;
-  border-bottom: 1px solid #e0e0e0; /* Optional: to mimic the tab border */
+  border-bottom: 1px solid #e0e0e0; 
 
 }
-
-/* Individual tab items */
 .nav-tab {
   margin: 0 10px;
 }
-
-/* Link styling to make it look like a tab */
 .nav-tab a {
-  color: #4d837b; /* Basil color */
+  color: #4d837b; 
   text-decoration: none;
   display: block;
   padding: 10px 15px;
   border-bottom: 2px solid transparent;
   transition: border-bottom-color 0.3s;
 }
-
 .nav-tab a.router-link-exact-active {
-  border-bottom-color: #4d837b; /* Basil color */
+  border-bottom-color: #4d837b;
   font-weight: bold;
 }
 

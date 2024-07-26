@@ -19,7 +19,7 @@
         handleSubmit(submission) {
             console.log('New submission:', submission);
             const todoStore = useTodoListStore();
-            todoStore.addTodo(submission); // Directly add to Pinia store
+            todoStore.addTodo(submission);
         }
     }
     

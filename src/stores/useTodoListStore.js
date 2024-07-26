@@ -4,8 +4,6 @@ export const useTodoListStore = defineStore('todoList' , {
     state: () => ({
         todoList: [] , 
     }),
-    //getters 
-    //actions
     actions: {
         addTodo(todo) {
           if (todo.important === undefined) {
@@ -28,7 +26,6 @@ export const useTodoListStore = defineStore('todoList' , {
             return;
           }
     
-          // Create a duplicate of the item, ensuring it doesn't retain the important status
           const duplicateItem = { ...item, name: `${item.name} (copy)`, important: false };
           this.todoList.push(duplicateItem);
         }

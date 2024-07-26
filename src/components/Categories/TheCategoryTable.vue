@@ -13,7 +13,6 @@
         :key="item.name"
       >
         <td>{{ item.name }}</td>
-        <!--<button @click="del(index)">X</button>-->
         <td>
           <v-icon
             @click="del(index)"

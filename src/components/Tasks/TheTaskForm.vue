@@ -116,21 +116,13 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
           date: formattedDate,
           category: this.select,
           criticality: this.criticalityMap[this.radios],
-          important: false // Ensure this field is included
+          important: false
         };
 
-        console.log('Form submission:', submission); // Debugging line
-        // Emit the current form data
-        //this.$emit('submit-form', submission);
-
-        // Use the Pinia store to add the todo
+        console.log('Form submission:', submission); 
         const todoStore = useTodoListStore();
         todoStore.addTodo(submission);
         console.log('Current todo list:', todoStore.todoList);
-        //todoStore.addTodo(submission);
-
-        // Reset the form
-
         this.reset();
     }
     }

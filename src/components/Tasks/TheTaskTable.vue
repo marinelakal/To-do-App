@@ -69,12 +69,6 @@
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { mdiDelete , mdiContentCopy } from '@mdi/js';
 export default {
-  //props: {
-   // newItems: {
-     //  type: Array,
-     //  required: true,
-    // }
-  //},
   data() {
     return {
       mdiDelete,
@@ -156,19 +150,16 @@ export default {
 
       console.log('Item after toggle:', item);
 
-      // Trigger reactivity by reassigning the todoList array
       todoStore.todoList = [...todoStore.todoList];
     },
     deleteTask(index) {
       const todoStore = this.todoStore;
 
-      // Check if index is within valid range
       if (index < 0 || index >= todoStore.todoList.length) {
         console.error('Invalid index for deletion:', index);
         return;
       }
 
-      // Remove the task at the specified index
       todoStore.todoList.splice(index, 1);
     },duplicateTask(index) {
       const todoStore = this.todoStore;
