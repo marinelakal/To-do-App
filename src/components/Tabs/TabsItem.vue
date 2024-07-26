@@ -8,14 +8,14 @@
                 grow
                 >
                 
-                <ul class="nav-tabs">
+                <v-tab class="nav-tabs">
                     <li class="nav-tab">
                         <router-link to="/tasks">Tasks</router-link>
                     </li>
                     <li class="nav-tab">
                         <router-link to="/categories">Categories</router-link>
                     </li>
-                </ul>
+                </v-tab>
             
 
                 </v-tabs>
@@ -39,7 +39,6 @@
 }
 
 .v-tabs {
-  margin-left: 150px;
   display: flex;
   justify-content: center;
 }
