@@ -8,6 +8,9 @@ export const useTodoListStore = defineStore('todoList' , {
     //actions
     actions: {
         addTodo(todo) {
+          if (todo.important === undefined) {
+            todo.important = false;
+          }
           this.todoList.push(todo);
         },
         deleteTask(index) {

@@ -63,7 +63,6 @@
 
 .delete-icon {
 cursor: pointer;
-color: red; /* Optional: Change the color of the delete icon */
 }
 
 

@@ -24,7 +24,7 @@
             :min="minDate"
             label="Select a date"
             prepend-icon=""
-            
+
             variant="solo"
       ></v-date-input>
 
@@ -36,7 +36,6 @@
             :items="['Personal', 'Work', 'Leisure', 'Misc']"
         ></v-select>
 
-        
         <v-container>
             <v-radio-group v-model="radios">
                 <v-radio label="Low" value="one" color="green"></v-radio>
@@ -60,7 +59,7 @@
     </div>
       </v-form>
     </v-sheet>
-    
+
 
 </template>
 
@@ -101,8 +100,6 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
           three: 'High'
       },
       minDate: new Date().toISOString().split('T')[0]
-      
-      
     }),
 
     methods: {
@@ -111,15 +108,17 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
         this.valid = false; 
       },
       submit() {
-      if (this.$refs.form.validate()) { 
+      if (this.$refs.form.validate()) {
         const formattedDate = this.date ? new Date(this.date).toLocaleDateString() : '';
         const submission = {
           name: this.name,
           description: this.description,
           date: formattedDate,
           category: this.select,
-          criticality: this.criticalityMap[this.radios]
+          criticality: this.criticalityMap[this.radios],
+          important: false // Ensure this field is included
         };
+
         console.log('Form submission:', submission); // Debugging line
         // Emit the current form data
         //this.$emit('submit-form', submission);
@@ -131,17 +130,16 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
         //todoStore.addTodo(submission);
 
         // Reset the form
+
         this.reset();
     }
     }
-      
   }
 }
 </script>
 
- 
+
 <style>
-    
   .subtext {
     font-size: 1.5rem; 
     color: #999999; 
@@ -149,9 +147,8 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
     margin-bottom: 40px;
     margin-top: 20px; 
     font-family: Arial, sans-serif; 
-    
+
   }
-  
   .button-container {
     display: flex;
     justify-content: flex-end; 

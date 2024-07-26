@@ -22,13 +22,21 @@
         :items="filteredItems"
         :search="search"
       >
-        <template v-slot:item="{ item }">
+        <template v-slot:item="{ item, index }">
           <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ showDescriptionContent ? truncatedDescription(item.description) : '' }}</td>
-            <td>{{ item.date }}</td>
-            <td>{{ item.category }}</td>
-            <td>{{ item.criticality }}</td>
+            <td>{{ item?.name || 'N/A' }}</td>
+            <td>{{ showDescriptionContent ? truncatedDescription(item?.description || '') : '' }}</td>
+            <td>{{ item?.date || 'N/A' }}</td>
+            <td>{{ item?.category || 'N/A' }}</td>
+            <td>{{ item?.criticality || 'N/A' }}</td>
+            <td>
+              <v-icon
+                @click="toggleImportant(index)"
+                :class="{ 'important-icon': item?.important }"
+              >
+                {{ item?.important ? 'mdi-star' : 'mdi-star-outline' }}
+              </v-icon>
+            </td>
             <td>
               <v-icon
                 @click="deleteTask(index)"
@@ -81,14 +89,19 @@ export default {
       const items = this.todoStore.todoList;
       if (this.search) {
         return items.filter(item => 
-          item.name.includes(this.search) ||
-          (this.showDescriptionContent && item.description.includes(this.search)) ||
-          item.date.includes(this.search) ||
-          item.category.includes(this.search) ||
-          item.criticality.includes(this.search)
+          item?.name?.includes(this.search) ||
+          (this.showDescriptionContent && item?.description?.includes(this.search)) ||
+          item?.date?.includes(this.search) ||
+          item?.category?.includes(this.search) ||
+          item?.criticality?.includes(this.search)
         );
       }
-      return items;
+
+      return items.sort((a, b) => {
+        const aImportant = a?.important ? 1 : 0;
+        const bImportant = b?.important ? 1 : 0;
+        return bImportant - aImportant;
+      });
     }
   },
   methods: {
@@ -100,9 +113,49 @@ export default {
         return description.substring(0, 20) + '...';
       }
       return description;
-    },deleteTask(index) {
+    },
+    toggleImportant(index) {
       const todoStore = this.todoStore;
-      todoStore.deleteTask(index);
+
+      console.log('Attempting to toggle importance at index:', index);
+      console.log('Current todo list:', todoStore.todoList);
+
+      if (index < 0 || index >= todoStore.todoList.length) {
+        console.error('Invalid index:', index);
+        return;
+      }
+
+      const item = todoStore.todoList[index];
+
+      if (!item) {
+        console.error('Task item is undefined at index:', index);
+        return;
+      }
+
+      console.log('Item before toggle:', item);
+
+      if (item.important === undefined) {
+        item.important = false;
+      }
+
+      item.important = !item.important;
+
+      console.log('Item after toggle:', item);
+
+      // Trigger reactivity by reassigning the todoList array
+      todoStore.todoList = [...todoStore.todoList];
+    },
+    deleteTask(index) {
+      const todoStore = this.todoStore;
+
+      // Check if index is within valid range
+      if (index < 0 || index >= todoStore.todoList.length) {
+        console.error('Invalid index for deletion:', index);
+        return;
+      }
+
+      // Remove the task at the specified index
+      todoStore.todoList.splice(index, 1);
     }
   }
 };
