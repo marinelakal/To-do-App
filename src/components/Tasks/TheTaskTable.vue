@@ -29,6 +29,14 @@
             <td>{{ item.date }}</td>
             <td>{{ item.category }}</td>
             <td>{{ item.criticality }}</td>
+            <td>
+              <v-icon
+                @click="deleteTask(index)"
+                class="delete-icon"
+              >
+                mdi-delete
+              </v-icon>
+            </td>
           </tr>
         </template>
       </v-data-table>
@@ -38,6 +46,7 @@
 
 <script>
 import { useTodoListStore } from '@/stores/useTodoListStore';
+import { mdiDelete } from '@mdi/js';
 export default {
   //props: {
    // newItems: {
@@ -47,6 +56,7 @@ export default {
   //},
   data() {
     return {
+      mdiDelete,
       search: '',
       showDescriptionContent: true,
       headers: [
@@ -90,6 +100,9 @@ export default {
         return description.substring(0, 20) + '...';
       }
       return description;
+    },deleteTask(index) {
+      const todoStore = this.todoStore;
+      todoStore.deleteTask(index);
     }
   }
 };
@@ -109,4 +122,5 @@ export default {
   display: flex;
   justify-content: center;
 }
+
 </style>
