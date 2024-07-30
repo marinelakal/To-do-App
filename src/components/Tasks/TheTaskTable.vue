@@ -338,6 +338,7 @@ export default {
   margin-top: 20px;
   display: flex;
   justify-content: center; 
+  background-color: #f5f5f5; 
 }
 .show-hide {
   background-color: #cde8e4b9;
