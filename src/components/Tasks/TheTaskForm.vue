@@ -33,7 +33,7 @@
             label="Select Category"
             :rules="selectRules"
             required
-            :items="['Personal', 'Work', 'Leisure', 'Misc']"
+            :items="categoryNames"
         ></v-select>
 
         <v-container>
@@ -65,6 +65,9 @@
 
 <script>
 import { useTodoListStore } from '@/stores/useTodoListStore';
+import { useCategoryStore } from '@/stores/useCategoryStore';
+
+
   export default {
     data: () => ({
       valid: false,
@@ -101,6 +104,12 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
       },
       minDate: new Date().toISOString().split('T')[0]
     }),
+    computed: {
+    categoryNames() {
+      const categoryStore = useCategoryStore();
+      return categoryStore.categories.map(category => category.name);
+    }
+  },
 
     methods: {
       reset() {
@@ -128,6 +137,7 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
     }
   }
 }
+ 
 </script>
 
 
