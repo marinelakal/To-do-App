@@ -125,7 +125,7 @@
               </v-card>
             </v-dialog>
 
-            <td>
+            <td class="actions-cell">
               <v-icon
                 class="me-2"
                 size="small"
@@ -133,27 +133,19 @@
               >
                 mdi-pencil
               </v-icon>
-            </td>
-            
-            <td>
               <v-icon
                  @click="openDeleteDialog(index)"
                 class="delete-icon"
               >
                 mdi-delete
               </v-icon>
-            </td>
-
-            <td>
               <v-icon
                 @click="duplicateTask(index)"
                 class="duplicate-icon"
               >
                 mdi-content-copy
               </v-icon>
-            </td>
-
-            <td>
+               
               <v-icon
                 @click="toggleImportant(index)"
                 :class="{ 'important-icon': item?.important }"
@@ -202,6 +194,7 @@ export default {
         { key: 'date', title: 'Date' },
         { key: 'category', title: 'Category' },
         { key: 'criticality', title: 'Criticality' },
+        { key: 'actions', title: 'Actions' },
       ],
     };
   },
@@ -344,5 +337,17 @@ export default {
   background-color: #cde8e4b9;
   display: flex;
   justify-content: center;
+}
+
+.actions-cell .v-icon {
+  margin-right: 8px;
+}
+
+.actions-cell .v-icon:last-child {
+  margin-right: 0; 
+}
+
+td {
+  text-align: center; 
 }
 </style>
