@@ -3,11 +3,13 @@
     <v-table class="category-table" height="300px">
     <thead>
       <tr>
-     </tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
       <tr v-for="(item, index) in categories" :key="item.name">
-        <td>{{ item.name }}</td>
+        <td class="names">{{ item.name }}</td>
 
         
         <v-dialog v-model="dialog" max-width="500px">
@@ -120,11 +122,11 @@
     },
       editItem(item, index) {
         this.editedIndex = index;
-        this.editedItem = { ...item }; // Copy the item to edit
-        this.dialog = true; // Open the dialog
+        this.editedItem = { ...item }; 
+        this.dialog = true; 
       },
       closeDialog() {
-        this.dialog = false; // Close the dialog without saving
+        this.dialog = false; 
       },
       saveCategory() {
         const categoryStore = useCategoryStore();
@@ -159,11 +161,17 @@
 
 .icon-container {
   display: flex;
-  gap: 10px; 
+  justify-content: left;
+  gap: 10px;
 }
 
+.names {
+  display: flex;
+  justify-content: left;
+  margin-top: 10px;
+}
 
-td {
+td, th {
   padding: 0; 
   margin: 0; 
 }
