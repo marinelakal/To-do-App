@@ -37,14 +37,16 @@
         </v-dialog>
 
         <td>
+          <div class="icon-container">
           <v-icon class="me-2" size="small" @click="editItem(item, index)">
             mdi-pencil
           </v-icon>
-        </td>
-        <td>
+        
+        
           <v-icon @click="del(index)" class="delete-icon">
             mdi-delete
           </v-icon>
+        </div>
         </td>
       </tr>
     </tbody>
@@ -98,6 +100,18 @@
 </script>
 
 <style scoped>
+
+.icon-container {
+  display: flex;
+  gap: 10px; 
+}
+
+
+td {
+  padding: 0; 
+  margin: 0; 
+}
+
 .v-table {
         margin-top: 20px;
         display: flex;
@@ -107,6 +121,11 @@
 .delete-icon {
 cursor: pointer;
 }
+
+.edit-icon {
+  margin-right: 10px;
+}
+
 
 
 </style>
