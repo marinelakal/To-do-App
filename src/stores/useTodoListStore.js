@@ -28,6 +28,15 @@ export const useTodoListStore = defineStore('todoList' , {
     
           const duplicateItem = { ...item, name: `${item.name} (copy)`, important: false };
           this.todoList.push(duplicateItem);
-        }
-      }
+        },
+        updateTask(index, updatedTask) {
+          if (index < 0 || index >= this.todoList.length) {
+            console.error('Invalid index for updating:', index);
+            return;
+          }
+          this.todoList[index] = { ...this.todoList[index], ...updatedTask };
+        },
+      
+      },
+      
 })

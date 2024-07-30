@@ -29,7 +29,100 @@
             <td>{{ item?.date || 'N/A' }}</td>
             <td>{{ item?.category || 'N/A' }}</td>
             <td>{{ item?.criticality || 'N/A' }}</td>
-          
+
+            <v-dialog
+              v-model="dialog"
+              max-width="500px"
+            >
+              <v-card>
+                <v-card-title>Edit Task</v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        md="4"
+                        sm="6"
+                      >
+                        <v-text-field
+                          v-model="editedItem.name"
+                          label="Task name"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="4"
+                        sm="6"
+                      >
+                        <v-text-field
+                          v-model="editedItem.description"
+                          label="Description"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="4"
+                        sm="6"
+                      >
+                        <v-text-field
+                          v-model="editedItem.date"
+                          label="Date"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="4"
+                        sm="6"
+                      >
+                        <v-text-field
+                          v-model="editedItem.category"
+                          label="Category"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="4"
+                        sm="6"
+                      >
+                        <v-text-field
+                          v-model="editedItem.criticality"
+                          label="Criticality"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="close"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="save"
+                  >
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+            <td>
+              <v-icon
+                class="me-2"
+                size="small"
+                @click="editItem(item, index)"
+              >
+                mdi-pencil
+              </v-icon>
+            </td>
+            
             <td>
               <v-icon
                 @click="deleteTask(index)"
@@ -48,7 +141,6 @@
               </v-icon>
             </td>
 
-
             <td>
               <v-icon
                 @click="toggleImportant(index)"
@@ -57,7 +149,6 @@
                 {{ item?.important ? 'mdi-star' : 'mdi-star-outline' }}
               </v-icon>
             </td>
-            
           </tr>
         </template>
       </v-data-table>
@@ -68,9 +159,20 @@
 <script>
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { mdiDelete , mdiContentCopy } from '@mdi/js';
+
 export default {
   data() {
     return {
+      dialog: false,
+      editedIndex: -1,
+      editedItem: {
+        name: '',
+        description: '',
+        date: '',
+        category: '',
+        criticality: '',
+        important: false,
+      },
       mdiDelete,
       mdiContentCopy,
       search: '',
@@ -125,9 +227,6 @@ export default {
     toggleImportant(index) {
       const todoStore = this.todoStore;
 
-      console.log('Attempting to toggle importance at index:', index);
-      console.log('Current todo list:', todoStore.todoList);
-
       if (index < 0 || index >= todoStore.todoList.length) {
         console.error('Invalid index:', index);
         return;
@@ -140,15 +239,11 @@ export default {
         return;
       }
 
-      console.log('Item before toggle:', item);
-
       if (item.important === undefined) {
         item.important = false;
       }
 
       item.important = !item.important;
-
-      console.log('Item after toggle:', item);
 
       todoStore.todoList = [...todoStore.todoList];
     },
@@ -161,14 +256,40 @@ export default {
       }
 
       todoStore.todoList.splice(index, 1);
-    },duplicateTask(index) {
+    },
+    duplicateTask(index) {
       const todoStore = this.todoStore;
       if (index < 0 || index >= todoStore.todoList.length) {
         console.error('Invalid index for duplication:', index);
         return;
       }
       todoStore.duplicateTask(index);
-    }
+    },
+    editItem(item, index) {
+      this.editedIndex = index;
+      this.editedItem = { ...item };
+      this.dialog = true;
+    },
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = {
+          name: '',
+          description: '',
+          date: '',
+          category: '',
+          criticality: '',
+          important: false,
+        };
+        this.editedIndex = -1;
+      });
+    },
+    save() {
+      if (this.editedIndex > -1) {
+        this.todoStore.updateTask(this.editedIndex, this.editedItem);
+      }
+      this.close();
+    },
   }
 };
 </script>
@@ -187,5 +308,4 @@ export default {
   display: flex;
   justify-content: center;
 }
-
 </style>
