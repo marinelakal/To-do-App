@@ -3,7 +3,7 @@
     <v-card flat>
       <v-card-title>
         Tasks
-        <v-btn class="show-hide" @click="toggleDescriptionContent">
+        <v-btn class="show-hide" v-if="hasTasks" @click="toggleDescriptionContent">
           {{ showDescriptionContent ? 'Hide' : 'Show' }} Description Content
         </v-btn>
       </v-card-title>
@@ -190,7 +190,7 @@ export default {
       mdiDelete,
       mdiContentCopy,
       search: '',
-      showDescriptionContent: true,
+      showDescriptionContent: false,
       headers: [
         {
           align: 'start',
@@ -226,7 +226,10 @@ export default {
         const bImportant = b?.important ? 1 : 0;
         return bImportant - aImportant;
       });
-    }
+    },
+    hasTasks() {
+      return this.todoStore.todoList.length > 0;
+    },
   },
   methods: {
     toggleDescriptionContent() {
