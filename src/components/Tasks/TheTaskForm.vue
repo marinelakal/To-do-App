@@ -114,6 +114,7 @@ import { useCategoryStore } from '@/stores/useCategoryStore';
     methods: {
       reset() {
         this.$refs.form.reset();
+        this.radios = "one" ; 
         this.valid = false; 
       },
       submit() {
