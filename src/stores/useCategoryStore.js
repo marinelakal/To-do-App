@@ -15,6 +15,11 @@ export const useCategoryStore = defineStore('category',{
         },
         deleteCategory(index) {
           this.categories.splice(index, 1);
+        },
+        updateCategory(index, newName) {
+          if (index >= 0 && index < this.categories.length) {
+            this.categories[index].name = newName; 
+          }
         }
       },
 });
