@@ -33,7 +33,7 @@
 
 <style>
 .text-basil {
-  color: #4d837b !important;
+  color: #3f776f !important;
 }
 .v-tabs {
   display: flex;
@@ -56,7 +56,7 @@ text-decoration: none;}
   margin: 0 10px;
 }
 .nav-tab a {
-  color: #4d837b; 
+  color: #3d746b; 
   text-decoration: none;
   display: block;
   padding: 10px 15px;

@@ -309,7 +309,7 @@ function save() {
   background-color: #f5f5f5; 
 }
 .show-hide {
-  background-color: #cde8e4b9;
+  background-color: #deb9eee7;
   display: flex;
   justify-content: center;
 }
