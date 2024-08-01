@@ -4,25 +4,18 @@
 </template>
 
 
-<script>
-    import TheTaskForm from './TheTaskForm.vue'
-    import TheTaskTable from './TheTaskTable.vue';
-    import { useTodoListStore } from '@/stores/useTodoListStore';
-    export default {
-    components: { TheTaskForm , TheTaskTable} , 
-    data() {
-        return {
-            submissions: []
-        };
-    },
-    methods: {
-        handleSubmit(submission) {
-            console.log('New submission:', submission);
-            const todoStore = useTodoListStore();
-            todoStore.addTodo(submission);
-        }
-    }
-    
+<script setup>
+import TheTaskForm from './TheTaskForm.vue';
+import TheTaskTable from './TheTaskTable.vue';
+import { useTodoListStore } from '@/stores/useTodoListStore';
+
+// Access the store
+const todoStore = useTodoListStore();
+
+// Methods
+function handleSubmit(submission) {
+  console.log('New submission:', submission);
+  todoStore.addTodo(submission);
 }
 </script>
 

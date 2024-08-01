@@ -69,74 +69,60 @@
 </div>
 </template>
 
-<script>
-  import { useCategoryStore } from '@/stores/useCategoryStore';
-  import { mdiDelete, mdiPencil } from '@mdi/js';
+<script setup>
+import { ref, computed } from 'vue';
+import { useCategoryStore } from '@/stores/useCategoryStore';
 
-  export default {
-    data() {
-    return {
-      mdiDelete,
-      mdiPencil,
-      dialog: false,
-      dialogDelete: false,
-      deleteIndex: null,
-      editedIndex: -1,
-      editedItem: {
-        name: ''
-      },
-    };
-  },
-    computed: {
-      categories() {
-        const categoryStore = useCategoryStore();
-        return categoryStore.categories;
-      },
-      categoryStore () {
-        return useCategoryStore();
-      }
-    },
-    methods: {
-      del(index) {
-        const categoryStore = useCategoryStore();
-        categoryStore.deleteCategory(index);
-      },
-    openDeleteDialog(index) {
-    this.deleteIndex = index;
-    this.dialogDelete = true;
-    },
+// Reactive variables
+const dialog = ref(false);
+const dialogDelete = ref(false);
+const deleteIndex = ref(null);
+const editedIndex = ref(-1);
+const editedItem = ref({
+  name: ''
+});
 
-    confirmDelete() {
-      if (this.deleteIndex !== null) {
-        this.categoryStore.deleteCategory(this.deleteIndex);
-        this.deleteIndex = null;
-      }
-      this.closeDeleteDialog();
-    },
+// Access the store
+const categoryStore = useCategoryStore();
 
-    closeDeleteDialog() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.deleteIndex = null;
-      });
-    },
-      editItem(item, index) {
-        this.editedIndex = index;
-        this.editedItem = { ...item }; 
-        this.dialog = true; 
-      },
-      closeDialog() {
-        this.dialog = false; 
-      },
-      saveCategory() {
-        const categoryStore = useCategoryStore();
-        if (this.editedIndex > -1) {
-          categoryStore.updateCategory(this.editedIndex, this.editedItem.name);
-        }
-        this.closeDialog();
-      }
-    }
-  };
+// Computed properties
+const categories = computed(() => categoryStore.categories);
+
+// Methods
+function openDeleteDialog(index) {
+  deleteIndex.value = index;
+  dialogDelete.value = true;
+}
+
+function confirmDelete() {
+  if (deleteIndex.value !== null) {
+    categoryStore.deleteCategory(deleteIndex.value);
+    deleteIndex.value = null;
+  }
+  closeDeleteDialog();
+}
+
+function closeDeleteDialog() {
+  dialogDelete.value = false;
+  deleteIndex.value = null;
+}
+
+function editItem(item, index) {
+  editedIndex.value = index;
+  editedItem.value = { ...item };
+  dialog.value = true;
+}
+
+function closeDialog() {
+  dialog.value = false;
+}
+
+function saveCategory() {
+  if (editedIndex.value > -1) {
+    categoryStore.updateCategory(editedIndex.value, editedItem.value.name);
+  }
+  closeDialog();
+}
 </script>
 
 <style scoped>

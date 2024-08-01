@@ -160,168 +160,143 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
-import { mdiDelete , mdiContentCopy } from '@mdi/js';
+//import { mdiDelete, mdiContentCopy, mdiStar, mdiStarOutline } from '@mdi/js'; // Only keep used icons
 
-export default {
-  data() {
-    return {
-      dialogDelete: false,
-      deleteIndex: null,
-      dialog: false,
-      editedIndex: -1,
-      editedItem: {
-        name: '',
-        description: '',
-        date: '',
-        category: '',
-        criticality: '',
-        important: false,
-      },
-      mdiDelete,
-      mdiContentCopy,
-      search: '',
-      showDescriptionContent: false,
-      headers: [
-        {
-          align: 'start',
-          key: 'name',
-          sortable: false,
-          title: 'Name',
-        },
-        { key: 'description', title: 'Description' },
-        { key: 'date', title: 'Date' },
-        { key: 'category', title: 'Category' },
-        { key: 'criticality', title: 'Criticality' },
-        { key: 'actions', title: 'Actions' },
-      ],
-    };
-  },
-  computed: {
-    todoStore() {
-      return useTodoListStore();
-    },
-    filteredItems() {
-      const items = this.todoStore.todoList;
-      if (this.search) {
-        return items.filter(item => 
-          item?.name?.includes(this.search) ||
-          (this.showDescriptionContent && item?.description?.includes(this.search)) ||
-          item?.date?.includes(this.search) ||
-          item?.category?.includes(this.search) ||
-          item?.criticality?.includes(this.search)
-        );
-      }
+// Reactive variables
+const dialogDelete = ref(false);
+const deleteIndex = ref(null);
+const dialog = ref(false);
+const editedIndex = ref(-1);
+const editedItem = ref({
+  name: '',
+  description: '',
+  date: '',
+  category: '',
+  criticality: '',
+  important: false,
+});
+const search = ref('');
+const showDescriptionContent = ref(false);
 
-      return items.sort((a, b) => {
-        const aImportant = a?.important ? 1 : 0;
-        const bImportant = b?.important ? 1 : 0;
-        return bImportant - aImportant;
-      });
-    },
-    hasTasks() {
-      return this.todoStore.todoList.length > 0;
-    },
-  },
-  methods: {
-    toggleDescriptionContent() {
-      this.showDescriptionContent = !this.showDescriptionContent;
-    },
-    truncatedDescription(description) {
-      if (description.length > 20) {
-        return description.substring(0, 20) + '...';
-      }
-      return description;
-    },
-    toggleImportant(index) {
-      const todoStore = this.todoStore;
+// Non-reactive variable
+const headers = [
+  { align: 'start', key: 'name', sortable: false, title: 'Name' },
+  { key: 'description', title: 'Description' },
+  { key: 'date', title: 'Date' },
+  { key: 'category', title: 'Category' },
+  { key: 'criticality', title: 'Criticality' },
+  { key: 'actions', title: 'Actions' },
+];
 
-      if (index < 0 || index >= todoStore.todoList.length) {
-        console.error('Invalid index:', index);
-        return;
-      }
+// Access the store
+const todoStore = useTodoListStore();
 
-      const item = todoStore.todoList[index];
-
-      if (!item) {
-        console.error('Task item is undefined at index:', index);
-        return;
-      }
-
-      if (item.important === undefined) {
-        item.important = false;
-      }
-
-      item.important = !item.important;
-
-      todoStore.todoList = [...todoStore.todoList];
-    },
-    deleteTask(index) {
-      const todoStore = this.todoStore;
-
-      if (index < 0 || index >= todoStore.todoList.length) {
-        console.error('Invalid index for deletion:', index);
-        return;
-      }
-
-      todoStore.todoList.splice(index, 1);
-    },
-    duplicateTask(index) {
-      const todoStore = this.todoStore;
-      if (index < 0 || index >= todoStore.todoList.length) {
-        console.error('Invalid index for duplication:', index);
-        return;
-      }
-      todoStore.duplicateTask(index);
-    },
-    openDeleteDialog(index) {
-    this.deleteIndex = index;
-    this.dialogDelete = true;
-    },
-
-    confirmDelete() {
-      if (this.deleteIndex !== null) {
-        this.todoStore.deleteTask(this.deleteIndex);
-        this.deleteIndex = null;
-      }
-      this.closeDeleteDialog();
-    },
-
-    closeDeleteDialog() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.deleteIndex = null;
-      });
-    },
-    editItem(item, index) {
-      this.editedIndex = index;
-      this.editedItem = { ...item };
-      this.dialog = true;
-    },
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = {
-          name: '',
-          description: '',
-          date: '',
-          category: '',
-          criticality: '',
-          important: false,
-        };
-        this.editedIndex = -1;
-      });
-    },
-    save() {
-      if (this.editedIndex > -1) {
-        this.todoStore.updateTask(this.editedIndex, this.editedItem);
-      }
-      this.close();
-    },
+// Computed properties
+const filteredItems = computed(() => {
+  const items = todoStore.todoList;
+  if (search.value) {
+    return items.filter(item =>
+      item?.name?.includes(search.value) ||
+      (showDescriptionContent.value && item?.description?.includes(search.value)) ||
+      item?.date?.includes(search.value) ||
+      item?.category?.includes(search.value) ||
+      item?.criticality?.includes(search.value)
+    );
   }
-};
+
+  return items.sort((a, b) => {
+    const aImportant = a?.important ? 1 : 0;
+    const bImportant = b?.important ? 1 : 0;
+    return bImportant - aImportant;
+  });
+});
+
+const hasTasks = computed(() => todoStore.todoList.length > 0);
+
+// Methods
+function toggleDescriptionContent() {
+  showDescriptionContent.value = !showDescriptionContent.value;
+}
+
+function truncatedDescription(description) {
+  if (description.length > 20) {
+    return description.substring(0, 20) + '...';
+  }
+  return description;
+}
+
+function toggleImportant(index) {
+  if (index < 0 || index >= todoStore.todoList.length) {
+    console.error('Invalid index:', index);
+    return;
+  }
+
+  const item = todoStore.todoList[index];
+  if (!item) {
+    console.error('Task item is undefined at index:', index);
+    return;
+  }
+
+  item.important = !item.important;
+  todoStore.todoList = [...todoStore.todoList];
+}
+
+function duplicateTask(index) {
+  if (index < 0 || index >= todoStore.todoList.length) {
+    console.error('Invalid index for duplication:', index);
+    return;
+  }
+  todoStore.duplicateTask(index);
+}
+
+function openDeleteDialog(index) {
+  deleteIndex.value = index;
+  dialogDelete.value = true;
+}
+
+function confirmDelete() {
+  if (deleteIndex.value !== null) {
+    todoStore.deleteTask(deleteIndex.value);
+    deleteIndex.value = null;
+  }
+  closeDeleteDialog();
+}
+
+function closeDeleteDialog() {
+  dialogDelete.value = false;
+  deleteIndex.value = null;
+}
+
+function editItem(item, index) {
+  editedIndex.value = index;
+  editedItem.value = { ...item };
+  dialog.value = true;
+}
+
+function close() {
+  dialog.value = false;
+  editedItem.value = {
+    name: '',
+    description: '',
+    date: '',
+    category: '',
+    criticality: '',
+    important: false,
+  };
+  editedIndex.value = -1;
+}
+
+function save() {
+  if (editedIndex.value > -1) {
+    todoStore.updateTask(editedIndex.value, editedItem.value);
+  }
+  close();
+}
 </script>
+
 
 <style>
 .v-card, .v-data-table {
