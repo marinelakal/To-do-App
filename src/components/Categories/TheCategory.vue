@@ -29,39 +29,38 @@
  
 </template>
 
-<script>
-    import { useCategoryStore } from '@/stores/useCategoryStore';
-    export default {
-      data() {
-        return {
-          name: '',
-          valid: false,
-          nameRules: [
-          value => {
-            if (value) return true
+<script setup>
+import { ref } from 'vue';
+import { useCategoryStore } from '@/stores/useCategoryStore';
 
-            return 'Name is required.'
-          }
-        ]
-        };
-      },
-      methods: {
-        submitForm() {
-          if (this.$refs.form.validate()) {
-            const categoryStore = useCategoryStore();
-            if (this.name) {
-              categoryStore.addCategory(this.name);
-              this.reset();
-            }
-          }
-        },
-        reset() {
-          this.$refs.form.reset()
-          this.valid = false
-        }
-      }
+const name = ref('');
+const valid = ref(false);
+
+const nameRules = [
+  value => {
+    if (value) return true;
+    return 'Name is required.';
+  }
+];
+
+const form = ref(null); 
+
+const categoryStore = useCategoryStore();
+
+const submitForm = () => {
+  if (form.value?.validate()) {
+    if (name.value) {
+      categoryStore.addCategory(name.value);
+      reset();
     }
-  </script>
+  }
+};
+
+const reset = () => {
+  form.value?.reset();
+  valid.value = false;
+};
+</script>
 
 <style scoped>
 .v-sheet {

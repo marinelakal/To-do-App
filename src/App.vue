@@ -8,13 +8,8 @@
 </template>
 
 
-<script>
-    import TabsItem from './components/Tabs/TabsItem.vue'
-    export default {
-        components: {
-            TabsItem,
-        }
-    }
+<script setup>
+import TabsItem from './components/Tabs/TabsItem.vue';
 </script>
 
 

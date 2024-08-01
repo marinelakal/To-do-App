@@ -63,82 +63,76 @@
 
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 
+// Reactive variables
+const valid = ref(false);
+const name = ref('');
+const description = ref('');
+const radios = ref('one');
+const select = ref('');
+const date = ref(null);
+const minDate = ref(new Date().toISOString().split('T')[0]);
 
-  export default {
-    data: () => ({
-      valid: false,
-      name: '',
-      description: '',
-      radios: "one",
-      select: '', 
-      date: null,
-      nameRules: [
-        value => {
-          if (value) return true
+// Non-reactive variables
+const nameRules = [
+  value => (value ? true : 'Name is required.')
+];
 
-          return 'Name is required.'
-        }
-      ],
-      descriptionRules: [
-      value => {
-          if (value) return true
+const descriptionRules = [
+  value => (value ? true : 'Description is required.')
+];
 
-          return 'Description is required.'
-        }
-      ],
-      selectRules: [
-      value => {
-          if (value) return true
+const selectRules = [
+  value => (value ? true : 'Category is required.')
+];
 
-          return 'Category is required.'
-        }
-      ],
-      criticalityMap: {
-          one: 'Low',
-          two: 'Medium',
-          three: 'High'
-      },
-      minDate: new Date().toISOString().split('T')[0]
-    }),
-    computed: {
-    categoryNames() {
-      const categoryStore = useCategoryStore();
-      return categoryStore.categories.map(category => category.name);
-    }
-  },
+const criticalityMap = {
+  one: 'Low',
+  two: 'Medium',
+  three: 'High'
+};
 
-    methods: {
-      reset() {
-        this.$refs.form.reset();
-        this.radios = "one" ; 
-        this.valid = false; 
-      },
-      submit() {
-      if (this.$refs.form.validate()) {
-        const formattedDate = this.date ? new Date(this.date).toLocaleDateString() : '';
-        const submission = {
-          name: this.name,
-          description: this.description,
-          date: formattedDate,
-          category: this.select,
-          criticality: this.criticalityMap[this.radios],
-          important: false
-        };
+// Access the stores
+const todoStore = useTodoListStore();
+const categoryStore = useCategoryStore();
 
-        console.log('Form submission:', submission); 
-        const todoStore = useTodoListStore();
-        todoStore.addTodo(submission);
-        console.log('Current todo list:', todoStore.todoList);
-        this.reset();
-    }
-    }
+// Computed properties
+const categoryNames = computed(() => {
+  return categoryStore.categories.map(category => category.name);
+});
+
+//refs
+const form = ref(null);
+
+//Methods
+function reset() {
+  if (form.value) form.value.reset();
+  radios.value = 'one';
+  valid.value = false;
+}
+
+function submit() {
+  if (form.value && form.value.validate()) {
+    const formattedDate = date.value ? new Date(date.value).toLocaleDateString() : '';
+    const submission = {
+      name: name.value,
+      description: description.value,
+      date: formattedDate,
+      category: select.value,
+      criticality: criticalityMap[radios.value],
+      important: false
+    };
+
+    console.log('Form submission:', submission);
+    todoStore.addTodo(submission);
+    console.log('Current todo list:', todoStore.todoList);
+    reset();
   }
 }
- 
 </script>
 
 
