@@ -17,7 +17,7 @@ import TabsItem from './components/Tabs/TabsItem.vue';
 <style scoped>
 .title {
   font-size: 5rem; 
-  color: #cde8e4; 
+  color: #65bbae; 
   text-align: center;
   width: 100%;
   font-weight: bold; 

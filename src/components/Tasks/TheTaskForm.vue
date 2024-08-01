@@ -139,7 +139,7 @@ function submit() {
 <style>
   .subtext {
     font-size: 1.5rem; 
-    color: #999999; 
+    color: #7e7d7d; 
     text-align: center;
     margin-bottom: 40px;
     margin-top: 20px; 
