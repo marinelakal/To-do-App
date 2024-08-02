@@ -88,7 +88,7 @@ function editItem(item, index) {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f5f5f5; 
+  background-color: #ffffff; 
   margin-top: 20px;
 }
 
@@ -98,7 +98,7 @@ function editItem(item, index) {
   margin: auto;
   background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.295);
 }
 
 .icon-container {
