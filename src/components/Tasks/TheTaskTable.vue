@@ -28,7 +28,11 @@
             <td>{{ showDescriptionContent ? truncatedDescription(item?.description || '') : '' }}</td>
             <td>{{ item?.date || 'N/A' }}</td>
             <td>{{ item?.category || 'N/A' }}</td>
-            <td>{{ item?.criticality || 'N/A' }}</td>
+            <td>
+              <v-chip :color="getColor(item?.criticality || '')">
+                {{ item?.criticality || 'N/A' }}
+              </v-chip>
+            </td>
 
             <v-dialog
               v-model="dialog"
@@ -217,6 +221,20 @@ const filteredItems = computed(() => {
 const hasTasks = computed(() => todoStore.todoList.length > 0);
 
 // Methods
+
+function getColor(criticality) {
+  switch (criticality.toLowerCase()) {
+    case 'low':
+      return 'green';
+    case 'medium':
+      return 'orange';
+    case 'high':
+      return 'red';
+    default:
+      return 'grey';
+  }
+}
+
 function toggleDescriptionContent() {
   showDescriptionContent.value = !showDescriptionContent.value;
 }
