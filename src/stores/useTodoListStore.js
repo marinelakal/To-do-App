@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 export const useTodoListStore = defineStore('todoList', {
   state: () => ({
     todoList: [],
+    editTaskIndex: null,
   }),
   actions: {
     addTodo(todo) {
@@ -52,6 +53,9 @@ export const useTodoListStore = defineStore('todoList', {
       }
 
       this.todoList[index] = { ...this.todoList[index], ...updatedTask };
+    },
+    setEditTaskIndex(index) {
+      this.editTaskIndex = index;
     },
   },
 });

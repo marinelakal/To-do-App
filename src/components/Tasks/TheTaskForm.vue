@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
@@ -96,18 +96,39 @@ const categoryNames = computed(() =>
 // Refs
 const form = ref(null);
 
+watch(
+  () => todoStore.editTaskIndex,
+  (newIndex) => {
+    if (newIndex !== null && todoStore.todoList[newIndex]) {
+      const task = todoStore.todoList[newIndex];
+      name.value = task.name;
+      description.value = task.description;
+      radios.value = Object.keys(criticalityMap).find(key => criticalityMap[key] === task.criticality);
+      select.value = task.category;
+      // Convert stored date string back to Date object, treating it as local
+      date.value = task.date ? new Date(`${task.date}T00:00:00`) : null;
+    } else {
+      reset();
+    }
+  },
+  { immediate: true }
+);
+
 // Methods
 function reset() {
   if (form.value) form.value.reset();
   radios.value = 'one';
   valid.value = false;
+  date.value = null;
 }
 
 function submit() {
   if (form.value && form.value.validate()) {
+    // Ensure the date is treated as a local date and format it as YYYY-MM-DD
     const formattedDate = date.value
-      ? new Date(date.value).toLocaleDateString()
+      ? `${date.value.getFullYear()}-${String(date.value.getMonth() + 1).padStart(2, '0')}-${String(date.value.getDate()).padStart(2, '0')}`
       : '';
+
     const submission = {
       name: name.value,
       description: description.value,
@@ -117,9 +138,14 @@ function submit() {
       important: false
     };
 
-    console.log('Form submission:', submission);
-    todoStore.addTodo(submission);
-    console.log('Current todo list:', todoStore.todoList);
+    if (todoStore.editTaskIndex !== null && todoStore.todoList[todoStore.editTaskIndex]) {
+      // Update existing task
+      todoStore.updateTask(todoStore.editTaskIndex, submission);
+    } else {
+      // Add new task
+      todoStore.addTodo(submission);
+    }
+
     reset();
     router.push('/tasks');
   }

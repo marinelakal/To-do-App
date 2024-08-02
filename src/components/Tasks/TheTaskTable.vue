@@ -43,7 +43,7 @@
               </v-chip>
             </td>
             <td class="actions-cell">
-              <v-icon class="me-2" size="small" @click="editItem(item, index)">
+              <v-icon class="me-2" size="small" @click="editItem(index)">
                 mdi-pencil
               </v-icon>
               <v-icon @click="openDeleteDialog(index)" class="delete-icon">
@@ -63,37 +63,6 @@
         </template>
       </v-data-table>
     </v-card>
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-card>
-        <v-card-title>Edit Task</v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="12" md="4" sm="6">
-                <v-text-field v-model="editedItem.name" label="Task name"></v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" sm="6">
-                <v-text-field v-model="editedItem.description" label="Description"></v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" sm="6">
-                <v-text-field v-model="editedItem.date" label="Date"></v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" sm="6">
-                <v-text-field v-model="editedItem.category" label="Category"></v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" sm="6">
-                <v-text-field v-model="editedItem.criticality" label="Criticality"></v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue-darken-1" variant="text" @click="close">Cancel</v-btn>
-          <v-btn color="blue-darken-1" variant="text" @click="save">Save</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <v-dialog v-model="dialogDelete" max-width="500px">
       <v-card>
         <v-card-title class="text-h5">
@@ -113,21 +82,13 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
+import { useRouter } from 'vue-router';
 
 // Reactive variables
 const dialogDelete = ref(false);
 const deleteIndex = ref(null);
-const dialog = ref(false);
-const editedIndex = ref(-1);
-const editedItem = ref({
-  name: '',
-  description: '',
-  date: '',
-  category: '',
-  criticality: '',
-  important: false,
-});
 const search = ref('');
+const router = useRouter();
 const showDescriptionContent = ref(false);
 
 // Non-reactive variable
@@ -222,31 +183,11 @@ function closeDeleteDialog() {
   deleteIndex.value = null;
 }
 
-function editItem(item, index) {
-  editedIndex.value = index;
-  editedItem.value = { ...item };
-  dialog.value = true;
+function editItem(index) {
+  todoStore.setEditTaskIndex(index); 
+  router.push('/import');
 }
 
-function close() {
-  dialog.value = false;
-  editedItem.value = {
-    name: '',
-    description: '',
-    date: '',
-    category: '',
-    criticality: '',
-    important: false,
-  };
-  editedIndex.value = -1;
-}
-
-function save() {
-  if (editedIndex.value > -1) {
-    todoStore.updateTask(editedIndex.value, editedItem.value);
-  }
-  close();
-}
 </script>
 
 <style>
