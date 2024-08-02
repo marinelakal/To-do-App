@@ -1,9 +1,8 @@
 <template>
-     <v-container
+  <v-container
     class="d-flex flex-column align-center justify-center"
     fill-height
   >
-    
     <v-btn
       v-if="showImportButton"
       @click="navigateToForm"
@@ -15,7 +14,6 @@
     <router-view />
   </v-container>
 </template>
-
 
 <script setup>
 import { computed } from 'vue';
@@ -32,4 +30,3 @@ function navigateToForm() {
   router.push('/import');
 }
 </script>
-
