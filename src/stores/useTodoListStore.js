@@ -57,5 +57,8 @@ export const useTodoListStore = defineStore('todoList', {
     setEditTaskIndex(index) {
       this.editTaskIndex = index;
     },
+    clearEditTaskIndex() {
+      this.editTaskIndex = null;
+    },
   },
 });

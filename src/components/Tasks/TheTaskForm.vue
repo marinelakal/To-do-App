@@ -147,6 +147,7 @@ function submit() {
     }
 
     reset();
+    todoStore.clearEditTaskIndex(); // Clear the edit index after submission
     router.push('/tasks');
   }
 }
