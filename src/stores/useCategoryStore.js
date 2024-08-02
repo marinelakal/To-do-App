@@ -24,6 +24,9 @@ export const useCategoryStore = defineStore('category', {
       if (index >= 0 && index < this.categories.length && newName) {
         this.categories[index].name = newName;
       }
+    },
+    setEditItem(item) {
+      this.editItem = item;
     }
   },
 });
