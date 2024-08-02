@@ -23,13 +23,15 @@
     </v-navigation-drawer>
 
     <v-main>
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <component :is="Component || TheWelcomePage" />
+      </router-view>
     </v-main>
   </v-app>
 </template>
 
 <script setup>
-
+  import TheWelcomePage from './components/Welcome page/TheWelcomePage.vue';
 </script>
 
 <style scoped>
