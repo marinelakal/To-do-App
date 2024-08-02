@@ -303,7 +303,7 @@ function save() {
   background-color: #cde8e4b9;
 }
 .table-container {
-  margin-top: 20px;
+  margin-top: 100px;
   display: flex;
   justify-content: center; 
   background-color: #f5f5f5; 

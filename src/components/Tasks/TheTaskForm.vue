@@ -67,6 +67,7 @@
 import { ref, computed } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useCategoryStore } from '@/stores/useCategoryStore';
+import { useRouter } from 'vue-router'; // Import useRouter
 
 // Reactive variables
 const valid = ref(false);
@@ -100,6 +101,9 @@ const criticalityMap = {
 const todoStore = useTodoListStore();
 const categoryStore = useCategoryStore();
 
+// Access the router instance
+const router = useRouter();
+
 // Computed properties
 const categoryNames = computed(() => {
   return categoryStore.categories.map(category => category.name);
@@ -131,6 +135,9 @@ function submit() {
     todoStore.addTodo(submission);
     console.log('Current todo list:', todoStore.todoList);
     reset();
+
+    // Redirect to the '/tasks' path
+    router.push('/tasks');
   }
 }
 </script>

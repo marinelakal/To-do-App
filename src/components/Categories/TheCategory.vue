@@ -1,6 +1,6 @@
 <template>
 
-    <v-sheet class="mx-auto" width="300">
+    <v-sheet class="mx-auto form-container" width="300">
         <v-form fast-fail v-model="valid" @submit.prevent="submitForm" ref="form">
             <p>Add a category</p>
             <v-text-field
@@ -65,5 +65,8 @@ const reset = () => {
 <style scoped>
 .v-sheet {
     margin-top: 20px;
+}
+.form-container {
+  margin-top: 200px !important; 
 }
 </style>
