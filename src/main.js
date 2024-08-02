@@ -10,6 +10,9 @@ import TheCategory from './components/Categories/TheCategoryApp.vue' ;
 
 import { createPinia } from 'pinia'
 
+import TheTaskTable from './components/Tasks/TheTaskTable';
+import TheTaskForm from './components/Tasks/TheTaskForm';
+
 import App from './App.vue'
 
 const pinia = createPinia()
@@ -17,8 +20,27 @@ const pinia = createPinia()
 const router = createRouter ({
   history: createWebHistory (),
   routes: [
-    { path: '/tasks', component: TheTaskApp },
-    { path: '/categories', component: TheCategory }
+    {
+      path: '/tasks',
+      component: TheTaskApp,
+      children: [
+        {
+          path: '',
+          name: 'TaskTable',
+          component: TheTaskTable
+        },
+        {
+          path: '/import',
+          name: 'TaskForm',
+          component: TheTaskForm
+        }
+      ]
+    },
+    {
+      path: '/categories',
+      component: TheCategory
+    }
+
   ]
 });
 

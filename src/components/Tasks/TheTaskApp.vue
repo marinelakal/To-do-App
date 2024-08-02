@@ -1,21 +1,35 @@
 <template>
-    <the-task-form @submit-form="handleSubmit"></the-task-form>
-    <the-task-table ></the-task-table>
+     <v-container
+    class="d-flex flex-column align-center justify-center"
+    fill-height
+  >
+    
+    <v-btn
+      v-if="showImportButton"
+      @click="navigateToForm"
+      class="my-4"
+      color="primary"
+    >
+      Import New Task
+    </v-btn>
+    <router-view />
+  </v-container>
 </template>
 
 
 <script setup>
-import TheTaskForm from './TheTaskForm.vue';
-import TheTaskTable from './TheTaskTable.vue';
-import { useTodoListStore } from '@/stores/useTodoListStore';
+import { computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
-// Access the store
-const todoStore = useTodoListStore();
+const router = useRouter();
+const route = useRoute();
 
-// Methods
-function handleSubmit(submission) {
-  console.log('New submission:', submission);
-  todoStore.addTodo(submission);
+// Determine if the Import New Task button should be shown
+const showImportButton = computed(() => route.path === '/tasks');
+
+// Function to navigate to the Task Form page
+function navigateToForm() {
+  router.push('/import');
 }
 </script>
 
