@@ -159,7 +159,7 @@ function submit() {
   color: #7e7d7d;
   text-align: center;
   margin-bottom: 40px;
-  margin-top: 20px;
+  margin-top: 100px;
   font-family: Arial, sans-serif;
 }
 

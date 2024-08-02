@@ -192,8 +192,15 @@ function editItem(index) {
 </script>
 
 <style>
-.v-card, .v-data-table {
-  background-color: #cde8e4b9;
+.v-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233);
+  overflow: hidden;
+}
+
+.v-data-table {
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .table-container {
@@ -201,12 +208,39 @@ function editItem(index) {
   display: flex;
   justify-content: center;
   background-color: #f5f5f5;
+  max-width: 1200px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233);
+}
+
+
+.v-btn {
+  border-radius: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.v-btn:hover {
+  background-color: #0056b3;
+  color: #ffffff;
 }
 
 .show-hide {
-  background-color: #deb9eee7;
-  display: flex;
-  justify-content: center;
+  background-color: #278b769c;
+  color: #ffffff;
+  border-radius: 20px;
+}
+
+.show-hide:hover {
+  background-color: #16725ed0;
+}
+
+.v-icon {
+  transition: color 0.3s;
+}
+
+.v-icon:hover {
+  color: #007bff;
 }
 
 .actions-cell .v-icon {
