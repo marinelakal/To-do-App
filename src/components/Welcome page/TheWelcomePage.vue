@@ -12,7 +12,6 @@
   <script setup>
     // No additional script is needed for this static component
   </script>
-  
   <style scoped>
   .welcome-container {
     display: flex;
@@ -20,26 +19,37 @@
     align-items: center;
     height: 100vh; /* Full viewport height for better centering */
     padding: 20px; /* Padding around the container */
+    background-color: #f8f9fa;
   }
-  
   .welcome-card {
     max-width: 600px;
     width: 100%; /* Ensure responsiveness */
-    padding: 20px;
-  }
-  
-  .welcome-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #65bbae;
+    padding: 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    background-color: #ffffff;
     text-align: center;
-    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    margin-bottom: 100px;
   }
-  
+
+  .welcome-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+  }
+
+  .welcome-title {
+    font-size: 2rem; 
+    font-weight: 600;
+    color: #65bbae; 
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
   .welcome-text {
     font-size: 1.2rem;
-    color: #333;
-    text-align: center;
+    color: #555555;
+    line-height: 1.6; 
   }
   </style>
   
