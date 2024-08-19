@@ -1,22 +1,31 @@
 <template>
-  <v-sheet class="mx-auto form-container" width="300">
+  <v-sheet class="mx-auto form-container" width="350" max-width="100%">
     <v-form fast-fail v-model="valid" @submit.prevent="submitForm" ref="form">
-      <p>{{ editMode ? 'Edit Category' : 'Add a Category' }}</p>
-      <v-text-field
-        v-model="name"
-        label="Name"
-        :rules="nameRules"
-        required
-      ></v-text-field>
+      <v-card class="form-card">
+        <v-card-title>
+          <h2>{{ editMode ? 'Edit Category' : 'Add a Category' }}</h2>
+        </v-card-title>
+        <v-card-subtitle class="mb-4">
+          <p>Please fill in the details below:</p>
+        </v-card-subtitle>
+        <v-text-field
+          v-model="name"
+          label="Name"
+          :rules="nameRules"
+          required
+          outlined
+          dense
+        ></v-text-field>
 
-      <div class="button-container">
-        <v-btn class="me-4" type="submit" :disabled="!valid">
-          submit
-        </v-btn>
-        <v-btn @click="reset">
-          clear
-        </v-btn>
-      </div>
+        <div class="button-container">
+          <v-btn class="submit-btn" type="submit" :disabled="!valid">
+            submit
+          </v-btn>
+          <v-btn class="clear-btn" @click="reset">
+            clear
+          </v-btn>
+        </div>
+      </v-card>
     </v-form>
   </v-sheet>
 </template>
@@ -69,7 +78,46 @@ const reset = () => {
 .v-sheet {
   margin-top: 20px;
 }
+
 .form-container {
   margin-top: 200px !important; 
+}
+
+.form-card {
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.295);
+  background-color: #ffffff;
+}
+
+.v-card-title {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.v-card-subtitle {
+  color: #555;
+}
+
+.v-text-field {
+  margin-bottom: 16px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-btn {
+  background-color: #4996e9;
+  color: white;
+}
+
+.clear-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.submit-btn:hover, .clear-btn:hover {
+  opacity: 0.9;
 }
 </style>
