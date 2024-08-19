@@ -174,6 +174,7 @@ function confirmDelete() {
   if (deleteIndex.value !== null) {
     todoStore.deleteTask(deleteIndex.value);
     deleteIndex.value = null;
+    todoStore.clearEditTaskIndex(); // Clear the edit index after deletion
   }
   closeDeleteDialog();
 }
