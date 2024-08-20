@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { useTodoListStore } from '@/stores/useTodoListStore';
 
 export const useCategoryStore = defineStore('category', {
   state: () => ({
@@ -18,12 +19,16 @@ export const useCategoryStore = defineStore('category', {
     },
     deleteCategory(index) {
       if (index >= 0 && index < this.categories.length) {
+        const oldCategory = this.categories[index].name;
         this.categories.splice(index, 1);
+        this.updateTasksWithCategory(oldCategory, null);
       }
     },
     updateCategory(index, newName) {
       if (index >= 0 && index < this.categories.length && newName) {
+        const oldCategory = this.categories[index].name;
         this.categories[index] = { ...this.categories[index], name: newName };
+        this.updateTasksWithCategory(oldCategory, newName);
       }
     },
     setEditCategoryIndex(index) {
@@ -32,5 +37,9 @@ export const useCategoryStore = defineStore('category', {
     clearEditCategoryIndex() {
       this.editCategoryIndex = null;
     },
+    updateTasksWithCategory(oldCategory, newCategory) {
+      const taskStore = useTodoListStore();
+      taskStore.updateTasksWithCategory(oldCategory, newCategory);
+    }
   },
 });

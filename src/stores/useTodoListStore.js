@@ -54,6 +54,14 @@ export const useTodoListStore = defineStore('todoList', {
 
       this.todoList[index] = { ...this.todoList[index], ...updatedTask };
     },
+    updateTasksWithCategory(oldCategory, newCategory) {
+      this.todoList = this.todoList.map(task => {
+        if (task.category === oldCategory) {
+          return { ...task, category: newCategory };
+        }
+        return task;
+      });
+    },
     setEditTaskIndex(index) {
       this.editTaskIndex = index;
     },
