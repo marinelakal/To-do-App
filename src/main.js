@@ -6,12 +6,14 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import TheTaskApp from './components/Tasks/TheTaskApp.vue'
 
-import TheCategory from './components/Categories/TheCategoryApp.vue' ;
+import TheCategory from './components/Categories/TheCategory.vue' ;
 
 import { createPinia } from 'pinia'
 
 import TheTaskTable from './components/Tasks/TheTaskTable';
 import TheTaskForm from './components/Tasks/TheTaskForm';
+import TheCategoryApp from './components/Categories/TheCategoryApp';
+import TheCategoryTable from './components/Categories/TheCategoryTable' ; 
 
 import App from './App.vue'
 
@@ -38,7 +40,19 @@ const router = createRouter ({
     },
     {
       path: '/categories',
-      component: TheCategory
+      component: TheCategoryApp,
+      children: [
+        {
+          path: '',
+          name: 'CategoryTable',
+          component: TheCategoryTable
+        },
+        {
+          path: '/create',
+          name: 'CategoryForm',
+          component: TheCategory
+        }
+      ]
     }
 
   ]

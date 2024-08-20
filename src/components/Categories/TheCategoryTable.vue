@@ -12,11 +12,7 @@
           <td class="names">{{ item.name }}</td>
           <td>
             <div class="icon-container">
-              <v-icon
-                class="me-2"
-                size="small"
-                @click="editItem(item, index)"
-              >
+              <v-icon class="me-2" size="small" @click="editItem(index)">
                 mdi-pencil
               </v-icon>
               <v-icon
@@ -52,7 +48,9 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useCategoryStore } from '@/stores/useCategoryStore';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const categoryStore = useCategoryStore();
 const categories = computed(() => categoryStore.categories);
 
@@ -77,8 +75,9 @@ function closeDeleteDialog() {
   deleteIndex.value = null;
 }
 
-function editItem(item, index) {
-  categoryStore.setEditItem({ item, index });
+function editItem(index) {
+  categoryStore.setEditCategoryIndex(index); 
+  router.push('/create');
 }
 </script>
 

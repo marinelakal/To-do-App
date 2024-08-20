@@ -8,6 +8,7 @@ export const useCategoryStore = defineStore('category', {
       { name: 'Leisure' },
       { name: 'Misc' },
     ],
+    editCategoryIndex: null,
   }),
   actions: {
     addCategory(name) {
@@ -22,11 +23,14 @@ export const useCategoryStore = defineStore('category', {
     },
     updateCategory(index, newName) {
       if (index >= 0 && index < this.categories.length && newName) {
-        this.categories[index].name = newName;
+        this.categories[index] = { ...this.categories[index], name: newName };
       }
     },
-    setEditItem(item) {
-      this.editItem = item;
-    }
+    setEditCategoryIndex(index) {
+      this.editCategoryIndex = index;
+    },
+    clearEditCategoryIndex() {
+      this.editCategoryIndex = null;
+    },
   },
 });
