@@ -1,31 +1,33 @@
 <template>
   <div class="table-wrapper">
-    <v-table class="category-table" height="300px">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in categories" :key="item.name">
-          <td class="names">{{ item.name }}</td>
-          <td>
-            <div class="icon-container">
-              <v-icon class="me-2" size="small" @click="editItem(index)">
-                mdi-pencil
-              </v-icon>
-              <v-icon
-                @click="openDeleteDialog(index)"
-                class="delete-icon"
-              >
-                mdi-delete
-              </v-icon>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </v-table>
+    <div class="table-container">
+      <v-table class="category-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in categories" :key="item.name">
+            <td class="names">{{ item.name }}</td>
+            <td>
+              <div class="icon-container">
+                <v-icon class="me-2" size="small" @click="editItem(index)">
+                  mdi-pencil
+                </v-icon>
+                <v-icon
+                  @click="openDeleteDialog(index)"
+                  class="delete-icon"
+                >
+                  mdi-delete
+                </v-icon>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </v-table>
+    </div>
 
     <v-dialog v-model="dialogDelete" max-width="500px">
       <v-card>
@@ -86,18 +88,25 @@ function editItem(index) {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #ffffff; 
-  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background-color: #ffffff;
 }
 
-.category-table {
-  max-width: 600px;
+.table-container {
   width: 100%;
-  margin: auto;
+  max-width: 800px;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: auto;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.295);
+}
+
+.category-table {
+  width: 100%;
 }
 
 .icon-container {
@@ -113,14 +122,8 @@ function editItem(index) {
 }
 
 td, th {
-  padding: 0;
-  margin: 0;
-}
-
-.v-table {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
+  padding: 10px;
+  text-align: left;
 }
 
 .delete-icon {
