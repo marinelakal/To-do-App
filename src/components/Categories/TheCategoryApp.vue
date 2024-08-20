@@ -3,14 +3,11 @@
     class="d-flex flex-column align-center justify-center"
     fill-height
   >
-    <v-btn
+    <CustomButton
       v-if="showImportButton"
+      label="Create New Category"
       @click="navigateToForm"
-      class="my-4 mt-16"
-      color="primary"
-    >
-      Create New Category
-    </v-btn>
+    />
     <router-view />
   </v-container>
 </template>
@@ -18,6 +15,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import CustomButton from '../CustomButton.vue';
 
 const router = useRouter();
 const route = useRoute();
