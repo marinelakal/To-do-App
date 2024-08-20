@@ -40,8 +40,8 @@
       </v-container>
 
       <div class="button-container">
-        <v-btn class="me-4" type="submit" :disabled="!valid">submit</v-btn>
-        <v-btn @click="reset">cancel</v-btn>
+        <v-btn class="submit-btn" :class="{'disabled-button': !valid}" type="submit" :disabled="!valid">submit</v-btn>
+        <v-btn class="clear-btn" @click="reset">cancel</v-btn>
       </div>
     </v-form>
   </v-sheet>
@@ -165,6 +165,24 @@ function submit() {
 
 .button-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  color: white ; 
 }
+
+.submit-btn {
+  background-color: #004080;
+}
+
+.clear-btn {
+  background-color: #87ceeb;
+}
+
+.submit-btn:hover, .clear-btn:hover {
+  opacity: 0.9;
+}
+
+.disabled-button {
+  background-color: #b0b0b0;
+}
+
 </style>
