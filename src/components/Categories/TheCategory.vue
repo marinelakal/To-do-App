@@ -18,11 +18,11 @@
         ></v-text-field>
 
         <div class="button-container">
-          <v-btn class="submit-btn" :class="{'disabled-button': !valid}" type="submit" :disabled="!valid">
-            submit
-          </v-btn>
           <v-btn class="clear-btn" @click="reset">
             cancel
+          </v-btn>
+          <v-btn class="submit-btn" :class="{'disabled-button': !valid}" type="submit" :disabled="!valid">
+            submit
           </v-btn>
         </div>
       </v-card>
