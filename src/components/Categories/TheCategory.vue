@@ -18,7 +18,7 @@
         ></v-text-field>
 
         <div class="button-container">
-          <v-btn class="clear-btn" @click="reset">
+          <v-btn class="clear-btn" @click="handleReset">
             cancel
           </v-btn>
           <v-btn class="submit-btn" :class="{'disabled-button': !valid}" type="submit" :disabled="!valid">
@@ -31,8 +31,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { useCategoryStore } from '@/stores/useCategoryStore';
+import { useRouter } from 'vue-router';
 
 const name = ref('');
 const valid = ref(false);
@@ -43,35 +44,45 @@ const nameRules = [
   value => (value ? true : 'Name is required.')
 ];
 
-const editMode = ref(false);
+const editMode = computed(() => categoryStore.editCategoryIndex !== null);
 
-// Watch for changes in the edit item in the store
-watch(() => categoryStore.editItem, (newValue) => {
-  if (newValue) {
-    name.value = newValue.item.name;
-    editMode.value = true;
-  } else {
-    reset();
-  }
-});
+// Access the router instance
+const router = useRouter();
+
+// Function to reset the form
+const handleReset = () => {
+  name.value = '';
+  form.value?.resetValidation();
+  categoryStore.clearEditCategoryIndex();
+  valid.value = false;
+};
+
+// Watch for changes in editCategoryIndex and update the form accordingly
+watch(
+  () => categoryStore.editCategoryIndex,
+  (newIndex) => {
+    if (newIndex !== null && categoryStore.categories[newIndex]) {
+      const category = categoryStore.categories[newIndex];
+      name.value = category.name;
+    } else {
+      handleReset();
+    }
+  },
+  { immediate: true }
+);
 
 const submitForm = () => {
   if (form.value?.validate()) {
     if (editMode.value) {
-      categoryStore.updateCategory(categoryStore.editItem.index, name.value);
+      categoryStore.updateCategory(categoryStore.editCategoryIndex, name.value);
     } else {
       categoryStore.addCategory(name.value);
     }
-    reset();
+    handleReset();
+    router.push('/categories');
   }
 };
 
-const reset = () => {
-  form.value?.reset();
-  valid.value = false;
-  editMode.value = false;
-  categoryStore.setEditItem(null);
-};
 </script>
 
 <style scoped>
