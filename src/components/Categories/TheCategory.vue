@@ -18,7 +18,7 @@
         ></v-text-field>
 
         <div class="button-container">
-          <v-btn class="submit-btn" type="submit" :disabled="!valid">
+          <v-btn class="submit-btn" :class="{'disabled-button': !valid}" type="submit" :disabled="!valid">
             submit
           </v-btn>
           <v-btn class="clear-btn" @click="reset">
@@ -105,19 +105,24 @@ const reset = () => {
 .button-container {
   display: flex;
   justify-content: space-between;
+  color: white;
 }
 
 .submit-btn {
-  background-color: #4996e9;
-  color: white;
+  background-color: #004080;
 }
 
 .clear-btn {
-  background-color: #6c757d;
-  color: white;
+  background-color: #87ceeb;
 }
 
 .submit-btn:hover, .clear-btn:hover {
   opacity: 0.9;
 }
+
+.disabled-button {
+  background-color: #b0b0b0;
+  color: white;
+}
+
 </style>
