@@ -18,7 +18,7 @@
         ></v-text-field>
 
         <div class="button-container">
-          <v-btn class="clear-btn" @click="handleReset">
+          <v-btn class="clear-btn" @click="handleCancel">
             cancel
           </v-btn>
           <v-btn class="submit-btn" :class="{'disabled-button': !valid}" type="submit" :disabled="!valid">
@@ -49,12 +49,18 @@ const editMode = computed(() => categoryStore.editCategoryIndex !== null);
 // Access the router instance
 const router = useRouter();
 
-// Function to reset the form
-const handleReset = () => {
+// Function to reset the form without redirecting
+const resetForm = () => {
   name.value = '';
   form.value?.resetValidation();
   categoryStore.clearEditCategoryIndex();
   valid.value = false;
+};
+
+// Function to handle cancel action with redirect
+const handleCancel = () => {
+  resetForm();
+  router.push('/categories');
 };
 
 // Watch for changes in editCategoryIndex and update the form accordingly
@@ -65,7 +71,7 @@ watch(
       const category = categoryStore.categories[newIndex];
       name.value = category.name;
     } else {
-      handleReset();
+      resetForm();
     }
   },
   { immediate: true }
@@ -78,7 +84,7 @@ const submitForm = () => {
     } else {
       categoryStore.addCategory(name.value);
     }
-    handleReset();
+    resetForm();
     router.push('/categories');
   }
 };
