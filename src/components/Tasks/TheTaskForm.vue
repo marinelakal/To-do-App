@@ -120,6 +120,7 @@ function reset() {
   radios.value = 'one';
   valid.value = false;
   date.value = null;
+  todoStore.clearEditTaskIndex();
 }
 
 function submit() {
