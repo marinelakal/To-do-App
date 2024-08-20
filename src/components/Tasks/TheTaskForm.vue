@@ -41,7 +41,7 @@
 
       <div class="button-container">
         <v-btn class="me-4" type="submit" :disabled="!valid">submit</v-btn>
-        <v-btn @click="reset">clear</v-btn>
+        <v-btn @click="reset">cancel</v-btn>
       </div>
     </v-form>
   </v-sheet>
