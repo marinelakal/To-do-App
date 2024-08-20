@@ -22,7 +22,7 @@
             submit
           </v-btn>
           <v-btn class="clear-btn" @click="reset">
-            clear
+            cancel
           </v-btn>
         </div>
       </v-card>
