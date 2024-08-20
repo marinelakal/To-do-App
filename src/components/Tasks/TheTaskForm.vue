@@ -40,7 +40,7 @@
       </v-container>
 
       <div class="button-container">
-        <v-btn class="clear-btn" @click="reset">cancel</v-btn>
+        <v-btn class="clear-btn" @click="handleCancel">cancel</v-btn>
         <v-btn class="submit-btn" :class="{'disabled-button': !valid}" type="submit" :disabled="!valid">submit</v-btn>
       </div>
     </v-form>
@@ -108,19 +108,27 @@ watch(
       // Convert stored date string back to Date object, treating it as local
       date.value = task.date ? new Date(`${task.date}T00:00:00`) : null;
     } else {
-      reset();
+      resetForm();
     }
   },
   { immediate: true }
 );
 
 // Methods
-function reset() {
-  if (form.value) form.value.reset();
+function resetForm() {
+  if (form.value) form.value.resetValidation();
+  name.value = '';
+  description.value = '';
   radios.value = 'one';
-  valid.value = false;
+  select.value = '';
   date.value = null;
+  valid.value = false;
   todoStore.clearEditTaskIndex();
+}
+
+function handleCancel() {
+  resetForm();
+  router.push('/tasks');
 }
 
 function submit() {
@@ -147,8 +155,7 @@ function submit() {
       todoStore.addTodo(submission);
     }
 
-    reset();
-    todoStore.clearEditTaskIndex(); // Clear the edit index after submission
+    resetForm();
     router.push('/tasks');
   }
 }
