@@ -4,7 +4,7 @@
       <v-card-title>
         Tasks
         <v-btn
-          class="show-hide"
+          class="table-container-show-hide"
           v-if="hasTasks"
           @click="toggleDescriptionContent"
         >
@@ -42,19 +42,19 @@
                 {{ item?.criticality || 'N/A' }}
               </v-chip>
             </td>
-            <td class="actions-cell">
-              <v-icon class="me-2" size="small" @click="editItem(index)">
+            <td class="table-container-actions-cell">
+              <v-icon class="table-container__icon table-container-icon-edit" size="small" @click="editItem(index)">
                 mdi-pencil
               </v-icon>
-              <v-icon @click="openDeleteDialog(index)" class="delete-icon">
+              <v-icon @click="openDeleteDialog(index)" class="table-container-icon table-container-icon-delete">
                 mdi-delete
               </v-icon>
-              <v-icon @click="duplicateTask(index)" class="duplicate-icon">
+              <v-icon @click="duplicateTask(index)" class="table-container-icon table-container-icon-duplicate">
                 mdi-content-copy
               </v-icon>
               <v-icon
                 @click="toggleImportant(index)"
-                :class="{ 'important-icon': item?.important }"
+                :class="{ 'table-container-icon-important': item?.important }"
               >
                 {{ item?.important ? 'mdi-star' : 'mdi-star-outline' }}
               </v-icon>
@@ -225,33 +225,33 @@ function editItem(index) {
   color: #ffffff;
 }
 
-.show-hide {
+.table-container-show-hide {
   background-color: #278b769c;
   color: #ffffff;
   border-radius: 20px;
 }
 
-.show-hide:hover {
+.table-container-show-hide:hover {
   background-color: #16725ed0;
 }
 
-.v-icon {
+.table-container-icon {
   transition: color 0.3s;
 }
 
-.v-icon:hover {
+.table-container-icon:hover {
   color: #007bff;
 }
 
-.actions-cell .v-icon {
+.table-container-actions-cell .table-container-icon {
   margin-right: 8px;
 }
 
-.actions-cell .v-icon:last-child {
+.table-container-actions-cell .table-container-icon:last-child {
   margin-right: 0;
 }
 
-td {
+.table-container td {
   text-align: center;
 }
 </style>

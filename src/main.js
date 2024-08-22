@@ -4,16 +4,16 @@ import { VDateInput } from 'vuetify/labs/VDateInput'
 
 import { createRouter, createWebHistory } from 'vue-router';
 
-import TheTaskApp from './components/Tasks/TheTaskApp.vue'
+import TaskApp from './components/Tasks/TaskApp.vue'
 
-import TheCategory from './components/Categories/TheCategory.vue' ;
+import CategoryAppForm from './components/Categories/CategoryAppForm.vue' ;
 
 import { createPinia } from 'pinia'
 
-import TheTaskTable from './components/Tasks/TheTaskTable';
-import TheTaskForm from './components/Tasks/TheTaskForm';
-import TheCategoryApp from './components/Categories/TheCategoryApp';
-import TheCategoryTable from './components/Categories/TheCategoryTable' ; 
+import TaskAppTable from './components/Tasks/TaskAppTable';
+import TaskAppForm from './components/Tasks/TaskAppForm';
+import CategoryApp from './components/Categories/CategoryApp';
+import CategoryAppTable from './components/Categories/CategoryAppTable' ; 
 
 import App from './App.vue'
 
@@ -24,33 +24,33 @@ const router = createRouter ({
   routes: [
     {
       path: '/tasks',
-      component: TheTaskApp,
+      component: TaskApp,
       children: [
         {
           path: '',
           name: 'TaskTable',
-          component: TheTaskTable
+          component: TaskAppTable
         },
         {
           path: '/import',
           name: 'TaskForm',
-          component: TheTaskForm
+          component: TaskAppForm
         }
       ]
     },
     {
       path: '/categories',
-      component: TheCategoryApp,
+      component: CategoryApp,
       children: [
         {
           path: '',
           name: 'CategoryTable',
-          component: TheCategoryTable
+          component: CategoryAppTable
         },
         {
           path: '/create',
           name: 'CategoryForm',
-          component: TheCategory
+          component: CategoryAppForm
         }
       ]
     }

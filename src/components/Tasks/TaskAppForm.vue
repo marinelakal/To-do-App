@@ -1,5 +1,5 @@
 <template>
-  <div class="subtext">What needs to be done?</div>
+  <div class="todo-form-subtext">What needs to be done?</div>
   <v-sheet class="mx-auto" width="300">
     <v-form fast-fail v-model="valid" @submit.prevent="submit" ref="form">
       <v-text-field
@@ -39,9 +39,9 @@
         </v-radio-group>
       </v-container>
 
-      <div class="button-container">
-        <v-btn class="clear-btn" @click="handleCancel">cancel</v-btn>
-        <v-btn class="submit-btn" :class="{'disabled-button': !valid}" type="submit" :disabled="!valid">submit</v-btn>
+      <div class="todo-form-button-container">
+        <v-btn class="todo-form-clear-btn" @click="handleCancel">cancel</v-btn>
+        <v-btn class="todo-form-submit-btn" :class="{'todo-form-disabled-button': !valid}" type="submit" :disabled="!valid">submit</v-btn>
       </div>
     </v-form>
   </v-sheet>
@@ -162,7 +162,7 @@ function submit() {
 </script>
 
 <style>
-.subtext {
+.todo-form-subtext {
   font-size: 1.5rem;
   color: #7e7d7d;
   text-align: center;
@@ -171,26 +171,25 @@ function submit() {
   font-family: Arial, sans-serif;
 }
 
-.button-container {
+.todo-form-button-container {
   display: flex;
   justify-content: space-between;
   color: white ; 
 }
 
-.submit-btn {
+.todo-form-submit-btn {
   background-color: #004080;
 }
 
-.clear-btn {
+.todo-form-clear-btn {
   background-color: #87ceeb;
 }
 
-.submit-btn:hover, .clear-btn:hover {
+.todo-form-submit-btn:hover, .todo-form__clear-btn:hover {
   opacity: 0.9;
 }
 
-.disabled-button {
+.todo-form-disabled-button {
   background-color: #b0b0b0;
 }
-
 </style>

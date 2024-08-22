@@ -17,7 +17,7 @@
   </v-container>
 </template>
 
-<style>
+<style scoped>
 .text-basil {
   color: #3f776f !important;
 }
