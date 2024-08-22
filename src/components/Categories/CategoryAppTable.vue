@@ -4,8 +4,8 @@
       <v-table class="category-table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Actions</th>
+            <th class="table-header">Name</th>
+            <th class="table-header">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -13,8 +13,8 @@
             v-for="(item, index) in categories"
             :key="item.name"
           >
-            <td class="names">{{ item.name }}</td>
-            <td>
+            <td class="names table-cell">{{ item.name }}</td>
+            <td class="table-cell">
               <div class="icon-container">
                 <v-icon
                   class="me-2"
@@ -141,7 +141,7 @@ function editItem(index) {
   margin-top: 10px;
 }
 
-td, th {
+.table-header, .table-cell {
   padding: 10px;
   text-align: left;
 }

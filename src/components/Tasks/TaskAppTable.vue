@@ -8,10 +8,10 @@
           v-if="hasTasks"
           @click="toggleDescriptionContent"
         >
-          {{ showDescriptionContent ? 'Hide' : 'Show' }} Description Content
+          {{ descriptionButtonLabel }}
         </v-btn>
       </v-card-title>
-      <template v-slot:text>
+      <template #text>
         <v-text-field
           v-model="search"
           label="Search"
@@ -26,7 +26,7 @@
         :items="filteredItems"
         :search="search"
       >
-        <template v-slot:item="{ item, index }">
+        <template #item="{ item, index }">
           <tr>
             <td>{{ item?.name || 'N/A' }}</td>
             <td>
@@ -46,7 +46,7 @@
             </td>
             <td class="table-container-actions-cell">
               <v-icon
-                class="table-container__icon table-container-icon-edit"
+                class="table-container-icon table-container-icon-edit"
                 size="small"
                 @click="editItem(index)"
               >
@@ -132,6 +132,11 @@ const headers = [
 const todoStore = useTodoListStore();
 
 // Computed properties
+
+const descriptionButtonLabel = computed(() => 
+  showDescriptionContent.value ? 'Hide Description Content' : 'Show Description Content'
+);
+
 const filteredItems = computed(() => {
   const items = todoStore.todoList;
   if (search.value) {

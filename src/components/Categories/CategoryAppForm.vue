@@ -12,7 +12,7 @@
     >
       <v-card class="form-card">
         <v-card-title>
-          <h2>{{ editMode ? 'Edit Category' : 'Add a Category' }}</h2>
+          <h2>{{ categoryTitle }}</h2>
         </v-card-title>
         <v-card-subtitle class="mb-4">
           <p>Please fill in the details below:</p>
@@ -62,6 +62,7 @@ const nameRules = [
 ];
 
 const editMode = computed(() => categoryStore.editCategoryIndex !== null);
+const categoryTitle = computed(() => editMode.value ? 'Edit Category' : 'Add a Category');
 
 // Access the router instance
 const router = useRouter();

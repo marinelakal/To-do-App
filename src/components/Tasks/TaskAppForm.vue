@@ -113,6 +113,8 @@ const criticalityMap = {
   three: 'High'
 };
 
+const criticality = computed(() => criticalityMap[radios.value]);
+
 // Access the stores
 const todoStore = useTodoListStore();
 const categoryStore = useCategoryStore();
@@ -175,7 +177,7 @@ function submit() {
       description: description.value,
       date: formattedDate,
       category: select.value,
-      criticality: criticalityMap[radios.value],
+      criticality: criticality.value,
       important: false
     };
 
@@ -217,7 +219,8 @@ function submit() {
   background-color: #87ceeb;
 }
 
-.todo-form-submit-btn:hover, .todo-form__clear-btn:hover {
+.todo-form-submit-btn:hover, 
+.todo-form-clear-btn:hover {
   opacity: 0.9;
 }
 
