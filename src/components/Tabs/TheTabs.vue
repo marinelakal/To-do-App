@@ -1,8 +1,16 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" sm="8" md="6">
-        <v-tabs bg-color="transparent" color="basil" grow>
+      <v-col
+        cols="12"
+        sm="8"
+        md="6"
+      >
+        <v-tabs
+          bg-color="transparent"
+          color="basil"
+          grow
+        >
           <v-tab class="nav-tabs">
             <li class="nav-tab">
               <router-link to="/tasks">Tasks</router-link>

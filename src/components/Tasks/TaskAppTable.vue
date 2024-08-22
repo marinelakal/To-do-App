@@ -38,18 +38,30 @@
             <td>{{ item?.date || 'N/A' }}</td>
             <td>{{ item?.category || 'N/A' }}</td>
             <td>
-              <v-chip :color="getColor(item?.criticality || '')">
+              <v-chip
+                :color="getColor(item?.criticality || '')"
+              >
                 {{ item?.criticality || 'N/A' }}
               </v-chip>
             </td>
             <td class="table-container-actions-cell">
-              <v-icon class="table-container__icon table-container-icon-edit" size="small" @click="editItem(index)">
+              <v-icon
+                class="table-container__icon table-container-icon-edit"
+                size="small"
+                @click="editItem(index)"
+              >
                 mdi-pencil
               </v-icon>
-              <v-icon @click="openDeleteDialog(index)" class="table-container-icon table-container-icon-delete">
+              <v-icon
+                @click="openDeleteDialog(index)"
+                class="table-container-icon table-container-icon-delete"
+              >
                 mdi-delete
               </v-icon>
-              <v-icon @click="duplicateTask(index)" class="table-container-icon table-container-icon-duplicate">
+              <v-icon
+                @click="duplicateTask(index)"
+                class="table-container-icon table-container-icon-duplicate"
+              >
                 mdi-content-copy
               </v-icon>
               <v-icon
@@ -63,15 +75,30 @@
         </template>
       </v-data-table>
     </v-card>
-    <v-dialog v-model="dialogDelete" max-width="500px">
+    <v-dialog
+      v-model="dialogDelete"
+      max-width="500px"
+    >
       <v-card>
         <v-card-title class="text-h5">
           Are you sure you want to delete this item?
         </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue-darken-1" variant="text" @click="closeDeleteDialog">Cancel</v-btn>
-          <v-btn color="blue-darken-1" variant="text" @click="confirmDelete">OK</v-btn>
+          <v-btn
+            color="blue-darken-1"
+            variant="text"
+            @click="closeDeleteDialog"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="blue-darken-1"
+            variant="text"
+            @click="confirmDelete"
+          >
+            OK
+          </v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>

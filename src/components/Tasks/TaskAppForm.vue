@@ -1,7 +1,15 @@
 <template>
   <div class="todo-form-subtext">What needs to be done?</div>
-  <v-sheet class="mx-auto" width="300">
-    <v-form fast-fail v-model="valid" @submit.prevent="submit" ref="form">
+  <v-sheet
+    class="mx-auto"
+    width="300"
+  >
+    <v-form
+      fast-fail
+      v-model="valid"
+      @submit.prevent="submit"
+      ref="form"
+    >
       <v-text-field
         v-model="name"
         label="Name"
@@ -33,15 +41,39 @@
 
       <v-container>
         <v-radio-group v-model="radios">
-          <v-radio label="Low" value="one" color="green"></v-radio>
-          <v-radio label="Medium" value="two" color="orange"></v-radio>
-          <v-radio label="High" value="three" color="red"></v-radio>
+          <v-radio
+            label="Low"
+            value="one"
+            color="green"
+          ></v-radio>
+          <v-radio
+            label="Medium"
+            value="two"
+            color="orange"
+          ></v-radio>
+          <v-radio
+            label="High"
+            value="three"
+            color="red"
+          ></v-radio>
         </v-radio-group>
       </v-container>
 
       <div class="todo-form-button-container">
-        <v-btn class="todo-form-clear-btn" @click="handleCancel">cancel</v-btn>
-        <v-btn class="todo-form-submit-btn" :class="{'todo-form-disabled-button': !valid}" type="submit" :disabled="!valid">submit</v-btn>
+        <v-btn
+          class="todo-form-clear-btn"
+          @click="handleCancel"
+        >
+          cancel
+        </v-btn>
+        <v-btn
+          class="todo-form-submit-btn"
+          :class="{ 'todo-form-disabled-button': !valid }"
+          type="submit"
+          :disabled="!valid"
+        >
+          submit
+        </v-btn>
       </div>
     </v-form>
   </v-sheet>

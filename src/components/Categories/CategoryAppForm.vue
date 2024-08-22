@@ -1,6 +1,15 @@
 <template>
-  <v-sheet class="mx-auto form-container" width="350" max-width="100%">
-    <v-form fast-fail v-model="valid" @submit.prevent="submitForm" ref="form">
+  <v-sheet
+    class="mx-auto form-container"
+    width="350"
+    max-width="100%"
+  >
+    <v-form
+      fast-fail
+      v-model="valid"
+      @submit.prevent="submitForm"
+      ref="form"
+    >
       <v-card class="form-card">
         <v-card-title>
           <h2>{{ editMode ? 'Edit Category' : 'Add a Category' }}</h2>
@@ -18,10 +27,18 @@
         ></v-text-field>
 
         <div class="button-container">
-          <v-btn class="clear-btn" @click="handleCancel">
+          <v-btn
+            class="clear-btn"
+            @click="handleCancel"
+          >
             cancel
           </v-btn>
-          <v-btn class="submit-btn" :class="{'disabled-button': !valid}" type="submit" :disabled="!valid">
+          <v-btn
+            class="submit-btn"
+            :class="{'disabled-button': !valid}"
+            type="submit"
+            :disabled="!valid"
+          >
             submit
           </v-btn>
         </div>
