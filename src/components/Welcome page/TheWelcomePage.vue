@@ -22,10 +22,7 @@
                 <v-card-title
                   class="text-h4 font-weight-bold"
                   style="
-                    font-size: 2rem; 
                     color: #65bbae; 
-                    margin-bottom: 20px; 
-                    line-height: 1.3;
                   "
                 >
                   Welcome to the TODO App!
@@ -33,9 +30,7 @@
                 <v-card-text
                   class="text-body-1"
                   style="
-                    font-size: 1.2rem; 
                     color: #555555; 
-                    line-height: 1.6;
                   "
                 >
                 This application helps you manage your tasks efficiently. You can navigate through the menu to add new tasks, categorize them, and keep track of your to-dos. Get started by clicking on "Tasks" or "Categories" in the navigation drawer.
