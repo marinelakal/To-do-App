@@ -4,9 +4,11 @@
       app
       class="app-bar"
     >
-      <v-toolbar-title class="title">
-        TODOS
-      </v-toolbar-title>
+    <router-link to="/" custom v-slot="{ navigate }">
+        <v-toolbar-title class="title" @click="navigate">
+          TODOS
+        </v-toolbar-title>
+    </router-link>
     </v-app-bar>
     <v-navigation-drawer
       app
