@@ -10,12 +10,13 @@
       @submit.prevent="submit"
       ref="form"
     >
-      <v-text-field
-        v-model="name"
-        label="Name"
-        :rules="nameRules"
-        required
-      ></v-text-field>
+    <BaseTextField
+      v-model="name"
+      label="Name"
+      :rules="nameRules"
+      required
+    ></BaseTextField>
+
 
       <v-textarea
         v-model="description"
@@ -84,6 +85,7 @@ import { ref, computed, watch } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
+import BaseTextField from '@/components/Base/BaseTextField.vue';
 
 // Reactive variables
 const valid = ref(false);

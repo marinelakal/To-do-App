@@ -1,14 +1,10 @@
 import { defineStore } from 'pinia';
 import { useTodoListStore } from '@/stores/useTodoListStore';
+import { categories } from '@/categoryConfig'; 
 
 export const useCategoryStore = defineStore('category', {
   state: () => ({
-    categories: [
-      { name: 'Personal' },
-      { name: 'Work' },
-      { name: 'Leisure' },
-      { name: 'Misc' },
-    ],
+    categories: [...categories],
     editCategoryIndex: null,
   }),
   actions: {

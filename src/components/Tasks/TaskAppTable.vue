@@ -12,14 +12,14 @@
         </v-btn>
       </v-card-title>
       <template #text>
-        <v-text-field
+        <BaseTextField
           v-model="search"
           label="Search"
           prepend-inner-icon="mdi-magnify"
           variant="outlined"
           hide-details
           single-line
-        ></v-text-field>
+        ></BaseTextField>
       </template>
       <v-data-table
         :headers="headers"
@@ -110,6 +110,7 @@
 import { ref, computed } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useRouter } from 'vue-router';
+import BaseTextField from '@/components/Base/BaseTextField.vue';
 
 // Reactive variables
 const dialogDelete = ref(false);
