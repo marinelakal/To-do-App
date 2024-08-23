@@ -18,6 +18,13 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
+    validator: (value) => {
+      const isValid = ['primary', 'secondary', 'accent'].includes(value);
+      if (!isValid) {
+        console.warn(`Invalid color prop: ${value}`);
+      }
+      return isValid;
+    },
   },
 });
 

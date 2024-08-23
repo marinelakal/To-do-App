@@ -3,7 +3,7 @@
     class="d-flex flex-column align-center justify-center"
     fill-height
   >
-    <CustomButton
+    <BaseButton
       v-if="showImportButton"
       label="Create New Category"
       @click="navigateToForm"
@@ -15,7 +15,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import CustomButton from '../CustomButton.vue';
+import BaseButton from '../Base/BaseButton.vue';
 
 const router = useRouter();
 const route = useRoute();

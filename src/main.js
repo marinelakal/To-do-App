@@ -1,85 +1,81 @@
 import { createApp } from 'vue';
 
-import { VDateInput } from 'vuetify/labs/VDateInput'
+// Vuetify imports
+import 'vuetify/styles';
+import '@mdi/font/css/materialdesignicons.css';
+import { createVuetify } from 'vuetify';
+import { VDateInput } from 'vuetify/labs/VDateInput';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
 
+// Vue Router imports
 import { createRouter, createWebHistory } from 'vue-router';
 
-import TheTaskApp from './components/Tasks/TheTaskApp.vue'
+// Pinia for state management
+import { createPinia } from 'pinia';
 
-import TheCategory from './components/Categories/TheCategory.vue' ;
+// Local Component Imports
+import App from './App.vue';
+import TaskApp from './components/Tasks/TaskApp.vue';
+import TaskAppTable from './components/Tasks/TaskAppTable.vue';
+import TaskAppForm from './components/Tasks/TaskAppForm.vue';
+import CategoryApp from './components/Categories/CategoryApp.vue';
+import CategoryAppTable from './components/Categories/CategoryAppTable.vue';
+import CategoryAppForm from './components/Categories/CategoryAppForm.vue';
 
-import { createPinia } from 'pinia'
+// Create Pinia instance
+const pinia = createPinia();
 
-import TheTaskTable from './components/Tasks/TheTaskTable';
-import TheTaskForm from './components/Tasks/TheTaskForm';
-import TheCategoryApp from './components/Categories/TheCategoryApp';
-import TheCategoryTable from './components/Categories/TheCategoryTable' ; 
-
-import App from './App.vue'
-
-const pinia = createPinia()
-
-const router = createRouter ({
-  history: createWebHistory (),
+// Define Router
+const router = createRouter({
+  history: createWebHistory(),
   routes: [
     {
       path: '/tasks',
-      component: TheTaskApp,
+      component: TaskApp,
       children: [
         {
           path: '',
           name: 'TaskTable',
-          component: TheTaskTable
+          component: TaskAppTable,
         },
         {
           path: '/import',
           name: 'TaskForm',
-          component: TheTaskForm
-        }
-      ]
+          component: TaskAppForm,
+        },
+      ],
     },
     {
       path: '/categories',
-      component: TheCategoryApp,
+      component: CategoryApp,
       children: [
         {
           path: '',
           name: 'CategoryTable',
-          component: TheCategoryTable
+          component: CategoryAppTable,
         },
         {
           path: '/create',
           name: 'CategoryForm',
-          component: TheCategory
-        }
-      ]
-    }
-
-  ]
+          component: CategoryAppForm,
+        },
+      ],
+    },
+  ],
 });
 
-
-
-// Vuetify
-import 'vuetify/styles'
-import '@mdi/font/css/materialdesignicons.css';
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-
+// Create Vuetify instance
 const vuetify = createVuetify({
-    icons: {
-      iconfont: 'mdi', // default - only for display purposes
-    },
-    components: {
-        ...components,
-        VDateInput,
-      },
-    directives,
-  })
+  icons: {
+    iconfont: 'mdi',
+  },
+  components: {
+    ...components,
+    VDateInput,
+  },
+  directives,
+});
 
-
-
-
-
+// Create and mount the Vue app
 createApp(App).use(pinia).use(router).use(vuetify).mount('#app');

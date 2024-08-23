@@ -1,14 +1,22 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" sm="8" md="6">
-        <v-tabs bg-color="transparent" color="basil" grow>
+      <v-col
+        cols="12"
+        sm="8"
+        md="6"
+      >
+        <v-tabs
+          bg-color="transparent"
+          color="basil"
+          grow
+        >
           <v-tab class="nav-tabs">
             <li class="nav-tab">
-              <router-link to="/tasks">Tasks</router-link>
+              <router-link to="/tasks" class="nav-link">Tasks</router-link>
             </li>
             <li class="nav-tab">
-              <router-link to="/categories">Categories</router-link>
+              <router-link to="/categories" class="nav-link">Categories</router-link>
             </li>
           </v-tab>
         </v-tabs>
@@ -17,7 +25,7 @@
   </v-container>
 </template>
 
-<style>
+<style scoped>
 .text-basil {
   color: #3f776f !important;
 }
@@ -25,10 +33,6 @@
 .v-tabs {
   display: flex;
   justify-content: center;
-}
-
-a {
-  text-decoration: none;
 }
 
 .nav-tabs {
@@ -45,7 +49,7 @@ a {
   margin: 0 10px;
 }
 
-.nav-tab a {
+.nav-link {
   color: #3d746b;
   text-decoration: none;
   display: block;
@@ -54,7 +58,7 @@ a {
   transition: border-bottom-color 0.3s;
 }
 
-.nav-tab a.router-link-exact-active {
+.nav-link.router-link-exact-active {
   border-bottom-color: #4d837b;
   font-weight: bold;
 }

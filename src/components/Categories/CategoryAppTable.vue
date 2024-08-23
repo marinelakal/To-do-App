@@ -4,16 +4,23 @@
       <v-table class="category-table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Actions</th>
+            <th class="table-header">Name</th>
+            <th class="table-header">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in categories" :key="item.name">
-            <td class="names">{{ item.name }}</td>
-            <td>
+          <tr
+            v-for="(item, index) in categories"
+            :key="item.name"
+          >
+            <td class="names table-cell">{{ item.name }}</td>
+            <td class="table-cell">
               <div class="icon-container">
-                <v-icon class="me-2" size="small" @click="editItem(index)">
+                <v-icon
+                  class="me-2"
+                  size="small"
+                  @click="editItem(index)"
+                >
                   mdi-pencil
                 </v-icon>
                 <v-icon
@@ -29,15 +36,28 @@
       </v-table>
     </div>
 
-    <v-dialog v-model="dialogDelete" max-width="500px">
+    <v-dialog
+      v-model="dialogDelete"
+      max-width="500px"
+    >
       <v-card>
-        <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+        <v-card-title class="text-h5">
+          Are you sure you want to delete this item?
+        </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue-darken-1" variant="text" @click="closeDeleteDialog">
+          <v-btn
+            color="blue-darken-1"
+            variant="text"
+            @click="closeDeleteDialog"
+          >
             Cancel
           </v-btn>
-          <v-btn color="blue-darken-1" variant="text" @click="confirmDelete">
+          <v-btn
+            color="blue-darken-1"
+            variant="text"
+            @click="confirmDelete"
+          >
             OK
           </v-btn>
           <v-spacer></v-spacer>
@@ -121,7 +141,7 @@ function editItem(index) {
   margin-top: 10px;
 }
 
-td, th {
+.table-header, .table-cell {
   padding: 10px;
   text-align: left;
 }
