@@ -18,12 +18,12 @@
     ></BaseTextField>
 
 
-      <v-textarea
+      <BaseTextArea
         v-model="description"
         label="Description"
         :rules="descriptionRules"
         required
-      ></v-textarea>
+      ></BaseTextArea>
 
       <v-date-input
         v-model="date"
@@ -86,6 +86,7 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
+import BaseTextArea from '../Base/BaseTextArea.vue';
 
 // Reactive variables
 const valid = ref(false);
