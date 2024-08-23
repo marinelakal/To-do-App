@@ -17,15 +17,14 @@
         <v-card-subtitle class="mb-4">
           <p>Please fill in the details below:</p>
         </v-card-subtitle>
-        <v-text-field
-          v-model="name"
+        <BaseTextField
+          v-model="name" 
           label="Name"
           :rules="nameRules"
           required
           outlined
           dense
-        ></v-text-field>
-
+        ></BaseTextField>
         <div class="button-container">
           <v-btn
             class="clear-btn"
@@ -51,6 +50,7 @@
 import { ref, watch, computed } from 'vue';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
+import BaseTextField from '@/components/Base/BaseTextField.vue';
 
 const name = ref('');
 const valid = ref(false);
