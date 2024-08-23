@@ -32,13 +32,13 @@
         variant="solo"
       ></v-date-input>
 
-      <v-select
+      <BaseSelect
         v-model="select"
         label="Select Category"
         :rules="selectRules"
         required
         :items="categoryNames"
-      ></v-select>
+      ></BaseSelect>
 
       <v-container>
         <v-radio-group v-model="radios">
@@ -87,6 +87,7 @@ import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
 import BaseTextArea from '../Base/BaseTextArea.vue';
+import BaseSelect from '../Base/BaseSelect.vue';
 
 // Reactive variables
 const valid = ref(false);
