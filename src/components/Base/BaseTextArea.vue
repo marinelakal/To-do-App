@@ -3,7 +3,7 @@
       v-model="model"
       :label="label"
       :rules="rules"
-      :required="required"
+      required
     >
     </v-textarea>
   </template>

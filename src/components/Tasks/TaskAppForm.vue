@@ -14,7 +14,6 @@
       v-model="name"
       label="Name"
       :rules="nameRules"
-      required
     ></BaseTextField>
 
 
@@ -22,7 +21,6 @@
         v-model="description"
         label="Description"
         :rules="descriptionRules"
-        required
       ></BaseTextArea>
 
       <BaseDateInput
@@ -36,7 +34,6 @@
         v-model="select"
         label="Select Category"
         :rules="selectRules"
-        required
         :items="categoryNames"
       ></BaseSelect>
 

@@ -2,13 +2,13 @@
     <v-text-field
       v-model="model"
       :label="label"
-      :outlined="outlined"
-      :dense="dense"
+      outlined
+      dense
       :prepend-inner-icon="prependInnerIcon"
       :hide-details="hideDetails"
       :single-line="singleLine"
       :rules="rules"
-      :required="required"
+      required
     >
     </v-text-field>
   </template>
