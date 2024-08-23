@@ -25,12 +25,12 @@
         required
       ></BaseTextArea>
 
-      <v-date-input
+      <BaseDateInput
         v-model="date"
         :min="minDate"
         label="Select a date"
         variant="solo"
-      ></v-date-input>
+      ></BaseDateInput>
 
       <BaseSelect
         v-model="select"
@@ -88,6 +88,7 @@ import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
 import BaseTextArea from '../Base/BaseTextArea.vue';
 import BaseSelect from '../Base/BaseSelect.vue';
+import BaseDateInput from '../Base/BaseDateInput.vue';
 
 // Reactive variables
 const valid = ref(false);
