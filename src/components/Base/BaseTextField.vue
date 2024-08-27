@@ -2,33 +2,34 @@
     <v-text-field
       v-model="model"
       :label="label"
-      :outlined="outlined"
-      :dense="dense"
+      :outlined="isOutlined"
+      :dense="isDense"
       :prepend-inner-icon="prependInnerIcon"
       :hide-details="hideDetails"
       :single-line="singleLine"
       :rules="rules"
-      :required="required"
+      :required="isRequired"
     >
     </v-text-field>
   </template>
   
   <script setup>
-  
+  import { computed } from 'vue';
+
   const model = defineModel()
   
-  defineProps({
+  const props = defineProps({
     label: {
       type: String,
       default: '',
     },
     outlined: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     dense: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     prependInnerIcon: {
       type: String,
@@ -48,8 +49,12 @@
     },
     required: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   });
+
+  const isRequired = computed(() => props.required);
+  const isOutlined = computed(() => props.outlined);
+  const isDense = computed(() => props.dense);
   </script>
   

@@ -21,9 +21,6 @@
           v-model="name" 
           label="Name"
           :rules="nameRules"
-          required
-          outlined
-          dense
         ></BaseTextField>
         <div class="button-container">
           <v-btn

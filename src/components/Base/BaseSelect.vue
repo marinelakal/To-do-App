@@ -1,35 +1,39 @@
 <template>
-    <v-select
-      v-model="model"
-      :label="label"
-      :rules="rules"
-      :required="required"
-      :items="items"
-    >
-    </v-select>
-  </template>
-  
-  <script setup>
-  
-  const model = defineModel()
-  
-  defineProps({
-    label: {
-      type: String,
-      default: '',
-    },
-    rules: {
-      type: Array,
-      default: () => [],
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    items: {
+  <v-select
+    v-model="model"
+    :label="label"
+    :rules="rules"
+    :required="isRequired"
+    :items="items"
+  >
+  </v-select>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const model = defineModel();
+
+const props = defineProps({
+  label: {
+    type: String,
+    default: '',
+  },
+  rules: {
     type: Array,
     default: () => [],
   },
-  });
-  </script>
-  
+  required: {
+    type: Boolean,
+    default: true,
+  },
+  items: {
+    type: Array,
+    default: () => [],
+  },
+});
+
+const isRequired = computed(() => {
+  return props.required;
+});
+</script>

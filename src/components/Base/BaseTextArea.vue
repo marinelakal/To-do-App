@@ -3,16 +3,17 @@
       v-model="model"
       :label="label"
       :rules="rules"
-      :required="required"
+      :required="isRequired"
     >
     </v-textarea>
   </template>
   
   <script setup>
+  import { computed } from 'vue';
   
   const model = defineModel()
   
-  defineProps({
+  const props = defineProps({
     label: {
       type: String,
       default: '',
@@ -23,8 +24,12 @@
     },
     required: {
       type: Boolean,
-      default: false,
+      default: true,
     },
+  });
+
+  const isRequired = computed(() => {
+    return props.required;
   });
   </script>
   
