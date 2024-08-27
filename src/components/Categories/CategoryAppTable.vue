@@ -1,19 +1,17 @@
 <template>
   <div class="table-wrapper">
     <div class="table-container">
-      <v-table class="category-table">
-        <thead>
-          <tr>
-            <th class="table-header">Name</th>
-            <th class="table-header">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(item, index) in categories"
-            :key="item.name"
-          >
-            <td class="names table-cell">{{ item.name }}</td>
+      <v-data-table
+        :headers="headers"
+        :items="categories"
+        class="category-table"
+      >
+
+        <template v-slot:[`item.name`]="{ item }">
+          <td class="names table-cell">{{ item.name }}</td>
+        </template>
+        
+        <template v-slot:[`item.actions`]="{ index }">
             <td class="table-cell">
               <div class="icon-container">
                 <v-icon
@@ -31,9 +29,8 @@
                 </v-icon>
               </div>
             </td>
-          </tr>
-        </tbody>
-      </v-table>
+        </template>
+      </v-data-table>
     </div>
 
     <v-dialog
@@ -79,6 +76,11 @@ const categories = computed(() => categoryStore.categories);
 const dialogDelete = ref(false);
 const deleteIndex = ref(null);
 
+const headers = [
+  { key: 'name', align: 'start', title: 'Name' },
+  { key: 'actions', title: 'Actions', sortable: false },
+];
+
 function openDeleteDialog(index) {
   deleteIndex.value = index;
   dialogDelete.value = true;
@@ -101,6 +103,7 @@ function editItem(index) {
   categoryStore.setEditCategoryIndex(index); 
   router.push('/create');
 }
+
 </script>
 
 <style scoped>
@@ -114,15 +117,20 @@ function editItem(index) {
   background-color: #ffffff;
 }
 
+.v-data-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .table-container {
   width: 100%;
   max-width: 800px;
-  max-height: 500px;
-  overflow-y: auto;
-  overflow-x: auto;
-  background-color: #ffffff;
+  max-height: none;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-color: #f5f5f5;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.295);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233);
 }
 
 .category-table {
