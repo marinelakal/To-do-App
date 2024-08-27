@@ -61,6 +61,6 @@
     .names {
     display: flex;
     justify-content: left;
-    margin-top: 10px;
+    margin-top: 30px;
     }
   </style>
