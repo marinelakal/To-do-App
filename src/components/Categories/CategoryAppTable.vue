@@ -6,29 +6,24 @@
         :items="categories"
         class="category-table"
       >
-
-        <template v-slot:[`item.name`]="{ item }">
-          <td class="names table-cell">{{ item.name }}</td>
-        </template>
-        
-        <template v-slot:[`item.actions`]="{ index }">
-            <td class="table-cell">
-              <div class="icon-container">
-                <v-icon
-                  class="me-2"
-                  size="small"
-                  @click="editItem(index)"
-                >
-                  mdi-pencil
-                </v-icon>
-                <v-icon
-                  @click="openDeleteDialog(index)"
-                  class="delete-icon"
-                >
-                  mdi-delete
-                </v-icon>
-              </div>
-            </td>
+        <template #item="{ item, index }">
+          <tr>
+            <BaseTableRows
+              :item="item"
+              :showName = "true"
+              :showDescription = "false"
+              :showDate = "false"
+              :showCategory = "false"
+              class="names"
+              />
+            <BaseIcons
+              :index="index"
+              @edit="editItem"
+              @delete="openDeleteDialog"
+              :showDuplicate="false"
+              :showToggleImportant="false"
+            />
+          </tr>
         </template>
       </v-data-table>
     </div>
@@ -68,6 +63,8 @@
 import { ref, computed } from 'vue';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
+import BaseIcons from '../Base/BaseIcons.vue';
+import BaseTableRows from '../Base/BaseTableRows.vue';
 
 const router = useRouter();
 const categoryStore = useCategoryStore();
@@ -143,18 +140,17 @@ function editItem(index) {
   gap: 10px;
 }
 
-.names {
-  display: flex;
-  justify-content: left;
-  margin-top: 10px;
-}
-
-.table-header, .table-cell {
+.table-header {
   padding: 10px;
   text-align: left;
 }
 
 .delete-icon {
   cursor: pointer;
+}
+
+.table-container td {
+  padding: 10px;
+  text-align: left;
 }
 </style>

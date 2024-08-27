@@ -28,49 +28,29 @@
       >
         <template #item="{ item, index }">
           <tr>
-            <td>{{ item?.name || 'N/A' }}</td>
-            <td>
-              {{ showDescriptionContent
-                ? truncatedDescription(item?.description || '')
-                : ''
-              }}
-            </td>
-            <td>{{ item?.date || 'N/A' }}</td>
-            <td>{{ item?.category || 'N/A' }}</td>
-            <td>
-              <v-chip
-                :color="getColor(item?.criticality || '')"
-              >
-                {{ item?.criticality || 'N/A' }}
-              </v-chip>
-            </td>
-            <td class="table-container-actions-cell">
-              <v-icon
-                class="table-container-icon table-container-icon-edit"
-                size="small"
-                @click="editItem(index)"
-              >
-                mdi-pencil
-              </v-icon>
-              <v-icon
-                @click="openDeleteDialog(index)"
-                class="table-container-icon table-container-icon-delete"
-              >
-                mdi-delete
-              </v-icon>
-              <v-icon
-                @click="duplicateTask(index)"
-                class="table-container-icon table-container-icon-duplicate"
-              >
-                mdi-content-copy
-              </v-icon>
-              <v-icon
-                @click="toggleImportant(index)"
-                :class="{ 'table-container-icon-important': item?.important }"
-              >
-                {{ item?.important ? 'mdi-star' : 'mdi-star-outline' }}
-              </v-icon>
-            </td>
+            <BaseTableRows
+            :item="item"
+            :showName = "true"
+            :showDescription = "true"
+            :showDate = "true"
+            :showCategory = "true"
+            :showDescriptionContent="showDescriptionContent"
+            :truncatedDescription="truncatedDescription"
+            />
+            <BaseChip
+              :criticality="item?.criticality"
+              :chipColor="getColor(item?.criticality || '')"
+            />
+            <BaseIcons
+              :index="index"
+              :important="item?.important"
+              :showDuplicate="true"
+              :showToggleImportant="true"
+              @edit="editItem"
+              @delete="openDeleteDialog"
+              @duplicate="duplicateTask"
+              @toggleimportant="toggleImportant"
+            />
           </tr>
         </template>
       </v-data-table>
@@ -111,6 +91,9 @@ import { ref, computed } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
+import BaseChip from '@/components/Base/BaseChip.vue';
+import BaseIcons from '@/components/Base/BaseIcons.vue';
+import BaseTableRows from '../Base/BaseTableRows.vue';
 
 // Reactive variables
 const dialogDelete = ref(false);
