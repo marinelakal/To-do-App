@@ -1,31 +1,19 @@
 <template>
   <div class="table-wrapper">
     <div class="table-container">
-      <v-data-table
+      <BaseDataTable
         :headers="headers"
         :items="categories"
-        class="category-table"
-      >
-        <template #item="{ item, index }">
-          <tr>
-            <BaseTableRows
-              :item="item"
-              :showName = "true"
-              :showDescription = "false"
-              :showDate = "false"
-              :showCategory = "false"
-              class="names"
-              />
-            <BaseIcons
-              :index="index"
-              @edit="editItem"
-              @delete="openDeleteDialog"
-              :showDuplicate="false"
-              :showToggleImportant="false"
-            />
-          </tr>
-        </template>
-      </v-data-table>
+        :showName="true"
+        :showDescription="false"
+        :showDate="false"
+        :showCategory="false"
+        :showDuplicate="false"
+        :showToggleImportant="false"
+        :truncatedDescription="truncatedDescription"
+        @edit="editItem"
+        @delete="openDeleteDialog"
+      />
     </div>
 
     <v-dialog
@@ -63,8 +51,7 @@
 import { ref, computed } from 'vue';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
-import BaseIcons from '../Base/BaseIcons.vue';
-import BaseTableRows from '../Base/BaseTableRows.vue';
+import BaseDataTable from '../Base/BaseDataTable.vue';
 
 const router = useRouter();
 const categoryStore = useCategoryStore();

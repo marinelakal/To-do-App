@@ -21,39 +21,25 @@
           single-line
         ></BaseTextField>
       </template>
-      <v-data-table
+
+      <BaseDataTable
         :headers="headers"
         :items="filteredItems"
         :search="search"
-      >
-        <template #item="{ item, index }">
-          <tr>
-            <BaseTableRows
-            :item="item"
-            :showName = "true"
-            :showDescription = "true"
-            :showDate = "true"
-            :showCategory = "true"
-            :showDescriptionContent="showDescriptionContent"
-            :truncatedDescription="truncatedDescription"
-            />
-            <BaseChip
-              :criticality="item?.criticality"
-              :chipColor="getColor(item?.criticality || '')"
-            />
-            <BaseIcons
-              :index="index"
-              :important="item?.important"
-              :showDuplicate="true"
-              :showToggleImportant="true"
-              @edit="editItem"
-              @delete="openDeleteDialog"
-              @duplicate="duplicateTask"
-              @toggleimportant="toggleImportant"
-            />
-          </tr>
-        </template>
-      </v-data-table>
+        :showName="true"
+        :showDescription="true"
+        :showDate="true"
+        :showCategory="true"
+        :showDuplicate="true"
+        :showToggleImportant="true"
+        :showDescriptionContent="showDescriptionContent"
+        :truncatedDescription="truncatedDescription"
+        :getColor="getColor"
+        @edit="editItem"
+        @delete="openDeleteDialog"
+        @duplicate="duplicateTask"
+        @toggleimportant="toggleImportant"
+      />
     </v-card>
     <v-dialog
       v-model="dialogDelete"
@@ -91,9 +77,7 @@ import { ref, computed } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
-import BaseChip from '@/components/Base/BaseChip.vue';
-import BaseIcons from '@/components/Base/BaseIcons.vue';
-import BaseTableRows from '../Base/BaseTableRows.vue';
+import BaseDataTable from '../Base/BaseDataTable.vue';
 
 // Reactive variables
 const dialogDelete = ref(false);
