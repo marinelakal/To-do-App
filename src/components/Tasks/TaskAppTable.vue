@@ -30,6 +30,7 @@
         :showDescriptionContent="showDescriptionContent"
         :truncatedDescription="truncatedDescription"
         :getColor="getColor"
+        :icons="['edit', 'delete', 'duplicate', 'toggleImportant']"
         @edit="editItem"
         @delete="openDeleteDialog"
         @duplicate="duplicateTask"

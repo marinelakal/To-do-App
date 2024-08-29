@@ -21,8 +21,7 @@
           <BaseIcons
             :index="index"
             :important="item?.important"
-            :showDuplicate="showDuplicate"
-            :showToggleImportant="showToggleImportant"
+            :icons="icons"
             @edit="$emit('edit', index)"
             @delete="$emit('delete', index)"
             @duplicate="$emit('duplicate', index)"
@@ -68,8 +67,11 @@
       type: Boolean,
       default: true,
     },
+    icons: {
+      type: Array,
+      required: true,
+    },
   });
-  
+
   defineEmits(['edit', 'delete', 'duplicate', 'toggleimportant']);
   </script>
-  

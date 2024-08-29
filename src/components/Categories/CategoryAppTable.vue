@@ -8,6 +8,7 @@
         :showDuplicate="false"
         :showToggleImportant="false"
         :truncatedDescription="truncatedDescription"
+        :icons="['edit', 'delete']"
         @edit="editItem"
         @delete="openDeleteDialog"
       />
