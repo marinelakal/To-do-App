@@ -7,10 +7,7 @@
         <tr>
           <BaseTableRows
             :item="item"
-            :showName="showName"
-            :showDescription="showDescription"
-            :showDate="showDate"
-            :showCategory="showCategory"
+            :columns="headers"
             :showDescriptionContent="showDescriptionContent"
             :truncatedDescription="truncatedDescription"
           />
@@ -24,8 +21,7 @@
           <BaseIcons
             :index="index"
             :important="item?.important"
-            :showDuplicate="showDuplicate"
-            :showToggleImportant="showToggleImportant"
+            :icons="icons"
             @edit="$emit('edit', index)"
             @delete="$emit('delete', index)"
             @duplicate="$emit('duplicate', index)"
@@ -51,22 +47,6 @@
       type: Array,
       required: true,
     },
-    showName: {
-      type: Boolean,
-      default: false,
-    },
-    showDescription: {
-      type: Boolean,
-      default: false,
-    },
-    showDate: {
-      type: Boolean,
-      default: false,
-    },
-    showCategory: {
-      type: Boolean,
-      default: false,
-    },
     showDescriptionContent: {
       type: Boolean,
       default: false,
@@ -79,16 +59,11 @@
       type: Function,
       required: false,
     },
-    showDuplicate: {
-      type: Boolean,
-      default: true,
-    },
-    showToggleImportant: {
-      type: Boolean,
-      default: true,
+    icons: {
+      type: Array,
+      required: true,
     },
   });
-  
+
   defineEmits(['edit', 'delete', 'duplicate', 'toggleimportant']);
   </script>
-  

@@ -4,13 +4,9 @@
       <BaseDataTable
         :headers="headers"
         :items="categories"
-        :showName="true"
-        :showDescription="false"
-        :showDate="false"
-        :showCategory="false"
-        :showDuplicate="false"
-        :showToggleImportant="false"
+        :columns="headers"
         :truncatedDescription="truncatedDescription"
+        :icons="['edit', 'delete']"
         @edit="editItem"
         @delete="openDeleteDialog"
       />
@@ -61,8 +57,8 @@ const dialogDelete = ref(false);
 const deleteIndex = ref(null);
 
 const headers = [
-  { key: 'name', align: 'start', title: 'Name' },
-  { key: 'actions', title: 'Actions', sortable: false },
+  { key: 'name', align: 'start', visible: true, showContent: true , title: 'Name' },
+  { key: 'actions', visible: false, showContent: true , title: 'Actions', sortable: false },
 ];
 
 function openDeleteDialog(index) {
