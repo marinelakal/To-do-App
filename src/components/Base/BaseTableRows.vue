@@ -1,25 +1,16 @@
 <template>
-      <td v-if="showName" class="names">
-        <slot name="name" :item="item">
-          {{ item?.name || 'N/A' }}
+    <template v-for="column in columns" :key="column.key">
+      <td v-if="column.visible" :class="column.key">
+        <slot :name="column.key" :item="item">
+          <span v-if="column.key === 'description'">
+            {{ showDescriptionContent ? truncatedDescription( item[column.key] || '') : '' }}
+          </span>
+          <span v-else>
+            {{ item[column.key] || 'N/A' }}
+          </span>
         </slot>
       </td>
-      <td v-if="showDescription">
-        <slot name="description" :item="item">
-          {{ showDescriptionContent ? truncatedDescription(item?.description || '') : '' }}
-        </slot>
-      </td>
-      <td v-if="showDate">
-        <slot name="date" :item="item">
-          {{ item?.date || 'N/A' }}
-        </slot>
-      </td>
-      <td v-if="showCategory">
-        <slot name="category" :item="item">
-          {{ item?.category || 'N/A' }}
-        </slot>
-      </td>
-      <slot name="extra"></slot>
+    </template>
   </template>
   
   <script setup>
@@ -38,27 +29,15 @@
       type: Function,
       required: true,
     },
-    showName: {
-      type: Boolean,
-      default: false,
-    },
-    showDescription: {
-      type: Boolean,
-      default: false,
-    },
-    showDate: {
-      type: Boolean,
-      default: false,
-    },
-    showCategory: {
-      type: Boolean,
-      default: false,
+    columns: {
+      type: Array,
+      default: () => []
     },
   });
   </script>
   
   <style scoped>
-    .names {
+    td.name {
     display: flex;
     justify-content: left;
     margin-top: 30px;

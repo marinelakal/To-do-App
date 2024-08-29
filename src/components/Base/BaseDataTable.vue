@@ -7,10 +7,7 @@
         <tr>
           <BaseTableRows
             :item="item"
-            :showName="showName"
-            :showDescription="showDescription"
-            :showDate="showDate"
-            :showCategory="showCategory"
+            :columns="headers"
             :showDescriptionContent="showDescriptionContent"
             :truncatedDescription="truncatedDescription"
           />
@@ -50,22 +47,6 @@
     items: {
       type: Array,
       required: true,
-    },
-    showName: {
-      type: Boolean,
-      default: false,
-    },
-    showDescription: {
-      type: Boolean,
-      default: false,
-    },
-    showDate: {
-      type: Boolean,
-      default: false,
-    },
-    showCategory: {
-      type: Boolean,
-      default: false,
     },
     showDescriptionContent: {
       type: Boolean,

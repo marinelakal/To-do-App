@@ -25,13 +25,8 @@
       <BaseDataTable
         :headers="headers"
         :items="filteredItems"
+        :columns="headers"
         :search="search"
-        :showName="true"
-        :showDescription="true"
-        :showDate="true"
-        :showCategory="true"
-        :showDuplicate="true"
-        :showToggleImportant="true"
         :showDescriptionContent="showDescriptionContent"
         :truncatedDescription="truncatedDescription"
         :getColor="getColor"
@@ -88,12 +83,12 @@ const showDescriptionContent = ref(false);
 
 // Non-reactive variable
 const headers = [
-  { align: 'start', key: 'name', sortable: false, title: 'Name' },
-  { key: 'description', title: 'Description' },
-  { key: 'date', title: 'Date' },
-  { key: 'category', title: 'Category' },
-  { key: 'criticality', title: 'Criticality' },
-  { key: 'actions', title: 'Actions' },
+  { align: 'start', key: 'name', visible: true, showContent: true , sortable: false, title: 'Name' },
+  { key: 'description', visible: true, showContent: true , title: 'Description' },
+  { key: 'date', visible: true, showContent: true , title: 'Date' },
+  { key: 'category', visible: true, showContent: true , title: 'Category' },
+  { key: 'criticality', visible: false, showContent: true , title: 'Criticality' },
+  { key: 'actions', visible: false, showContent: true , title: 'Actions' },
 ];
 
 // Access the store
