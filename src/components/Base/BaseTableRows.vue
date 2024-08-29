@@ -35,11 +35,3 @@
     },
   });
   </script>
-  
-  <style scoped>
-    td.name {
-    display: flex;
-    justify-content: left;
-    margin-top: 30px;
-    }
-  </style>

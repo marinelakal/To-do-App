@@ -5,28 +5,37 @@
     >
       <template #item="{ item, index }">
         <tr>
-          <BaseTableRows
-            :item="item"
-            :columns="headers"
-            :showDescriptionContent="showDescriptionContent"
-            :truncatedDescription="truncatedDescription"
-          />
-          
-          <BaseChip
-            v-if="getColor && item?.criticality"
-            :criticality="item.criticality"
-            :chipColor="getColor(item.criticality)"
-          />
-  
-          <BaseIcons
-            :index="index"
-            :important="item?.important"
-            :icons="icons"
-            @edit="$emit('edit', index)"
-            @delete="$emit('delete', index)"
-            @duplicate="$emit('duplicate', index)"
-            @toggleimportant="$emit('toggleimportant', index)"
-          />
+          <template v-for="column in headers" :key="column.key">
+          <!-- Για text και date, χρησιμοποιούμε το BaseTableRows -->
+          <td v-if="column.type === 'text' || column.type === 'date'">
+            <BaseTableRows
+              :item="item"
+              :columns="[column]"
+              :showDescriptionContent="showDescriptionContent"
+              :truncatedDescription="truncatedDescription"
+            />
+          </td>
+          <!-- Για number, χρησιμοποιούμε το BaseChip -->
+          <td v-else-if="column.type === 'number'">
+            <BaseChip
+              v-if="getColor && item[column.key]"
+              :criticality="item[column.key]"
+              :chipColor="getColor(item[column.key])"
+            />
+          </td>
+          <!-- Για action, χρησιμοποιούμε το BaseIcons -->
+          <td v-else-if="column.type === 'action'">
+            <BaseIcons
+              :index="index"
+              :important="item?.important"
+              :icons="icons"
+              @edit="$emit('edit', index)"
+              @delete="$emit('delete', index)"
+              @duplicate="$emit('duplicate', index)"
+              @toggleimportant="$emit('toggleimportant', index)"
+            />
+          </td>
+        </template>
         </tr>
       </template>
     </v-data-table>
