@@ -36,34 +36,11 @@
         @toggleimportant="toggleImportant"
       />
     </v-card>
-    <v-dialog
+
+    <BaseDeleteConfirmationDialog
       v-model="dialogDelete"
-      max-width="500px"
-    >
-      <v-card>
-        <v-card-title class="text-h5">
-          Are you sure you want to delete this item?
-        </v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="blue-darken-1"
-            variant="text"
-            @click="closeDeleteDialog"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            color="blue-darken-1"
-            variant="text"
-            @click="confirmDelete"
-          >
-            OK
-          </v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      @confirmDelete="confirmDelete"
+    />
   </div>
 </template>
 
@@ -73,6 +50,7 @@ import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
 import BaseDataTable from '../Base/BaseDataTable.vue';
+import BaseDeleteConfirmationDialog from '../Base/BaseDeleteConfirmationDialog.vue';
 
 // Reactive variables
 const dialogDelete = ref(false);

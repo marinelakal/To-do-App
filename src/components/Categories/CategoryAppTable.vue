@@ -9,35 +9,11 @@
         @delete="openDeleteDialog"
       />
     </div>
-
-    <v-dialog
+    
+    <BaseDeleteConfirmationDialog
       v-model="dialogDelete"
-      max-width="500px"
-    >
-      <v-card>
-        <v-card-title class="text-h5">
-          Are you sure you want to delete this item?
-        </v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="blue-darken-1"
-            variant="text"
-            @click="closeDeleteDialog"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            color="blue-darken-1"
-            variant="text"
-            @click="confirmDelete"
-          >
-            OK
-          </v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      @confirmDelete="confirmDelete"
+    />
   </div>
 </template>
 
@@ -46,6 +22,7 @@ import { ref, computed } from 'vue';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
 import BaseDataTable from '../Base/BaseDataTable.vue';
+import BaseDeleteConfirmationDialog from '../Base/BaseDeleteConfirmationDialog.vue';
 
 const router = useRouter();
 const categoryStore = useCategoryStore();
