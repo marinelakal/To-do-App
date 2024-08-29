@@ -5,8 +5,6 @@
         :headers="headers"
         :items="categories"
         :columns="headers"
-        :showDuplicate="false"
-        :showToggleImportant="false"
         :truncatedDescription="truncatedDescription"
         :icons="['edit', 'delete']"
         @edit="editItem"

@@ -59,14 +59,6 @@
       type: Function,
       required: false,
     },
-    showDuplicate: {
-      type: Boolean,
-      default: true,
-    },
-    showToggleImportant: {
-      type: Boolean,
-      default: true,
-    },
     icons: {
       type: Array,
       required: true,
