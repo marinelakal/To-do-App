@@ -14,7 +14,7 @@
   </template>
   
   <script setup>
-  import { computed } from 'vue';
+  import { computed , defineModel } from 'vue';
 
   const model = defineModel()
   
