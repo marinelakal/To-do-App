@@ -1,17 +1,18 @@
 <template>
   <div class="table-container">
-    <v-card flat>
-      <v-card-title>
-        Tasks
-        <v-btn
-          class="table-container-show-hide"
-          v-if="hasTasks"
-          @click="toggleDescriptionContent"
-        >
-          {{ descriptionButtonLabel }}
-        </v-btn>
-      </v-card-title>
-      <template #text>
+    
+    <BaseCard>
+      <template #title>
+        <span>Tasks</span>
+        <BaseButton
+            v-if="hasTasks"
+            @click="toggleDescriptionContent"
+            :label="descriptionButtonLabel"
+            color="secondary"
+            class="table-container-show-hide"
+        />
+      </template>
+      <template #content>
         <BaseTextField
           v-model="search"
           label="Search"
@@ -20,22 +21,22 @@
           hide-details
           single-line
         ></BaseTextField>
-      </template>
 
-      <BaseDataTable
-        :headers="headers"
-        :items="filteredItems"
-        :search="search"
-        :showDescriptionContent="showDescriptionContent"
-        :truncatedDescription="truncatedDescription"
-        :getColor="getColor"
-        :icons="['edit', 'delete', 'duplicate', 'toggleImportant']"
-        @edit="editItem"
-        @delete="openDeleteDialog"
-        @duplicate="duplicateTask"
-        @toggleimportant="toggleImportant"
+        <BaseDataTable
+          :headers="headers"
+          :items="filteredItems"
+          :search="search"
+          :showDescriptionContent="showDescriptionContent"
+          :truncatedDescription="truncatedDescription"
+          :getColor="getColor"
+          :icons="['edit', 'delete', 'duplicate', 'toggleImportant']"
+          @edit="editItem"
+          @delete="openDeleteDialog"
+          @duplicate="duplicateTask"
+          @toggleimportant="toggleImportant"
       />
-    </v-card>
+      </template>
+    </BaseCard>
 
     <BaseDeleteConfirmationDialog
       v-model="dialogDelete"
@@ -51,6 +52,8 @@ import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
 import BaseDataTable from '../Base/BaseDataTable.vue';
 import BaseDeleteConfirmationDialog from '../Base/BaseDeleteConfirmationDialog.vue';
+import BaseCard from '../Base/BaseCard.vue';
+import BaseButton from '../Base/BaseButton.vue'
 
 // Reactive variables
 const dialogDelete = ref(false);
@@ -187,6 +190,9 @@ function editItem(index) {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233);
 }
 
+.table-container-show-hide{
+  display: flex;
+}
 
 .v-btn {
   border-radius: 20px;
@@ -196,16 +202,6 @@ function editItem(index) {
 .v-btn:hover {
   background-color: #0056b3;
   color: #ffffff;
-}
-
-.table-container-show-hide {
-  background-color: #278b769c;
-  color: #ffffff;
-  border-radius: 20px;
-}
-
-.table-container-show-hide:hover {
-  background-color: #16725ed0;
 }
 
 .table-container-icon {
