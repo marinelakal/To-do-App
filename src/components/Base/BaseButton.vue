@@ -3,6 +3,7 @@
     @click="handleClick"
     class="my-4 mt-16"
     :color="props.color"
+    :disabled="props.disabled"
   >
     {{ props.label }}
   </v-btn>
@@ -19,13 +20,17 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator: (value) => {
-      const isValid = ['primary', 'secondary', 'accent'].includes(value);
+      const isValid = ['primary', 'secondary', 'accent', '#87ceeb', '#004080'].includes(value);
       if (!isValid) {
         console.warn(`Invalid color prop: ${value}`);
       }
       return isValid;
     },
   },
+  disabled: {
+    type: Boolean,
+    default: false
+  }
 });
 
 
