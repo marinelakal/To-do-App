@@ -5,6 +5,8 @@
         :headers="headers"
         :items="categories"
         :icons="['edit', 'delete']"
+        v-model:page="categoryStore.currentPage"
+        v-model:items-per-page="categoryStore.itemsPerPage"
         @edit="editItem"
         @delete="openDeleteDialog"
       />

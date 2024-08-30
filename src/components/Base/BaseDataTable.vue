@@ -2,6 +2,8 @@
     <v-data-table
       :headers="headers"
       :items="items"
+      v-model:page="currentPage"
+      v-model:items-per-page="itemsPerPage"
     >
       <template #item="{ item, index }">
         <tr>
@@ -29,10 +31,10 @@
               :index="index"
               :important="item?.important"
               :icons="icons"
-              @edit="$emit('edit', index)"
-              @delete="$emit('delete', index)"
-              @duplicate="$emit('duplicate', index)"
-              @toggleimportant="$emit('toggleimportant', index)"
+              @edit="$emit('edit', calculateGlobalIndex(index))"
+              @delete="$emit('delete', calculateGlobalIndex(index))"
+              @duplicate="$emit('duplicate', calculateGlobalIndex(index))"
+              @toggleimportant="$emit('toggleimportant', calculateGlobalIndex(index))"
             />
           </td>
         </template>
@@ -40,13 +42,13 @@
       </template>
     </v-data-table>
   </template>
-  
+
   <script setup>
-  import { defineProps, defineEmits } from 'vue';
+  import { defineProps, defineEmits, ref } from 'vue';
   import BaseTableRows from './BaseTableRows.vue';
   import BaseChip from './BaseChip.vue';
   import BaseIcons from './BaseIcons.vue';
-  
+
   defineProps({
     headers: {
       type: Array,
@@ -75,4 +77,11 @@
   });
 
   defineEmits(['edit', 'delete', 'duplicate', 'toggleimportant']);
+
+  const currentPage = ref(1);
+  const itemsPerPage = ref(10);
+
+  function calculateGlobalIndex(index) {
+    return index + (currentPage.value - 1) * itemsPerPage.value;
+  }
   </script>
