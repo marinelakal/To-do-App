@@ -12,31 +12,20 @@
             md="8"
             lg="6"
           >
-            <v-hover #default="{ isHovering }">
-              <v-card
-                :elevation="isHovering ? 8 : 4"
-                class="pa-6"
-                max-width="600"
-                rounded="lg"
-              >
-                <v-card-title
-                  class="text-h4 font-weight-bold"
-                  style="
-                    color: #65bbae; 
-                  "
-                >
-                  Welcome to the TODO App!
-                </v-card-title>
-                <v-card-text
-                  class="text-body-1"
-                  style="
-                    color: #555555; 
-                  "
-                >
-                This application helps you manage your tasks efficiently. You can navigate through the menu to add new tasks, categorize them, and keep track of your to-dos. Get started by clicking on "Tasks" or "Categories" in the navigation drawer.
-                </v-card-text>
-              </v-card>
-            </v-hover>
+
+              <BaseCard class="pa-6" style="max-width: 600px;">
+                <template #title>
+                  <div class="text-h4 font-weight-bold" style="color: #65bbae;">
+                    Welcome to the TODO App!
+                  </div>
+                </template>
+                <template #content>
+                  <div class="text-body-1" style="color: #555555;">
+                    This application helps you manage your tasks efficiently. You can navigate through the menu to add new tasks, categorize them, and keep track of your to-dos. Get started by clicking on "Tasks" or "Categories" in the navigation drawer.
+                  </div>
+                </template>
+              </BaseCard>
+
           </v-col>
         </v-row>
       </v-container>
@@ -45,7 +34,7 @@
 </template>
 
 <script setup>
-// No additional script is needed for this static component
+import BaseCard from '../Base/BaseCard.vue';
 </script>
 
 <style scoped>
