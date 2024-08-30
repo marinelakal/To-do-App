@@ -1,80 +1,62 @@
 <template>
   <div class="todo-form-subtext">What needs to be done?</div>
-  <v-sheet
-    class="mx-auto"
-    width="300"
+  <BaseForm
+    :width="300"
+    submitButtonLabel="Submit"
+    cancelButtonLabel="Cancel"
+    submitButtonColor="#004080"
+    cancelButtonColor="#87ceeb"
+    @submit="submit"
+    @cancel="handleCancel"
   >
-    <v-form
-      fast-fail
-      v-model="valid"
-      @submit.prevent="submit"
-      ref="form"
-    >
+    <template #content>
       <BaseTextField
         v-model="name"
         label="Name"
         :rules="nameRules"
       ></BaseTextField>
 
+      <BaseTextArea
+        v-model="description"
+        label="Description"
+        :rules="descriptionRules"
+      ></BaseTextArea>
 
-        <BaseTextArea
-          v-model="description"
-          label="Description"
-          :rules="descriptionRules"
-        ></BaseTextArea>
+      <BaseDateInput
+        v-model="date"
+        :min="minDate"
+        label="Select a date"
+        variant="solo"
+      ></BaseDateInput>
 
-        <BaseDateInput
-          v-model="date"
-          :min="minDate"
-          label="Select a date"
-          variant="solo"
-        ></BaseDateInput>
+      <BaseSelect
+        v-model="select"
+        label="Select Category"
+        :rules="selectRules"
+        :items="categoryNames"
+      ></BaseSelect>
 
-        <BaseSelect
-          v-model="select"
-          label="Select Category"
-          :rules="selectRules"
-          :items="categoryNames"
-        ></BaseSelect>
-
-        <v-container>
-          <v-radio-group v-model="radios">
-            <v-radio
-              label="Low"
-              value="one"
-              color="green"
-            ></v-radio>
-            <v-radio
-              label="Medium"
-              value="two"
-              color="orange"
-            ></v-radio>
-            <v-radio
-              label="High"
-              value="three"
-              color="red"
-            ></v-radio>
-          </v-radio-group>
-        </v-container>
-
-        <div class="button-container">
-          <BaseButton
-              label="cancel"
-              class="todo-form-clear-btn"
-              @click="handleCancel"
-              color="#87ceeb"
-          />
-          <BaseButton
-              label="submit"
-              class="todo-form-submit-btn"
-              :class="{'disabled-button': !valid}"
-              :disabled="!valid"
-              @click="submit"
-              color="#004080"
-          />
-        </div>
-    </v-form>
-  </v-sheet>
+      <v-container>
+        <v-radio-group v-model="radios">
+          <v-radio
+            label="Low"
+            value="one"
+            color="green"
+          ></v-radio>
+          <v-radio
+            label="Medium"
+            value="two"
+            color="orange"
+          ></v-radio>
+          <v-radio
+            label="High"
+            value="three"
+            color="red"
+          ></v-radio>
+        </v-radio-group>
+      </v-container>
+    </template>
+  </BaseForm>
 </template>
 
 <script setup>
@@ -86,7 +68,7 @@ import BaseTextField from '@/components/Base/BaseTextField.vue';
 import BaseTextArea from '../Base/BaseTextArea.vue';
 import BaseSelect from '../Base/BaseSelect.vue';
 import BaseDateInput from '../Base/BaseDateInput.vue';
-import BaseButton from '../Base/BaseButton.vue';
+import BaseForm from '../Base/BaseForm.vue';
 
 // Reactive variables
 const valid = ref(false);
@@ -169,7 +151,6 @@ function handleCancel() {
 }
 
 function submit() {
-  if (form.value && form.value.validate()) {
     // Ensure the date is treated as a local date and format it as YYYY-MM-DD
     const formattedDate = date.value
       ? `${date.value.getFullYear()}-${String(date.value.getMonth() + 1).padStart(2, '0')}-${String(date.value.getDate()).padStart(2, '0')}`
@@ -194,7 +175,6 @@ function submit() {
 
     resetForm();
     router.push('/tasks');
-  }
 }
 </script>
 
@@ -210,7 +190,7 @@ function submit() {
 
 .button-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   color: white ; 
 }
 

@@ -1,50 +1,27 @@
 <template>
-  <v-sheet
-    class="mx-auto form-container"
-    width="350"
-    max-width="100%"
+  <BaseForm
+    :width="350"
+    submitButtonLabel="Submit"
+    cancelButtonLabel="Cancel"
+    submitButtonColor="#004080"
+    cancelButtonColor="#87ceeb"
+    @submit="submitForm"    
+    @cancel="handleCancel" 
   >
-    <v-form
-      fast-fail
-      v-model="valid"
-      @submit.prevent="submitForm"
-      ref="form"
-    >
-      <BaseCard>
-        <template #title>
-          <h2>{{ categoryTitle }}</h2>
-        </template>
-        <template #subtitle>
-          <p>Please fill in the details below:</p>
-        </template>
-        <template #content>
-          <BaseTextField
+    <template #title>
+      <h2>{{ categoryTitle }}</h2>
+    </template>
+    <template #subtitle>
+      <p>Please fill in the details below:</p>
+    </template>
+    <template #content>
+      <BaseTextField
             v-model="name"
             label="Name"
             :rules="nameRules"
-          ></BaseTextField>
-        </template>
-        <template #actions>
-          <div class="button-container">
-            <BaseButton
-              label="cancel"
-              class="clear-btn"
-              @click="handleCancel"
-              color="#87ceeb"
-            />
-            <BaseButton
-              label="submit"
-              class="submit-btn"
-              :class="{'disabled-button': !valid}"
-              :disabled="!valid"
-              color="#004080"
-              @click="submitForm"
-            />
-          </div>
-        </template>
-      </BaseCard>
-    </v-form>
-  </v-sheet>
+      ></BaseTextField>
+    </template>
+  </BaseForm>
 </template>
 
 <script setup>
@@ -52,8 +29,8 @@ import { ref, watch, computed } from 'vue';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
-import BaseButton from '../Base/BaseButton.vue';
-import BaseCard from '../Base/BaseCard.vue';
+import BaseForm from '../Base/BaseForm.vue';
+
 const name = ref('');
 const valid = ref(false);
 const form = ref(null);
@@ -98,7 +75,6 @@ watch(
 );
 
 const submitForm = () => {
-  if (form.value?.validate()) {
     if (editMode.value) {
       categoryStore.updateCategory(categoryStore.editCategoryIndex, name.value);
     } else {
@@ -106,7 +82,6 @@ const submitForm = () => {
     }
     resetForm();
     router.push('/categories');
-  }
 };
 
 </script>
@@ -141,7 +116,7 @@ const submitForm = () => {
 
 .button-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   color: white;
 }
 
