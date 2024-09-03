@@ -10,35 +10,39 @@
       @submit.prevent="submitForm"
       ref="form"
     >
-      <v-card class="form-card">
-        <v-card-title>
+      <BaseCard>
+        <template #title>
           <h2>{{ categoryTitle }}</h2>
-        </v-card-title>
-        <v-card-subtitle class="mb-4">
+        </template>
+        <template #subtitle>
           <p>Please fill in the details below:</p>
-        </v-card-subtitle>
-        <BaseTextField
-          v-model="name" 
-          label="Name"
-          :rules="nameRules"
-        ></BaseTextField>
-        <div class="button-container">
-          <v-btn
-            class="clear-btn"
-            @click="handleCancel"
-          >
-            cancel
-          </v-btn>
-          <v-btn
-            class="submit-btn"
-            :class="{'disabled-button': !valid}"
-            type="submit"
-            :disabled="!valid"
-          >
-            submit
-          </v-btn>
-        </div>
-      </v-card>
+        </template>
+        <template #content>
+          <BaseTextField
+            v-model="name"
+            label="Name"
+            :rules="nameRules"
+          ></BaseTextField>
+        </template>
+        <template #actions>
+          <div class="button-container">
+            <BaseButton
+              label="cancel"
+              class="clear-btn"
+              @click="handleCancel"
+              color="#87ceeb"
+            />
+            <BaseButton
+              label="submit"
+              class="submit-btn"
+              :class="{'disabled-button': !valid}"
+              :disabled="!valid"
+              color="#004080"
+              @click="submitForm"
+            />
+          </div>
+        </template>
+      </BaseCard>
     </v-form>
   </v-sheet>
 </template>
@@ -48,7 +52,8 @@ import { ref, watch, computed } from 'vue';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
-
+import BaseButton from '../Base/BaseButton.vue';
+import BaseCard from '../Base/BaseCard.vue';
 const name = ref('');
 const valid = ref(false);
 const form = ref(null);

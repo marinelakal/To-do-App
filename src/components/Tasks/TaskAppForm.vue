@@ -10,69 +10,69 @@
       @submit.prevent="submit"
       ref="form"
     >
-    <BaseTextField
-      v-model="name"
-      label="Name"
-      :rules="nameRules"
-    ></BaseTextField>
+      <BaseTextField
+        v-model="name"
+        label="Name"
+        :rules="nameRules"
+      ></BaseTextField>
 
 
-      <BaseTextArea
-        v-model="description"
-        label="Description"
-        :rules="descriptionRules"
-      ></BaseTextArea>
+        <BaseTextArea
+          v-model="description"
+          label="Description"
+          :rules="descriptionRules"
+        ></BaseTextArea>
 
-      <BaseDateInput
-        v-model="date"
-        :min="minDate"
-        label="Select a date"
-        variant="solo"
-      ></BaseDateInput>
+        <BaseDateInput
+          v-model="date"
+          :min="minDate"
+          label="Select a date"
+          variant="solo"
+        ></BaseDateInput>
 
-      <BaseSelect
-        v-model="select"
-        label="Select Category"
-        :rules="selectRules"
-        :items="categoryNames"
-      ></BaseSelect>
+        <BaseSelect
+          v-model="select"
+          label="Select Category"
+          :rules="selectRules"
+          :items="categoryNames"
+        ></BaseSelect>
 
-      <v-container>
-        <v-radio-group v-model="radios">
-          <v-radio
-            label="Low"
-            value="one"
-            color="green"
-          ></v-radio>
-          <v-radio
-            label="Medium"
-            value="two"
-            color="orange"
-          ></v-radio>
-          <v-radio
-            label="High"
-            value="three"
-            color="red"
-          ></v-radio>
-        </v-radio-group>
-      </v-container>
+        <v-container>
+          <v-radio-group v-model="radios">
+            <v-radio
+              label="Low"
+              value="one"
+              color="green"
+            ></v-radio>
+            <v-radio
+              label="Medium"
+              value="two"
+              color="orange"
+            ></v-radio>
+            <v-radio
+              label="High"
+              value="three"
+              color="red"
+            ></v-radio>
+          </v-radio-group>
+        </v-container>
 
-      <div class="todo-form-button-container">
-        <v-btn
-          class="todo-form-clear-btn"
-          @click="handleCancel"
-        >
-          cancel
-        </v-btn>
-        <v-btn
-          class="todo-form-submit-btn"
-          :class="{ 'todo-form-disabled-button': !valid }"
-          type="submit"
-          :disabled="!valid"
-        >
-          submit
-        </v-btn>
-      </div>
+        <div class="button-container">
+          <BaseButton
+              label="cancel"
+              class="todo-form-clear-btn"
+              @click="handleCancel"
+              color="#87ceeb"
+          />
+          <BaseButton
+              label="submit"
+              class="todo-form-submit-btn"
+              :class="{'disabled-button': !valid}"
+              :disabled="!valid"
+              @click="submit"
+              color="#004080"
+          />
+        </div>
     </v-form>
   </v-sheet>
 </template>
@@ -86,6 +86,7 @@ import BaseTextField from '@/components/Base/BaseTextField.vue';
 import BaseTextArea from '../Base/BaseTextArea.vue';
 import BaseSelect from '../Base/BaseSelect.vue';
 import BaseDateInput from '../Base/BaseDateInput.vue';
+import BaseButton from '../Base/BaseButton.vue';
 
 // Reactive variables
 const valid = ref(false);
@@ -207,7 +208,7 @@ function submit() {
   font-family: Arial, sans-serif;
 }
 
-.todo-form-button-container {
+.button-container {
   display: flex;
   justify-content: space-between;
   color: white ; 
