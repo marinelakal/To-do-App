@@ -2,8 +2,10 @@
     <v-data-table
       :headers="headers"
       :items="items"
-      v-model:page="currentPage"
-      v-model:items-per-page="itemsPerPage"
+      :page="currentPage"
+      :items-per-page="itemsPerPage"
+      @update:page="onPageUpdate"
+      @update:items-per-page="onItemsPerPageUpdate"
     >
       <template #item="{ item, index }">
         <tr>
@@ -28,13 +30,13 @@
           <!-- Για action, χρησιμοποιούμε το BaseIcons -->
           <td v-else-if="column.type === 'action'">
             <BaseIcons
-              :index="index"
+              :index="index + (currentPage - 1) * itemsPerPage"
               :important="item?.important"
               :icons="icons"
-              @edit="$emit('edit', calculateGlobalIndex(index))"
-              @delete="$emit('delete', calculateGlobalIndex(index))"
-              @duplicate="$emit('duplicate', calculateGlobalIndex(index))"
-              @toggleimportant="$emit('toggleimportant', calculateGlobalIndex(index))"
+              @edit="$emit('edit', index + (currentPage - 1) * itemsPerPage)"
+              @delete="$emit('delete', index + (currentPage - 1) * itemsPerPage)"
+              @duplicate="$emit('duplicate', index + (currentPage - 1) * itemsPerPage)"
+              @toggleimportant="$emit('toggleimportant', index + (currentPage - 1) * itemsPerPage)"
             />
           </td>
         </template>
@@ -44,7 +46,7 @@
   </template>
 
   <script setup>
-  import { defineProps, defineEmits, ref } from 'vue';
+  import { defineProps, defineEmits } from 'vue';
   import BaseTableRows from './BaseTableRows.vue';
   import BaseChip from './BaseChip.vue';
   import BaseIcons from './BaseIcons.vue';
@@ -74,14 +76,23 @@
       type: Array,
       required: true,
     },
+    currentPage: {
+      type: Number,
+      required: true,
+    },
+    itemsPerPage: {
+      type: Number,
+      required: true,
+    },
   });
 
-  defineEmits(['edit', 'delete', 'duplicate', 'toggleimportant']);
+  const emits = defineEmits(['edit', 'delete', 'duplicate', 'toggleimportant' , 'update:page', 'update:items-per-page']);
 
-  const currentPage = ref(1);
-  const itemsPerPage = ref(10);
+  function onPageUpdate(newPage) {
+    emits('update:page', newPage);
+  }
 
-  function calculateGlobalIndex(index) {
-    return index + (currentPage.value - 1) * itemsPerPage.value;
+  function onItemsPerPageUpdate(newItemsPerPage) {
+    emits('update:items-per-page', newItemsPerPage);
   }
   </script>

@@ -3,10 +3,12 @@
     <div class="table-container">
       <BaseDataTable
         :headers="headers"
-        :items="categories"
+        :items="categoryStore.categories"
         :icons="['edit', 'delete']"
-        v-model:page="categoryStore.currentPage"
-        v-model:items-per-page="categoryStore.itemsPerPage"
+        :currentPage="categoryStore.currentPage" 
+        :itemsPerPage="categoryStore.itemsPerPage"
+        @update:page="categoryStore.setPage"
+        @update:items-per-page="categoryStore.setItemsPerPage"
         @edit="editItem"
         @delete="openDeleteDialog"
       />
@@ -20,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useCategoryStore } from '@/stores/useCategoryStore';
 import { useRouter } from 'vue-router';
 import BaseDataTable from '../Base/BaseDataTable.vue';
@@ -28,7 +30,7 @@ import BaseDeleteConfirmationDialog from '../Base/BaseDeleteConfirmationDialog.v
 
 const router = useRouter();
 const categoryStore = useCategoryStore();
-const categories = computed(() => categoryStore.categories);
+
 
 const dialogDelete = ref(false);
 const deleteIndex = ref(null);
@@ -57,7 +59,7 @@ function closeDeleteDialog() {
 }
 
 function editItem(index) {
-  categoryStore.setEditCategoryIndex(index); 
+  categoryStore.setEditCategoryIndex(index);
   router.push('/create');
 }
 
