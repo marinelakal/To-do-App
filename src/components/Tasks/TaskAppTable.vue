@@ -30,6 +30,8 @@
           :truncatedDescription="truncatedDescription"
           :getColor="getColor"
           :icons="['edit', 'delete', 'duplicate', 'toggleImportant']"
+          v-model:page="todoStore.currentPage"
+          v-model:items-per-page="todoStore.itemsPerPage"
           @edit="editItem"
           @delete="openDeleteDialog"
           @duplicate="duplicateTask"
