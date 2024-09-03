@@ -8,12 +8,6 @@ export const useTodoListStore = defineStore('todoList', {
     itemsPerPage: 10,
   }),
   actions: {
-    setPage(page) {
-      this.currentPage = page;
-    },
-    setItemsPerPage(count) {
-      this.itemsPerPage = count;
-    },
     addTodo(todo) {
       if (!todo) {
         console.error('Invalid todo item:', todo);

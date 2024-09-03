@@ -2,10 +2,8 @@
     <v-data-table
       :headers="headers"
       :items="items"
-      :page="currentPage"
-      :items-per-page="itemsPerPage"
-      @update:page="onPageUpdate"
-      @update:items-per-page="onItemsPerPageUpdate"
+      v-model:page="currentPage"
+      v-model:items-per-page="itemsPerPage"
     >
       <template #item="{ item, index }">
         <tr>
@@ -46,7 +44,7 @@
   </template>
 
   <script setup>
-  import { defineProps, defineEmits } from 'vue';
+  import { defineProps, defineEmits, defineModel } from 'vue';
   import BaseTableRows from './BaseTableRows.vue';
   import BaseChip from './BaseChip.vue';
   import BaseIcons from './BaseIcons.vue';
@@ -75,24 +73,11 @@
     icons: {
       type: Array,
       required: true,
-    },
-    currentPage: {
-      type: Number,
-      required: true,
-    },
-    itemsPerPage: {
-      type: Number,
-      required: true,
-    },
+    }
   });
 
-  const emits = defineEmits(['edit', 'delete', 'duplicate', 'toggleimportant' , 'update:page', 'update:items-per-page']);
+  defineEmits(['edit', 'delete', 'duplicate', 'toggleimportant']);
 
-  function onPageUpdate(newPage) {
-    emits('update:page', newPage);
-  }
-
-  function onItemsPerPageUpdate(newItemsPerPage) {
-    emits('update:items-per-page', newItemsPerPage);
-  }
+  const currentPage = defineModel('currentPage');
+  const itemsPerPage = defineModel('itemsPerPage');
   </script>
