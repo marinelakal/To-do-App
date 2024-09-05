@@ -15,6 +15,7 @@
               :columns="[column]"
               :showDescriptionContent="showDescriptionContent"
               :truncatedDescription="truncatedDescription"
+              :truncatedName="truncatedName"
             />
           </td>
           <!-- Για number, χρησιμοποιούμε το BaseChip -->
@@ -63,6 +64,10 @@
       default: false,
     },
     truncatedDescription: {
+      type: Function,
+      required: true,
+    },
+    truncatedName: {
       type: Function,
       required: true,
     },
