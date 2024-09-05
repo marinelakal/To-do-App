@@ -21,8 +21,14 @@
                 </template>
                 <template #content>
                   <div class="text-body-1" style="color: #555555;">
-                    This application helps you manage your tasks efficiently. You can navigate through the menu to add new tasks, categorize them, and keep track of your to-dos. Get started by clicking on "Tasks" or "Categories" in the navigation drawer.
+                    This application helps you manage your tasks efficiently. You can navigate through the menu to add new tasks, categorize them, and keep track of your to-dos. Get started by clicking "Get Started" or directly from "Tasks" or "Categories" in the navigation drawer.
                   </div>
+                  <BaseButton
+                    label="Get Started"
+                    color="primary"
+                    :disabled="false"
+                    to="/tasks"
+                  />
                 </template>
               </BaseCard>
 
@@ -35,6 +41,7 @@
 
 <script setup>
 import BaseCard from '../Base/BaseCard.vue';
+import BaseButton from '../Base/BaseButton.vue';
 </script>
 
 <style scoped>
