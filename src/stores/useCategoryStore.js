@@ -10,12 +10,6 @@ export const useCategoryStore = defineStore('category', {
     itemsPerPage: 10,
   }),
   actions: {
-    setPage(page) {
-      this.currentPage = page;
-    },
-    setItemsPerPage(count) {
-      this.itemsPerPage = count;
-    },
     addCategory(name) {
       if (name && !this.categories.some(category => category.name === name)) {
         this.categories.push({ name });

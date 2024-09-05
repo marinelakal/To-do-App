@@ -28,13 +28,13 @@
           <!-- Για action, χρησιμοποιούμε το BaseIcons -->
           <td v-else-if="column.type === 'action'">
             <BaseIcons
-              :index="index"
+              :index="index + (currentPage - 1) * itemsPerPage"
               :important="item?.important"
               :icons="icons"
-              @edit="$emit('edit', calculateGlobalIndex(index))"
-              @delete="$emit('delete', calculateGlobalIndex(index))"
-              @duplicate="$emit('duplicate', calculateGlobalIndex(index))"
-              @toggleimportant="$emit('toggleimportant', calculateGlobalIndex(index))"
+              @edit="$emit('edit', index + (currentPage - 1) * itemsPerPage)"
+              @delete="$emit('delete', index + (currentPage - 1) * itemsPerPage)"
+              @duplicate="$emit('duplicate', index + (currentPage - 1) * itemsPerPage)"
+              @toggleimportant="$emit('toggleimportant', index + (currentPage - 1) * itemsPerPage)"
             />
           </td>
         </template>
@@ -44,7 +44,7 @@
   </template>
 
   <script setup>
-  import { defineProps, defineEmits, ref } from 'vue';
+  import { defineProps, defineEmits, defineModel } from 'vue';
   import BaseTableRows from './BaseTableRows.vue';
   import BaseChip from './BaseChip.vue';
   import BaseIcons from './BaseIcons.vue';
@@ -73,15 +73,11 @@
     icons: {
       type: Array,
       required: true,
-    },
+    }
   });
 
   defineEmits(['edit', 'delete', 'duplicate', 'toggleimportant']);
 
-  const currentPage = ref(1);
-  const itemsPerPage = ref(10);
-
-  function calculateGlobalIndex(index) {
-    return index + (currentPage.value - 1) * itemsPerPage.value;
-  }
+  const currentPage = defineModel('currentPage');
+  const itemsPerPage = defineModel('itemsPerPage');
   </script>
