@@ -5,6 +5,7 @@
         :headers="headers"
         :items="categoryStore.categories"
         :icons="['edit', 'delete']"
+        :truncatedName="truncatedName"
         v-model:currentPage="categoryStore.currentPage" 
         v-model:itemsPerPage="categoryStore.itemsPerPage"
         @edit="editItem"
@@ -59,6 +60,10 @@ function closeDeleteDialog() {
 function editItem(index) {
   categoryStore.setEditCategoryIndex(index);
   router.push('/create');
+}
+
+function truncatedName(name) {
+  return name.length > 20 ? name.substring(0, 20) + '...' : name;
 }
 
 </script>
