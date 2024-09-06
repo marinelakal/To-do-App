@@ -18,30 +18,6 @@
       @confirmDelete="confirmDelete"
     />
   </div>
-
-  <v-btn
-      @click="snackbar = true"
-      class="info-btn"
-    >
-      Info
-    </v-btn>
-    <v-snackbar
-      v-model="snackbar"
-      class="snackbar"
-    >
-      {{ text }}
-
-      <template v-slot:actions>
-        <v-btn
-          color="pink"
-          variant="text"
-          @click="snackbar = false"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
-
 </template>
 
 <script setup>
@@ -51,8 +27,6 @@ import { useRouter } from 'vue-router';
 import BaseDataTable from '../Base/BaseDataTable.vue';
 import BaseDeleteConfirmationDialog from '../Base/BaseDeleteConfirmationDialog.vue';
 
-const snackbar = ref(false)
-const text = ref(`Hello, here you can add categories to categorise your todos.`)
 
 const router = useRouter();
 const categoryStore = useCategoryStore();

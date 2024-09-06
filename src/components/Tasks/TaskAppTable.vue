@@ -45,31 +45,8 @@
       v-model="dialogDelete"
       @confirmDelete="confirmDelete"
     />
+    
   </div>
-
-  <v-btn
-      @click="snackbar = true"
-      class="info-btn"
-    >
-      Info
-    </v-btn>
-    <v-snackbar
-      v-model="snackbar"
-      class="snackbar"
-    >
-      {{ text }}
-
-      <template v-slot:actions>
-        <v-btn
-          color="pink"
-          variant="text"
-          @click="snackbar = false"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
-
 </template>
 
 <script setup>
@@ -82,8 +59,6 @@ import BaseDeleteConfirmationDialog from '../Base/BaseDeleteConfirmationDialog.v
 import BaseCard from '../Base/BaseCard.vue';
 import BaseButton from '../Base/BaseButton.vue'
 
-const snackbar = ref(false)
-const text = ref(`Hello, here you can add todos.`)
 
 // Reactive variables
 const dialogDelete = ref(false);
