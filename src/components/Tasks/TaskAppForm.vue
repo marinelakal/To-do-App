@@ -89,7 +89,7 @@ const descriptionRules = [
 ];
 
 const selectRules = [
-  value => (value ? true : 'Category is required.')
+  value => (value && value !== 'Uncategorized' ? true : 'Category is required.')
 ];
 
 const criticalityMap = {
@@ -99,6 +99,8 @@ const criticalityMap = {
 };
 
 const criticality = computed(() => criticalityMap[radios.value]);
+
+const defaultCategory = 'Uncategorized';
 
 // Access the stores
 const todoStore = useTodoListStore();
@@ -139,7 +141,7 @@ function resetForm() {
   name.value = '';
   description.value = '';
   radios.value = 'one';
-  select.value = '';
+  select.value = defaultCategory; 
   date.value = null;
   valid.value = false;
   todoStore.clearEditTaskIndex();
