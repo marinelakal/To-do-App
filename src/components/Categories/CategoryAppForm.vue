@@ -4,7 +4,7 @@
     submitButtonLabel="Submit"
     cancelButtonLabel="Cancel"
     submitButtonColor="#004080"
-    cancelButtonColor="#87ceeb"
+    cancelButtonColor="#D3D3D3"
     @submit="submitForm"    
     @cancel="handleCancel" 
   >
