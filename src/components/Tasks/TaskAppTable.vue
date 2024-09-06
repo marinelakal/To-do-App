@@ -69,9 +69,9 @@ const showDescriptionContent = ref(false);
 
 // Non-reactive variable
 const headers = [
-  { align: 'start', key: 'name', visible: true, showContent: true , sortable: false, title: 'Name' , type: 'text' },
+  { align: 'start', key: 'name', visible: true, showContent: true , sortable: false, title: 'Title' , type: 'text' },
   { key: 'description', visible: true, showContent: true , title: 'Description' , type: 'text'},
-  { key: 'date', visible: true, showContent: true , title: 'Date' , type: 'date' },
+  { key: 'date', visible: true, showContent: true , title: 'Deadline' , type: 'date' },
   { key: 'category', visible: true, showContent: true , title: 'Category' , type: 'text' },
   { key: 'criticality', visible: false, showContent: true , title: 'Criticality' , type: 'number'},
   { key: 'actions', visible: false, showContent: true , title: 'Actions' ,type: 'action' },
