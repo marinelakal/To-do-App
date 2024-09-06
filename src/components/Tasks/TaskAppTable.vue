@@ -46,6 +46,30 @@
       @confirmDelete="confirmDelete"
     />
   </div>
+
+  <v-btn
+      @click="snackbar = true"
+      class="info-btn"
+    >
+      Info
+    </v-btn>
+    <v-snackbar
+      v-model="snackbar"
+      class="snackbar"
+    >
+      {{ text }}
+
+      <template v-slot:actions>
+        <v-btn
+          color="pink"
+          variant="text"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
 </template>
 
 <script setup>
@@ -57,6 +81,9 @@ import BaseDataTable from '../Base/BaseDataTable.vue';
 import BaseDeleteConfirmationDialog from '../Base/BaseDeleteConfirmationDialog.vue';
 import BaseCard from '../Base/BaseCard.vue';
 import BaseButton from '../Base/BaseButton.vue'
+
+const snackbar = ref(false)
+const text = ref(`Hello, here you can add todos.`)
 
 // Reactive variables
 const dialogDelete = ref(false);
@@ -207,6 +234,22 @@ function editItem(index) {
 }
 
 .v-btn:hover {
+  background-color: #0056b3;
+  color: #ffffff;
+}
+
+.info-btn {
+  border-radius: 20px;
+  transition: background-color 0.3s, color 0.3s;
+  top: 0;
+  right: 0;
+  position: fixed;
+  margin: 16px;
+  width: 300px;
+  z-index: 9999;
+}
+
+.info-btn:hover {
   background-color: #0056b3;
   color: #ffffff;
 }
