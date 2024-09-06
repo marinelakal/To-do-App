@@ -7,6 +7,12 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      body.no-scroll {
+        overflow: hidden !important;
+        height: 100vh !important;
+      }
+    </style>
   </head>
   <body>
     <noscript>
