@@ -31,6 +31,11 @@
             Categories
           </v-list-item-title>
         </v-list-item>
+        <v-list-item to="/assignees" class="nav-list-item">
+          <v-list-item-title class="nav-title">
+            Assignees
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-main>
