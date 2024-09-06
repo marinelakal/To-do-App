@@ -28,6 +28,7 @@
           :search="search"
           :showDescriptionContent="showDescriptionContent"
           :truncatedDescription="truncatedDescription"
+          :truncatedName="truncatedName"
           :getColor="getColor"
           :icons="['edit', 'delete', 'duplicate', 'toggleImportant']"
           v-model:currentPage="todoStore.currentPage"
@@ -119,6 +120,10 @@ function toggleDescriptionContent() {
 
 function truncatedDescription(description) {
   return description.length > 20 ? description.substring(0, 20) + '...' : description;
+}
+
+function truncatedName(name) {
+  return name.length > 70 ? name.substring(0, 70) + '...' : name;
 }
 
 function toggleImportant(index) {
