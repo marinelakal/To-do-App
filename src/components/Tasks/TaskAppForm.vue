@@ -12,7 +12,7 @@
     <template #content>
       <BaseTextField
         v-model="name"
-        label="Name"
+        label="Title"
         :rules="nameRules"
       ></BaseTextField>
 
@@ -25,7 +25,7 @@
       <BaseDateInput
         v-model="date"
         :min="minDate"
-        label="Select a date"
+        label="Deadline"
         variant="solo"
       ></BaseDateInput>
 
