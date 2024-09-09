@@ -21,8 +21,10 @@
   >
     <BaseButton
       v-if="showImportButton"
-      label="Create New Task"
+      icon="mdi-plus"
+      color="#65bbae"
       @click="navigateToForm"
+      class="import-button"
     />
     <router-view />
   </v-container>
@@ -55,5 +57,21 @@ function navigateToForm() {
 .info-button {
   background-color: #1565C0; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.import-button{
+  position: absolute;
+  right: 16px;
+  bottom: 20px;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  padding: 0;
+}
+
+.import-button:hover {
+  background-color: #293d3a;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
 </style>
