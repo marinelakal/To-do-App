@@ -22,6 +22,9 @@ import TaskAppForm from './components/Tasks/TaskAppForm.vue';
 import CategoryApp from './components/Categories/CategoryApp.vue';
 import CategoryAppTable from './components/Categories/CategoryAppTable.vue';
 import CategoryAppForm from './components/Categories/CategoryAppForm.vue';
+import AssigneeApp from './components/Assignees/AssigneeApp.vue';
+import AssigneeAppTable from './components/Assignees/AssigneeAppTable.vue';
+import AssigneeAppForm from './components/Assignees/AssigneeAppForm.vue';
 
 // Create Pinia instance
 const pinia = createPinia();
@@ -59,6 +62,22 @@ const router = createRouter({
           path: '/create',
           name: 'CategoryForm',
           component: CategoryAppForm,
+        },
+      ],
+    },
+    {
+      path: '/assignees',
+      component: AssigneeApp,
+      children: [
+        {
+          path: '',
+          name: 'AssigneeTable',
+          component: AssigneeAppTable,
+        },
+        {
+          path: '/make',
+          name: 'AssigneeForm',
+          component: AssigneeAppForm,
         },
       ],
     },

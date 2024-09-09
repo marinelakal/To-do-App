@@ -18,6 +18,9 @@
             <li class="nav-tab">
               <router-link to="/categories" class="nav-link">Categories</router-link>
             </li>
+            <li class="nav-tab">
+              <router-link to="/assignees" class="nav-link">Assignee</router-link>
+            </li>
           </v-tab>
         </v-tabs>
       </v-col>
