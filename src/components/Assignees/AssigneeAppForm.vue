@@ -118,6 +118,21 @@ function submit() {
     important: false
   };
 
+  const isDuplicate = assigneesStore.assignees.some(
+    (assignee, index) =>
+      index !== assigneesStore.editAssigneeIndex && 
+      assignee.firstname === submission.firstname &&
+      assignee.lastname === submission.lastname &&
+      assignee.email === submission.email &&
+      assignee.phone === submission.phone
+  );
+
+  if (isDuplicate) {
+    alert('An assignee with the same details already exists!');
+    return; 
+  }
+
+
   if (assigneesStore.editAssigneeIndex !== null && assigneesStore.assignees[assigneesStore.editAssigneeIndex]) {
     // Update existing assignee
     assigneesStore.updateAssignee(assigneesStore.editAssigneeIndex, submission);
