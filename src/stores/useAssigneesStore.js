@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { useTodoListStore } from '@/stores/useTodoListStore';
 
 export const useAssigneesStore = defineStore('assignee', {
     state: () => ({
@@ -25,8 +26,9 @@ export const useAssigneesStore = defineStore('assignee', {
               console.error('Invalid index for deletion:', index);
               return;
             }
-      
+            const oldAssignee = this.assignees[index].firstname;
             this.assignees.splice(index, 1);
+            this.updateTasksWithAssignees(oldAssignee, null);
         },
         updateAssignee(index, updatedAssignee) {
             if (index < 0 || index >= this.assignees.length) {
@@ -38,8 +40,9 @@ export const useAssigneesStore = defineStore('assignee', {
               console.error('Invalid updated assignee:', updatedAssignee);
               return;
             }
-      
+            const oldAssignee = this.assignees[index].firstname;
             this.assignees[index] = { ...this.assignees[index], ...updatedAssignee };
+            this.updateTasksWithAssignees(oldAssignee, updatedAssignee);
         },
         setEditAssigneeIndex(index) {
             this.editAssigneeIndex = index;
@@ -47,5 +50,18 @@ export const useAssigneesStore = defineStore('assignee', {
         clearEditAssigneeIndex() {
             this.editAssigneeIndex = null;
         },
+        updateTasksWithAssignees(oldAssignee, newAssignee) {
+          const taskStore = useTodoListStore();
+          
+          taskStore.todoList = taskStore.todoList.map(task => {
+            if (task.assignee === oldAssignee) {
+              return {
+                ...task,
+                assignee: newAssignee ? newAssignee.firstname : null,
+              };
+            }
+            return task;
+          });
+        }
       },
 });
