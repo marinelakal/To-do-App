@@ -5,6 +5,7 @@ import 'vuetify/styles';
 import '@mdi/font/css/materialdesignicons.css';
 import { createVuetify } from 'vuetify';
 import { VDateInput } from 'vuetify/labs/VDateInput';
+import { VCalendar } from 'vuetify/labs/VCalendar'
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 
@@ -19,6 +20,7 @@ import App from './App.vue';
 import TaskApp from './components/Tasks/TaskApp.vue';
 import TaskAppTable from './components/Tasks/TaskAppTable.vue';
 import TaskAppForm from './components/Tasks/TaskAppForm.vue';
+import TaskAppCalendar from './components/Tasks/TaskAppCalendar.vue';
 import CategoryApp from './components/Categories/CategoryApp.vue';
 import CategoryAppTable from './components/Categories/CategoryAppTable.vue';
 import CategoryAppForm from './components/Categories/CategoryAppForm.vue';
@@ -46,6 +48,11 @@ const router = createRouter({
           path: '/import',
           name: 'TaskForm',
           component: TaskAppForm,
+        },
+        {
+          path: '/calendar',
+          name: 'TaskCalendar',
+          component: TaskAppCalendar,
         },
       ],
     },
@@ -92,6 +99,7 @@ const vuetify = createVuetify({
   components: {
     ...components,
     VDateInput,
+    VCalendar,
   },
   directives,
 });
