@@ -1,6 +1,6 @@
 <template>
     <div>
-      <v-sheet class="d-flex" height="54" tile>
+      <v-sheet class="d-flex" width="800" height="54" tile>
         <v-select
           v-model="type"
           :items="types"
