@@ -36,6 +36,11 @@
             Assignees
           </v-list-item-title>
         </v-list-item>
+        <v-list-item to="/calendar" class="nav-list-item">
+          <v-list-item-title class="nav-title">
+            Calendar
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-main>
