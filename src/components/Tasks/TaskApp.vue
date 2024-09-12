@@ -27,23 +27,25 @@
       class="import-button"
     />
 
-    <div class="nav-buttons-wrapper">
-      <BaseButton
-        v-if="showTableButton"
-        @click="navigateTo('/tasks')" 
-        icon="mdi-table"
-        color="primary" 
-        class="nav-button"
-      />
+    <v-toolbar
+      flat
+      class="custom-toolbar"
+      dense
+    >
+      <v-spacer></v-spacer>
 
-      <BaseButton
-        v-if="showCalendarButton"
-        @click="navigateTo('/calendar')" 
-        icon="mdi-calendar" 
-        color="primary" 
-        class="nav-button"
-      />
-    </div>
+      <v-toolbar-items class="toolbar-items">
+        <v-btn @click="navigateTo('/tasks')" icon>
+          <v-icon>mdi-table</v-icon>
+        </v-btn>
+
+        <v-btn @click="navigateTo('/calendar')" icon>
+          <v-icon>mdi-calendar</v-icon>
+        </v-btn>
+      </v-toolbar-items>
+
+      <v-spacer></v-spacer>
+    </v-toolbar>
     <router-view />
   </v-container>
 </template>
@@ -58,16 +60,6 @@ const route = useRoute();
 
 // Determine if the Import New Task button should be shown
 const showImportButton = computed(() => {
-  return [ '/tasks', '/calendar'].includes(route.path);
-});
-
-// Determine if the Go to Table button should be shown
-const showTableButton = computed(() => {
-  return [ '/tasks', '/calendar'].includes(route.path);
-});
-
-// Determine if the Go to Calendar button should be shown
-const showCalendarButton = computed(() => {
   return [ '/tasks', '/calendar'].includes(route.path);
 });
 
@@ -104,27 +96,23 @@ function navigateTo(path) {
   padding: 0;
 }
 
-
-.nav-buttons-wrapper {
-  position: absolute;
-  right: 16px;
-  margin-top: 10px;
+.custom-toolbar {
+  background-color: transparent;
+  box-shadow: none;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
-.nav-button {
-  border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  min-width: 56px;
-  padding: 0;
+.toolbar-items {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
 }
 
 .import-button:hover, .nav-button:hover {
   background-color: #293d3a;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
-
 </style>
