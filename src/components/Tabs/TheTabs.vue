@@ -21,9 +21,6 @@
             <li class="nav-tab">
               <router-link to="/assignees" class="nav-link">Assignee</router-link>
             </li>
-            <li class="nav-tab">
-              <router-link to="/assignees" class="nav-link">Calendar</router-link>
-            </li>
           </v-tab>
         </v-tabs>
       </v-col>
