@@ -64,6 +64,14 @@ export const useTodoListStore = defineStore('todoList', {
         return task;
       });
     },
+    updateTasksWithAssignees(oldAssignee, newAssignee) {
+      this.todoList = this.todoList.map(task => {
+        if (task.assignee === oldAssignee) {
+          return { ...task, assignee: newAssignee };
+        }
+        return task;
+      });
+    },
     setEditTaskIndex(index) {
       this.editTaskIndex = index;
     },

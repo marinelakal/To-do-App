@@ -30,7 +30,14 @@
       ></BaseDateInput>
 
       <BaseSelect
-        v-model="select"
+        v-model="assigneeSelect"
+        label="Select Assignee"
+        :rules="selectAssigneeRules"
+        :items="assigneeNames"
+      ></BaseSelect>
+
+      <BaseSelect
+        v-model="categorySelect"
         label="Select Category"
         :rules="selectRules"
         :items="categoryNames"
@@ -69,13 +76,13 @@ import BaseTextArea from '../Base/BaseTextArea.vue';
 import BaseSelect from '../Base/BaseSelect.vue';
 import BaseDateInput from '../Base/BaseDateInput.vue';
 import BaseForm from '../Base/BaseForm.vue';
+import { useAssigneesStore } from '@/stores/useAssigneesStore';
 
 // Reactive variables
 const valid = ref(false);
 const name = ref('');
 const description = ref('');
 const radios = ref('one');
-const select = ref('');
 const date = ref(null);
 const minDate = ref(new Date().toISOString().split('T')[0]);
 
@@ -92,6 +99,10 @@ const selectRules = [
   value => (value && value !== 'Uncategorized' ? true : 'Category is required.')
 ];
 
+const selectAssigneeRules = [
+  value => (value && value !== 'No assignee' ? true : 'Assignee is required.')
+];
+
 const criticalityMap = {
   one: 'Low',
   two: 'Medium',
@@ -101,10 +112,12 @@ const criticalityMap = {
 const criticality = computed(() => criticalityMap[radios.value]);
 
 const defaultCategory = 'Uncategorized';
+const defaultAssignee = 'No assignee';
 
 // Access the stores
 const todoStore = useTodoListStore();
 const categoryStore = useCategoryStore();
+const assigneesStore = useAssigneesStore(); 
 
 // Access the router instance
 const router = useRouter();
@@ -114,8 +127,14 @@ const categoryNames = computed(() =>
   categoryStore.categories.map(category => category.name)
 );
 
+const assigneeNames = computed(() =>
+  assigneesStore.assignees.map(assignee => assignee.firstname)
+);
+
 // Refs
 const form = ref(null);
+const assigneeSelect = ref('');
+const categorySelect = ref('');
 
 watch(
   () => todoStore.editTaskIndex,
@@ -125,7 +144,8 @@ watch(
       name.value = task.name;
       description.value = task.description;
       radios.value = Object.keys(criticalityMap).find(key => criticalityMap[key] === task.criticality);
-      select.value = task.category;
+      assigneeSelect.value = task.assignee;
+      categorySelect.value = task.category;
       // Convert stored date string back to Date object, treating it as local
       date.value = task.date ? new Date(`${task.date}T00:00:00`) : null;
     } else {
@@ -141,7 +161,8 @@ function resetForm() {
   name.value = '';
   description.value = '';
   radios.value = 'one';
-  select.value = defaultCategory; 
+  assigneeSelect.value = defaultAssignee;
+  categorySelect.value = defaultCategory; 
   date.value = null;
   valid.value = false;
   todoStore.clearEditTaskIndex();
@@ -162,7 +183,8 @@ function submit() {
       name: name.value,
       description: description.value,
       date: formattedDate,
-      category: select.value,
+      assignee: assigneeSelect.value,
+      category: categorySelect.value,
       criticality: criticality.value,
       important: false
     };

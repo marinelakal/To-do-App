@@ -72,6 +72,7 @@ const headers = [
   { align: 'start', key: 'name', visible: true, showContent: true , sortable: false, title: 'Title' , type: 'text' },
   { key: 'description', visible: true, showContent: true , title: 'Description' , type: 'text'},
   { key: 'date', visible: true, showContent: true , title: 'Deadline' , type: 'date' },
+  { key: 'assignee', visible: true, showContent: true , title: 'Assignee' , type: 'text' },
   { key: 'category', visible: true, showContent: true , title: 'Category' , type: 'text' },
   { key: 'criticality', visible: false, showContent: true , title: 'Criticality' , type: 'number'},
   { key: 'actions', visible: false, showContent: true , title: 'Actions' ,type: 'action' },
@@ -93,6 +94,7 @@ const filteredItems = computed(() => {
       item?.name?.includes(search.value) ||
       (showDescriptionContent.value && item?.description?.includes(search.value)) ||
       item?.date?.includes(search.value) ||
+      item?.assignee?.includes(search.value) ||
       item?.category?.includes(search.value) ||
       item?.criticality?.includes(search.value)
     );
