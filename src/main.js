@@ -40,7 +40,7 @@ const router = createRouter({
       component: TaskApp,
       children: [
         {
-          path: '',
+          path: '/table',
           name: 'TaskTable',
           component: TaskAppTable,
         },
