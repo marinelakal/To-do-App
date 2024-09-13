@@ -183,9 +183,11 @@ function editItem(index) {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233);
   overflow: hidden;
+  width: 100%;
 }
 
 .v-data-table {
+  width: 100%;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -195,10 +197,10 @@ function editItem(index) {
   display: flex;
   justify-content: center;
   background-color: #f5f5f5;
-  max-width: 1200px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233);
+  width: 70%;
 }
 
 .table-container-show-hide{
@@ -249,5 +251,6 @@ function editItem(index) {
 
 .table-container td {
   text-align: center;
+  white-space: nowrap;
 }
 </style>
