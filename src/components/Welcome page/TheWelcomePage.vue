@@ -47,9 +47,10 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .welcome-container {
-  background-color: #f8f9fa;
-  height: 100vh;
-  overflow: hidden;
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  
 }
 
 .fill-height {
