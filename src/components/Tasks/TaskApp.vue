@@ -1,5 +1,5 @@
 <template>
-  <BaseModal class="information-button" :title="'Information'">
+  <BaseModal :title="'Information'">
     Hello, here you can add new todos to keep track of everything you need to accomplish. Use the "+" button to add new tasks. View your tasks in a table format for detailed organization or switch to the calendar view to see your tasks scheduled over time.
   </BaseModal>
   <v-container
@@ -22,12 +22,12 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="toolbar-items">
-        <v-btn @click="navigateTo('/tasks')" icon>
-          <v-icon>mdi-table</v-icon>
+        <v-btn @click="navigateTo('/tasks')" class="toolbar-btn" icon>
+          <v-icon color="black">mdi-table</v-icon>
         </v-btn>
 
-        <v-btn @click="navigateTo('/calendar')" icon>
-          <v-icon>mdi-calendar</v-icon>
+        <v-btn @click="navigateTo('/calendar')" class="toolbar-btn" icon>
+          <v-icon color="black">mdi-calendar</v-icon>
         </v-btn>
       </v-toolbar-items>
 
@@ -75,17 +75,28 @@ function navigateTo(path) {
 
 .custom-toolbar {
   background-color: transparent;
-  box-shadow: none;
+  border-radius: 50px;
+  box-shadow: 0px 4px 10px rgba(202, 173, 6, 0.322);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60%;
+  width: 20%;
 }
 
 .toolbar-items {
   display: flex;
   justify-content: center;
   gap: 24px;
+}
+
+.toolbar-items {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.toolbar-btn:hover {
+  background-color: transparent;
 }
 
 .import-button:hover, .nav-button:hover {
@@ -100,6 +111,12 @@ function navigateTo(path) {
     bottom: 20px;
     width: 52px;
     height: 52px;
+  }
+}
+
+@media (max-width: 390px) {
+  .custom-toolbar {
+    width: 60%;
   }
 }
 

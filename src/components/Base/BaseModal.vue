@@ -71,7 +71,7 @@
   <style scoped>
   .info-dialog-wrapper {
     position: absolute;
-    margin-top: 10px;
+    margin-top: 25px;
     right: 16px;
   }
   
