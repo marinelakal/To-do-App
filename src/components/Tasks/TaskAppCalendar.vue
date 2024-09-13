@@ -12,8 +12,10 @@
         ></v-select>
         <v-select
           v-if="['month', 'week', 'day'].includes(type)"
-          v-model="weekday"
+          v-model="selectedWeekday"
           :items="weekdays"
+          item-text="title"
+          item-value="title" 
           class="ma-2"
           label="weekdays"
           variant="outlined"
@@ -45,7 +47,7 @@
   </template>
 
   <script setup>
-  import { ref, onMounted, watch } from 'vue'
+  import { ref, onMounted, watch , computed } from 'vue'
   import { useTodoListStore } from '@/stores/useTodoListStore'
 
   const todoStore = useTodoListStore()
@@ -60,6 +62,19 @@
     { title: 'Mon, Wed, Fri', value: [1, 3, 5] },
   ]
 
+  // Computed property to get and set the weekday title
+  const selectedWeekday = computed({
+    get() {
+      const found = weekdays.find(w => JSON.stringify(w.value) === JSON.stringify(weekday.value));
+      return found ? found.title : '';
+    },
+    set(title) {
+      const found = weekdays.find(w => w.title === title);
+      if (found) {
+        weekday.value = found.value;
+      }
+    }
+  });
 
   const events = ref([])
   
