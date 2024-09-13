@@ -22,12 +22,12 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="toolbar-items">
-        <v-btn @click="navigateTo('/tasks')" icon>
-          <v-icon>mdi-table</v-icon>
+        <v-btn @click="navigateTo('/tasks')" class="toolbar-btn" icon>
+          <v-icon color="black">mdi-table</v-icon>
         </v-btn>
 
-        <v-btn @click="navigateTo('/calendar')" icon>
-          <v-icon>mdi-calendar</v-icon>
+        <v-btn @click="navigateTo('/calendar')" class="toolbar-btn" icon>
+          <v-icon color="black">mdi-calendar</v-icon>
         </v-btn>
       </v-toolbar-items>
 
@@ -48,7 +48,7 @@ const route = useRoute();
 
 // Determine if the Import New Task button should be shown
 const showImportButton = computed(() => {
-  return [ '/tasks', '/calendar'].includes(route.path);
+  return ['/tasks', '/calendar'].includes(route.path);
 });
 
 // Function to navigate to the Task Form page
@@ -62,7 +62,7 @@ function navigateTo(path) {
 </script>
 
 <style scoped>
-.import-button{
+.import-button {
   position: absolute;
   right: 16px;
   bottom: 20px;
@@ -75,11 +75,12 @@ function navigateTo(path) {
 
 .custom-toolbar {
   background-color: transparent;
-  box-shadow: none;
+  border-radius: 50px;
+  box-shadow: 0px 4px 10px rgba(202, 173, 6, 0.322);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 20%;
 }
 
 .toolbar-items {
@@ -88,8 +89,36 @@ function navigateTo(path) {
   gap: 24px;
 }
 
+.toolbar-items {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.toolbar-btn:hover {
+  background-color: transparent;
+}
+
 .import-button:hover, .nav-button:hover {
   background-color: #293d3a;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
+
+
+@media (max-width: 390px) {
+  .import-button {
+    right: 10px;
+    bottom: 20px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 390px) {
+  .custom-toolbar {
+    width: 60%;
+  }
+}
+
+
 </style>
