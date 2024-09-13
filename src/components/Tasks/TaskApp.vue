@@ -1,5 +1,5 @@
 <template>
-  <BaseModal :title="'Information'">
+  <BaseModal class="information-button" :title="'Information'">
     Hello, here you can add new todos to keep track of everything you need to accomplish. Use the "+" button to add new tasks. View your tasks in a table format for detailed organization or switch to the calendar view to see your tasks scheduled over time.
   </BaseModal>
   <v-container
@@ -48,7 +48,7 @@ const route = useRoute();
 
 // Determine if the Import New Task button should be shown
 const showImportButton = computed(() => {
-  return [ '/tasks', '/calendar'].includes(route.path);
+  return ['/tasks', '/calendar'].includes(route.path);
 });
 
 // Function to navigate to the Task Form page
@@ -62,7 +62,7 @@ function navigateTo(path) {
 </script>
 
 <style scoped>
-.import-button{
+.import-button {
   position: absolute;
   right: 16px;
   bottom: 20px;
@@ -91,5 +91,25 @@ function navigateTo(path) {
 .import-button:hover, .nav-button:hover {
   background-color: #293d3a;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+@media (max-width: 390px) {
+  .import-button {
+    right: 10px;
+    bottom: 20px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
+
+@media (max-width: 390px) {
+  .information-button {
+    right: 8px;
+    width: 52px;
+    height: 52px;
+    bottom: 680px;
+  }
 }
 </style>

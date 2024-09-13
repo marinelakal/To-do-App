@@ -1,49 +1,61 @@
 <template>
-    <div>
-      <v-sheet class="d-flex" width="800" height="54" tile>
-        <v-select
-          v-model="type"
-          :items="types"
-          class="ma-2"
-          label="View Mode"
-          variant="outlined"
-          dense
-          hide-details
-        ></v-select>
-        <v-select
-          v-if="['month', 'week', 'day'].includes(type)"
-          v-model="selectedWeekday"
-          :items="weekdays"
-          item-text="title"
-          item-value="title" 
-          class="ma-2"
-          label="weekdays"
-          variant="outlined"
-          dense
-          hide-details
-        ></v-select>
-      </v-sheet>
+    <v-container fluid>
+      <v-row>
+        <v-col cols="12" md="8" lg="6">
+          <v-sheet class="d-flex" :width="screenWidth < 960 ? '100%' : '800px'" height="54" tile>
+            <v-select
+              v-model="type"
+              :items="types"
+              class="ma-2"
+              label="View Mode"
+              variant="outlined"
+              dense
+              hide-details
+            ></v-select>
+            <v-select
+              v-if="['month', 'week', 'day'].includes(type)"
+              v-model="selectedWeekday"
+              :items="weekdays"
+              item-text="title"
+              item-value="title"
+              class="ma-2"
+              label="weekdays"
+              variant="outlined"
+              dense
+              hide-details
+            ></v-select>
+          </v-sheet>
+        </v-col>
+      </v-row>
 
-        <div v-if="type === 'date range'" class="d-flex justify-center">
-          <v-date-input
-            v-model="selectedRange"
-            label="Select Date Range"
-            max-width="368"
-            multiple="range"
-            class="date-range"
-          ></v-date-input>
-        </div>
+      <v-row>
+        <v-col cols="12">
+          <div v-if="type === 'date range'" class="d-flex justify-center">
+            <v-date-input
+              v-model="selectedRange"
+              label="Select Date Range"
+              max-width="368"
+              multiple="range"
+              class="date-range"
+            ></v-date-input>
+          </div>
+        </v-col>
+      </v-row>
 
-      <v-sheet>
-        <v-calendar
-          ref="calendar"
-          v-model="value"
-          :events="calendarEvents"
-          :view-mode="type !== 'date range' ? type : 'month'"
-          :weekdays="weekday"
-        ></v-calendar>
-      </v-sheet>
-    </div>
+      <v-row>
+        <v-col cols="12">
+          <v-sheet>
+            <v-calendar
+              ref="calendar"
+              v-model="value"
+              :events="calendarEvents"
+              :view-mode="type !== 'date range' ? type : 'month'"
+              :weekdays="weekday"
+            ></v-calendar>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-container>
   </template>
 
   <script setup>
@@ -61,6 +73,12 @@
     { title: 'Mon - Fri', value: [1, 2, 3, 4, 5] },
     { title: 'Mon, Wed, Fri', value: [1, 3, 5] },
   ]
+
+  // Screen width ref to adjust the layout
+  const screenWidth = ref(window.innerWidth)
+  window.addEventListener('resize', () => {
+    screenWidth.value = window.innerWidth
+  })
 
   // Computed property to get and set the weekday title
   const selectedWeekday = computed({
@@ -158,4 +176,11 @@
   .date-range{
     margin-top:20px;
   }
+
+  @media only screen and (max-width: 600px) {
+    .date-range {
+      max-width: 100% !important;
+    }
+  }
+  
   </style>

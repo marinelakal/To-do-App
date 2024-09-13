@@ -6,7 +6,7 @@
           <v-col cols="12" md="8" lg="6">
             <BaseCard class="pa-6" style="max-width: 600px;">
               <template #title>
-                <div class="text-h4 font-weight-bold" style="color: #65bbae;">
+                <div class="title-text font-weight-bold" style="color: #65bbae;">
                   Welcome to the TODO App!
                 </div>
               </template>
@@ -50,10 +50,29 @@ onBeforeUnmount(() => {
   width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 15px;
   
 }
 
 .fill-height {
   height: 100vh;
+}
+
+@media only screen and (min-width: 600px) {
+  .title-text {
+    font-size: 30px; /* Tablets */
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .title-text {
+    font-size: 35px; /* Laptops and desktops */
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .title-text {
+    font-size: 40px; /* Large screens */
+  }
 }
 </style>
