@@ -1,20 +1,7 @@
 <template>
-  <div class="info-tooltip-wrapper">
-    <v-tooltip bottom>
-      <template v-slot:activator="{ props }">
-        <v-btn
-              icon
-              v-bind="props"
-              class="info-button"
-            >
-              <v-icon color="white">
-                mdi-information
-              </v-icon>
-            </v-btn>
-      </template>
-      <span>Hello, here you can add your todos.</span>
-    </v-tooltip>
-  </div>
+  <BaseModal :title="'Information'">
+    Hello, here you can add new todos to keep track of everything you need to accomplish. Use the "+" button to add new tasks. View your tasks in a table format for detailed organization or switch to the calendar view to see your tasks scheduled over time.
+  </BaseModal>
   <v-container
     class="d-flex flex-column align-center justify-center"
     fill-height
@@ -54,6 +41,7 @@
 import { computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import BaseButton from '../Base/BaseButton.vue';
+import BaseModal from '../Base/BaseModal.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -74,17 +62,6 @@ function navigateTo(path) {
 </script>
 
 <style scoped>
-.info-tooltip-wrapper {
-  position: absolute;
-  margin-top: 10px;
-  right: 16px;
-}
-
-.info-button {
-  background-color: #1565C0; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
 .import-button{
   position: absolute;
   right: 16px;
