@@ -79,7 +79,7 @@ function navigateTo(path) {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 60%;
 }
 
 .toolbar-items {
@@ -104,12 +104,4 @@ function navigateTo(path) {
 }
 
 
-@media (max-width: 390px) {
-  .information-button {
-    right: 8px;
-    width: 52px;
-    height: 52px;
-    bottom: 680px;
-  }
-}
 </style>
