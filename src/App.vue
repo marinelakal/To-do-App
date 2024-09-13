@@ -12,7 +12,8 @@
     </v-app-bar>
     <v-navigation-drawer
       app
-      floating
+      expand-on-hover
+      rail
       permanent
       width="250"
       class="nav-drawer"
@@ -21,17 +22,17 @@
         density="compact"
         nav
       >
-        <v-list-item to="/tasks" class="nav-list-item">
+        <v-list-item to="/tasks" prepend-icon="mdi-folder">
           <v-list-item-title class="nav-title">
             Tasks
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/categories" class="nav-list-item">
+        <v-list-item to="/categories" prepend-icon="mdi-folder">
           <v-list-item-title class="nav-title">
             Categories
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/assignees" class="nav-list-item">
+        <v-list-item to="/assignees" prepend-icon="mdi-folder">
           <v-list-item-title class="nav-title">
             Assignees
           </v-list-item-title>

@@ -27,22 +27,25 @@
       class="import-button"
     />
 
-    <BaseButton
-      v-if="showTableButton"
-      @click="navigateTo('/table')" 
-      :label="'Go to Table'" 
-      color="primary" 
-      class="nav-button"
-    />
+    <v-toolbar
+      flat
+      class="custom-toolbar"
+      dense
+    >
+      <v-spacer></v-spacer>
 
-    <BaseButton
-      v-if="showCalendarButton"
-      @click="navigateTo('/calendar')" 
-      :label="'Go to Calendar'" 
-      color="primary" 
-      class="nav-button"
-    />
-  
+      <v-toolbar-items class="toolbar-items">
+        <v-btn @click="navigateTo('/tasks')" icon>
+          <v-icon>mdi-table</v-icon>
+        </v-btn>
+
+        <v-btn @click="navigateTo('/calendar')" icon>
+          <v-icon>mdi-calendar</v-icon>
+        </v-btn>
+      </v-toolbar-items>
+
+      <v-spacer></v-spacer>
+    </v-toolbar>
     <router-view />
   </v-container>
 </template>
@@ -57,14 +60,8 @@ const route = useRoute();
 
 // Determine if the Import New Task button should be shown
 const showImportButton = computed(() => {
-  return [ '/table', '/calendar'].includes(route.path);
+  return [ '/tasks', '/calendar'].includes(route.path);
 });
-
-// Determine if the Go to Table button should be shown
-const showTableButton = computed(() => route.path === '/tasks');
-
-// Determine if the Go to Calendar button should be shown
-const showCalendarButton = computed(() => route.path === '/tasks');
 
 // Function to navigate to the Task Form page
 function navigateToForm() {
@@ -99,13 +96,23 @@ function navigateTo(path) {
   padding: 0;
 }
 
-.import-button:hover {
-  background-color: #293d3a;
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+.custom-toolbar {
+  background-color: transparent;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
-.nav-button {
-  display: table;
-  margin: 0 auto;
+.toolbar-items {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.import-button:hover, .nav-button:hover {
+  background-color: #293d3a;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
 </style>
