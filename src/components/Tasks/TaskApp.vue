@@ -2,10 +2,7 @@
   <BaseModal :title="'Information'">
     Hello, here you can add new todos to keep track of everything you need to accomplish. Use the "+" button to add new tasks. View your tasks in a table format for detailed organization or switch to the calendar view to see your tasks scheduled over time.
   </BaseModal>
-  <v-container
-    class="d-flex flex-column align-center justify-center"
-    fill-height
-  >
+  <UserLayout>
     <BaseButton
       v-if="showImportButton"
       icon="mdi-plus"
@@ -38,7 +35,7 @@
     />
 
     <router-view />
-  </v-container>
+  </UserLayout>
 </template>
 
 <script setup>
@@ -48,7 +45,8 @@ import { useRouter, useRoute } from 'vue-router';
 import { computed } from 'vue';
 import BaseButton from '../Base/BaseButton.vue';
 import BaseModal from '../Base/BaseModal.vue';
-import { demoTasks, demoAssignees } from '@/config.js';
+import UserLayout from '../UserLayout.vue';
+import { demoTasks, demoAssignees } from '@/demoDataConfig.js';
 
 const router = useRouter();
 const route = useRoute();

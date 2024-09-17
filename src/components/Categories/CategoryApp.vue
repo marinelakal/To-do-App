@@ -2,10 +2,8 @@
   <BaseModal :title="'Information'">
     Hello, here you can create new categories to better organize your tasks. Click the "+" button to start organizing your tasks today!
   </BaseModal>
-  <v-container
-    class="d-flex flex-column align-center justify-center"
-    fill-height
-  >
+
+  <UserLayout>
     <BaseButton
       v-if="showImportButton"
       icon="mdi-plus"
@@ -14,7 +12,7 @@
       class="import-button"
     />
     <router-view />
-  </v-container>
+  </UserLayout>
 </template>
 
 <script setup>
@@ -22,6 +20,7 @@ import { computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import BaseButton from '../Base/BaseButton.vue';
 import BaseModal from '../Base/BaseModal.vue';
+import UserLayout from '../UserLayout.vue';
 
 const router = useRouter();
 const route = useRoute();
