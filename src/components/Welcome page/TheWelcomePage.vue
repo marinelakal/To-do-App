@@ -17,6 +17,7 @@
                 <BaseButton
                   label="Get Started"
                   color="primary"
+                  labelColor="white"
                   :disabled="false"
                   to="/tasks"
                 />
