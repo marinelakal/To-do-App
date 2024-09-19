@@ -5,11 +5,11 @@
     :color="props.color"
     :disabled="props.disabled"
   >
-    <v-icon v-if="props.icon" :color="props.iconColor" left>
+    <v-icon v-if="props.icon" :color="props.iconColor" :style="{ fontSize: props.iconSize }" left>
         {{ props.icon }}
     </v-icon>
 
-    <span v-if="props.label">{{ props.label }}</span>
+    <span v-if="props.label" :style="{ color: labelColor }" >{{ props.label }}</span>
   </v-btn>
 </template>
 
@@ -28,6 +28,10 @@ const props = defineProps({
     type: String,
     default: 'white' ,
   },
+  iconSize: {
+    type: String,
+    default: '24px'
+  },
   color: {
     type: String,
     default: 'primary',
@@ -42,7 +46,11 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false
-  }
+  },
+  labelColor: {
+    type: String,
+    default: 'black',
+  },
 });
 
 

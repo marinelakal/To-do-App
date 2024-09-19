@@ -22,7 +22,7 @@
         density="compact"
         nav
       >
-        <v-list-item to="/tasks" prepend-icon="mdi-folder">
+        <v-list-item to="/tasks" prepend-icon="mdi-clipboard-check">
           <v-list-item-title class="nav-title">
             Tasks
           </v-list-item-title>
@@ -32,7 +32,7 @@
             Categories
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/assignees" prepend-icon="mdi-folder">
+        <v-list-item to="/assignees" prepend-icon="mdi-account-multiple">
           <v-list-item-title class="nav-title">
             Assignees
           </v-list-item-title>

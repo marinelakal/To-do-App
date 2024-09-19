@@ -6,6 +6,7 @@
         <span>Tasks</span>
         <BaseButton
             v-if="hasTasks"
+            labelColor="white"
             @click="toggleDescriptionContent"
             :label="descriptionButtonLabel"
             color="secondary"
@@ -50,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed , onMounted , onBeforeUnmount } from 'vue';
 import { useTodoListStore } from '@/stores/useTodoListStore';
 import { useRouter } from 'vue-router';
 import BaseTextField from '@/components/Base/BaseTextField.vue';
@@ -83,9 +84,32 @@ const todoStore = useTodoListStore();
 
 // Computed properties
 
-const descriptionButtonLabel = computed(() => 
-  showDescriptionContent.value ? 'Hide Description Content' : 'Show Description Content'
-);
+const screenWidth = ref(window.innerWidth);
+
+
+const descriptionButtonLabel = computed(() => {
+
+  if (screenWidth.value <= 600) {
+    return showDescriptionContent.value ? 'Hide' : 'Show';
+  }
+
+  return showDescriptionContent.value ? 'Hide Description Content' : 'Show Description Content';
+});
+
+
+const updateScreenWidth = () => {
+  screenWidth.value = window.innerWidth;
+};
+
+
+onMounted(() => {
+  window.addEventListener('resize', updateScreenWidth);
+});
+
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateScreenWidth);
+});
 
 const filteredItems = computed(() => {
   const items = todoStore.todoList;

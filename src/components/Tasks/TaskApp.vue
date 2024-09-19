@@ -14,41 +14,54 @@
       class="import-button"
     />
 
-    <v-toolbar
-      flat
-      class="custom-toolbar"
-      dense
-    >
-      <v-spacer></v-spacer>
+    <BaseButton
+      v-if="showImportButton"
+      @click="navigateTo('/tasks')"
+      icon="mdi-grid-large"
+      color="#4CAF50"
+      class="table-button"
+    />
 
-      <v-toolbar-items class="toolbar-items">
-        <v-btn @click="navigateTo('/tasks')" class="toolbar-btn" icon>
-          <v-icon color="black">mdi-table</v-icon>
-        </v-btn>
+    <BaseButton
+      v-if="showImportButton"
+      @click="navigateTo('/calendar')"
+      icon="mdi-calendar"
+      color="#F4BB44"
+      class="calendar-button"
+    />
 
-        <v-btn @click="navigateTo('/calendar')" class="toolbar-btn" icon>
-          <v-icon color="black">mdi-calendar</v-icon>
-        </v-btn>
-      </v-toolbar-items>
+    <BaseButton
+      v-if="showDemoButton"
+      @click="importDemoData"
+      label="Import Demo Data"
+      class="demo-data-button"
+    />
 
-      <v-spacer></v-spacer>
-    </v-toolbar>
     <router-view />
   </v-container>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { useTodoListStore } from '@/stores/useTodoListStore';
+import { useAssigneesStore } from '@/stores/useAssigneesStore';
 import { useRouter, useRoute } from 'vue-router';
+import { computed } from 'vue';
 import BaseButton from '../Base/BaseButton.vue';
 import BaseModal from '../Base/BaseModal.vue';
+import { demoTasks, demoAssignees } from '@/config.js';
 
 const router = useRouter();
 const route = useRoute();
+const todoListStore = useTodoListStore();
+const assigneesStore = useAssigneesStore();
 
 // Determine if the Import New Task button should be shown
 const showImportButton = computed(() => {
   return ['/tasks', '/calendar'].includes(route.path);
+});
+
+const showDemoButton = computed(() => {
+  return ['/tasks'].includes(route.path);
 });
 
 // Function to navigate to the Task Form page
@@ -59,13 +72,24 @@ function navigateToForm() {
 function navigateTo(path) {
   router.push(path);
 }
+
+function importDemoData() {
+  demoTasks.forEach(task => {
+    todoListStore.addTodo(task);
+  });
+
+  demoAssignees.forEach(assignee => {
+    assigneesStore.addAssignee(assignee);
+  });
+}
 </script>
 
 <style scoped>
-.import-button {
-  position: absolute;
+.import-button,
+.calendar-button,
+.table-button {
+  position: fixed;
   right: 16px;
-  bottom: 20px;
   border-radius: 50%;
   width: 56px;
   height: 56px;
@@ -73,35 +97,39 @@ function navigateTo(path) {
   padding: 0;
 }
 
-.custom-toolbar {
-  background-color: transparent;
-  border-radius: 50px;
-  box-shadow: 0px 4px 10px rgba(202, 173, 6, 0.322);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20%;
+.import-button {
+  bottom: 20px;
+  border: 1px solid #1b3d1d;
 }
 
-.toolbar-items {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
+.table-button{
+  bottom: 100px;
+  border: 1px solid #1b3d1d;
 }
 
-.toolbar-items {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
+.calendar-button {
+  bottom: 180px;
+  border: 1px solid #bb6044;
 }
 
-.toolbar-btn:hover {
-  background-color: transparent;
+.demo-data-button {
+  background-color: transparent !important;
+  position: absolute;
+  top: 16px;
+  right: 50%;
+  transform: translateX(50%);
+  border: 1px solid #1565C0;
+  width: 200px;
+  height: 50px;
+  border-radius: 20px;
+  padding: 0 16px;
+  z-index: 999;
 }
 
-.import-button:hover, .nav-button:hover {
-  background-color: #293d3a;
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+.table-button:hover,
+.calendar-button:hover,
+.import-button:hover {
+  background-color: rgba(192, 192, 192, 0.5) !important;
 }
 
 
@@ -112,11 +140,19 @@ function navigateTo(path) {
     width: 52px;
     height: 52px;
   }
-}
 
-@media (max-width: 390px) {
-  .custom-toolbar {
-    width: 60%;
+  .table-button {
+    right: 10px;
+    bottom: 110px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .calendar-button {
+    right: 10px;
+    bottom: 180px;
+    width: 52px;
+    height: 52px;
   }
 }
 

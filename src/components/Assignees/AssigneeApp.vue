@@ -45,6 +45,7 @@
     height: 56px;
     min-width: 56px;
     padding: 0;
+    border: 1px solid #1b3d1d;
   }
   
   .import-button:hover {

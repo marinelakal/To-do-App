@@ -112,7 +112,7 @@ const criticalityMap = {
 const criticality = computed(() => criticalityMap[radios.value]);
 
 const defaultCategory = 'Uncategorized';
-const defaultAssignee = 'No assignee';
+const defaultAssignee = 'Unassigned';
 
 // Access the stores
 const todoStore = useTodoListStore();
