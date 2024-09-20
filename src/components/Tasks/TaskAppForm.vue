@@ -31,9 +31,11 @@
 
       <BaseSelect
         v-model="assigneeSelect"
+        :items="assigneeNames"
+        item-value="id"
+        item-title="firstname"
         label="Select Assignee"
         :rules="selectAssigneeRules"
-        :items="assigneeNames"
       ></BaseSelect>
 
       <BaseSelect
@@ -128,7 +130,10 @@ const categoryNames = computed(() =>
 );
 
 const assigneeNames = computed(() =>
-  assigneesStore.assignees.map(assignee => assignee.firstname)
+  assigneesStore.assignees.map(assignee => ({
+    id: assignee.id,
+    firstname: assignee.firstname
+  }))
 );
 
 // Refs
@@ -144,9 +149,8 @@ watch(
       name.value = task.name;
       description.value = task.description;
       radios.value = Object.keys(criticalityMap).find(key => criticalityMap[key] === task.criticality);
-      assigneeSelect.value = task.assignee;
+      assigneeSelect.value = task.assigneeId;
       categorySelect.value = task.category;
-      // Convert stored date string back to Date object, treating it as local
       date.value = task.date ? new Date(`${task.date}T00:00:00`) : null;
     } else {
       resetForm();
@@ -183,17 +187,15 @@ function submit() {
       name: name.value,
       description: description.value,
       date: formattedDate,
-      assignee: assigneeSelect.value,
+      assigneeId: assigneeSelect.value,
       category: categorySelect.value,
       criticality: criticality.value,
       important: false
     };
 
     if (todoStore.editTaskIndex !== null && todoStore.todoList[todoStore.editTaskIndex]) {
-      // Update existing task
       todoStore.updateTask(todoStore.editTaskIndex, submission);
     } else {
-      // Add new task
       todoStore.addTodo(submission);
     }
 

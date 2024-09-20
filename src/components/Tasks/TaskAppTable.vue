@@ -59,6 +59,7 @@ import BaseDataTable from '../Base/BaseDataTable.vue';
 import BaseDeleteConfirmationDialog from '../Base/BaseDeleteConfirmationDialog.vue';
 import BaseCard from '../Base/BaseCard.vue';
 import BaseButton from '../Base/BaseButton.vue'
+import { useAssigneesStore } from '@/stores/useAssigneesStore';
 
 
 // Reactive variables
@@ -81,6 +82,7 @@ const headers = [
 
 // Access the store
 const todoStore = useTodoListStore();
+const assigneesStore = useAssigneesStore(); 
 
 // Computed properties
 
@@ -112,7 +114,10 @@ onBeforeUnmount(() => {
 });
 
 const filteredItems = computed(() => {
-  const items = todoStore.todoList;
+  const items = todoStore.todoList.map(item => ({
+    ...item,
+    assignee: getAssigneeName(item.assigneeId),
+  }));
   if (search.value) {
     return items.filter(item =>
       item?.name?.includes(search.value) ||
@@ -129,6 +134,12 @@ const filteredItems = computed(() => {
 const hasTasks = computed(() => todoStore.todoList.length > 0);
 
 // Methods
+
+function getAssigneeName(assigneeId) {
+  const assignee = assigneesStore.assignees.find(a => a.id === assigneeId);
+  return assignee ? assignee.firstname : 'N/A';
+}
+
 function getColor(criticality) {
   switch (criticality.toLowerCase()) {
     case 'low':

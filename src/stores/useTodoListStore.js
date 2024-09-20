@@ -13,7 +13,12 @@ export const useTodoListStore = defineStore('todoList', {
         console.error('Invalid todo item:', todo);
         return;
       }
-
+    
+      if (!todo.assigneeId) {
+        console.error('AssigneeId is required for the task.');
+        return;
+      }
+    
       if (todo.important === undefined) {
         todo.important = false;
       }
@@ -64,10 +69,13 @@ export const useTodoListStore = defineStore('todoList', {
         return task;
       });
     },
-    updateTasksWithAssignees(oldAssignee, newAssignee) {
+    updateTasksWithAssigneeId(oldAssigneeId, newAssignee) {
       this.todoList = this.todoList.map(task => {
-        if (task.assignee === oldAssignee) {
-          return { ...task, assignee: newAssignee };
+        if (task.assigneeId === oldAssigneeId) {
+          return { 
+            ...task, 
+            assigneeId: newAssignee ? newAssignee.id : null
+          };
         }
         return task;
       });

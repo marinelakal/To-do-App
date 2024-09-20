@@ -18,7 +18,10 @@ export const useAssigneesStore = defineStore('assignee', {
             if (assignee.important === undefined) {
                 assignee.important = false;
             }
-        
+            
+            if (this.assignees.some(a => a.id === assignee.id)) {
+                assignee.id = Date.now();
+            }
             this.assignees.push(assignee);
         },
         deleteAssignee(index) {
@@ -26,9 +29,9 @@ export const useAssigneesStore = defineStore('assignee', {
               console.error('Invalid index for deletion:', index);
               return;
             }
-            const oldAssignee = this.assignees[index].firstname;
+            const oldAssigneeId = this.assignees[index].id;
             this.assignees.splice(index, 1);
-            this.updateTasksWithAssignees(oldAssignee, null);
+            this.updateTasksWithAssigneeId(oldAssigneeId, null);
         },
         updateAssignee(index, updatedAssignee) {
             if (index < 0 || index >= this.assignees.length) {
@@ -40,9 +43,9 @@ export const useAssigneesStore = defineStore('assignee', {
               console.error('Invalid updated assignee:', updatedAssignee);
               return;
             }
-            const oldAssignee = this.assignees[index].firstname;
+            const oldAssigneeId = this.assignees[index].id;
             this.assignees[index] = { ...this.assignees[index], ...updatedAssignee };
-            this.updateTasksWithAssignees(oldAssignee, updatedAssignee);
+            this.updateTasksWithAssigneeId(oldAssigneeId, updatedAssignee);
         },
         setEditAssigneeIndex(index) {
             this.editAssigneeIndex = index;
@@ -50,14 +53,14 @@ export const useAssigneesStore = defineStore('assignee', {
         clearEditAssigneeIndex() {
             this.editAssigneeIndex = null;
         },
-        updateTasksWithAssignees(oldAssignee, newAssignee) {
+        updateTasksWithAssigneeId(oldAssigneeId, newAssignee) {
           const taskStore = useTodoListStore();
           
           taskStore.todoList = taskStore.todoList.map(task => {
-            if (task.assignee === oldAssignee) {
+            if (task.assigneeId === oldAssigneeId) {
               return {
                 ...task,
-                assignee: newAssignee ? newAssignee.firstname : null,
+                assigneeId: newAssignee ? newAssignee.id : null,
               };
             }
             return task;
