@@ -60,12 +60,14 @@ const LastNameRules = [
 
 const EmailRules = [
   value => !!value || 'Email is required.',
-  value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || 'Please enter a valid email address.'
+  value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) || 'Please enter a valid email address.',
+  value => !emailExists(value) || 'The features of this user already exist.'
 ];
 
 const PhoneNumberRules = [
   value => !!value || 'Phone Number is required.',
-  value => /^\+[1-9]\d{0,2}([-\s]?\d){8,12}$/.test(value) || 'Please enter a valid phone number.'
+  value => /^\+[1-9]\d{0,2}([-\s]?\d){8,12}$/.test(value) || 'Please enter a valid phone number.',
+  value => !phoneExists(value) || 'The features of this user already exist.'
 ];
 
 
@@ -93,6 +95,22 @@ watch(
 );
 
 // Methods
+function emailExists(emailValue) {
+  return assigneesStore.assignees.some(
+    (assignee, index) =>
+      index !== assigneesStore.editAssigneeIndex &&
+      assignee.email === emailValue
+  );
+}
+
+function phoneExists(phoneValue) {
+  return assigneesStore.assignees.some(
+    (assignee, index) =>
+      index !== assigneesStore.editAssigneeIndex &&
+      assignee.phone === phoneValue
+  );
+}
+
 function resetForm() {
   if (form.value) form.value.resetValidation();
   firstname.value = '';
@@ -109,29 +127,16 @@ function handleCancel() {
 }
 
 function submit() {
-
   const submission = {
+    id: assigneesStore.editAssigneeIndex !== null
+         ? assigneesStore.assignees[assigneesStore.editAssigneeIndex].id 
+         : Date.now(),
     firstname: firstname.value,
     lastname: lastname.value,
     email: email.value,
     phone: phone.value,
     important: false
   };
-
-  const isDuplicate = assigneesStore.assignees.some(
-    (assignee, index) =>
-      index !== assigneesStore.editAssigneeIndex && 
-      assignee.firstname === submission.firstname &&
-      assignee.lastname === submission.lastname &&
-      assignee.email === submission.email &&
-      assignee.phone === submission.phone
-  );
-
-  if (isDuplicate) {
-    alert('An assignee with the same details already exists!');
-    return; 
-  }
-
 
   if (assigneesStore.editAssigneeIndex !== null && assigneesStore.assignees[assigneesStore.editAssigneeIndex]) {
     // Update existing assignee
