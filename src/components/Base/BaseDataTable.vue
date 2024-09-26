@@ -38,6 +38,13 @@
               @toggleimportant="$emit('toggleimportant', index + (currentPage - 1) * itemsPerPage)"
             />
           </td>
+          <td v-else-if="column.key === 'isDone'">
+            <input
+              type="checkbox"
+              :checked="item.isDone"
+              @change="toggleTaskDone(item, index)"
+            />
+          </td>
         </template>
         </tr>
       </template>
@@ -49,6 +56,10 @@
   import BaseTableRows from './BaseTableRows.vue';
   import BaseChip from './BaseChip.vue';
   import BaseIcons from './BaseIcons.vue';
+  import { useTodoListStore } from '@/stores/useTodoListStore';
+
+
+  const todoStore = useTodoListStore();
 
   defineProps({
     headers: {
@@ -85,4 +96,8 @@
 
   const currentPage = defineModel('currentPage');
   const itemsPerPage = defineModel('itemsPerPage');
+
+  function toggleTaskDone(item, index) {
+    todoStore.toggleTaskDone(index);
+  }
   </script>

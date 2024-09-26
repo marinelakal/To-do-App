@@ -55,7 +55,7 @@
               :weekdays="weekday"
             >
               <template v-slot:event="{ event }">
-                <div @click="handleTaskClick(event)" class="event-wrapper" :style="{ backgroundColor: event.color }">
+                <div @click="handleTaskClick(event)" class="event-wrapper" :style="{ backgroundColor: event.isDone ? '#C8C8C8' : event.color }">
                   {{ event.title }}
                 </div>
               </template>
@@ -67,7 +67,10 @@
 
       <v-dialog v-model="taskDialog" max-width="400px">
         <v-card>
-          <v-card-title class="primary--text" style = " background-color:#65bbae ; color:white" >{{ selectedTask.name }}</v-card-title>
+          <v-card-title class="primary--text" style="background-color:#65bbae ; color:white">
+            {{ selectedTask.name }}
+            <v-icon v-if="selectedTask.isDone" style="margin-left: 8px; font-size: 18px;">mdi-check</v-icon>
+          </v-card-title>
 
           <v-card-text>
 
@@ -181,6 +184,7 @@
           start: taskDate,
           end: taskDate,
           color: criticalityColors[task.criticality] ,
+          isDone: task.isDone,
           allDay: false,
         })
       } else {

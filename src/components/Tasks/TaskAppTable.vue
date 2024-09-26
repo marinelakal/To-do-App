@@ -24,6 +24,7 @@
         ></BaseTextField>
 
         <BaseDataTable
+          @click="toggleTaskDone"
           :headers="headers"
           :items="filteredItems"
           :search="search"
@@ -70,6 +71,7 @@ const showDescriptionContent = ref(false);
 
 // Non-reactive variable
 const headers = [
+  { key: 'isDone', visible: true, showContent: true, title: 'Done', type: 'boolean' },
   { align: 'start', key: 'name', visible: true, showContent: true , sortable: false, title: 'Title' , type: 'text' },
   { key: 'description', visible: true, showContent: true , title: 'Description' , type: 'text'},
   { key: 'date', visible: true, showContent: true , title: 'Deadline' , type: 'date' },
@@ -162,6 +164,10 @@ function truncatedDescription(description) {
 
 function truncatedName(name) {
   return name.length > 70 ? name.substring(0, 70) + '...' : name;
+}
+
+function toggleTaskDone(item) {
+  item.isDone = !item.isDone;
 }
 
 function toggleImportant(index) {
