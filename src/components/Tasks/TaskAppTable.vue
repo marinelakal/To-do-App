@@ -4,14 +4,14 @@
     <BaseCard>
       <template #title>
         <span>Tasks</span>
-        <BaseButton
+        <v-icon
             v-if="hasTasks"
-            labelColor="white"
             @click="toggleDescriptionContent"
-            :label="descriptionButtonLabel"
-            color="secondary"
-            class="table-container-show-hide"
-        />
+            :title="descriptionButtonLabel"
+            class="description-toggle-icon"
+          >
+            {{ showDescriptionContent ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+          </v-icon>
       </template>
       <template #content>
         <BaseTextField
@@ -58,7 +58,6 @@ import BaseTextField from '@/components/Base/BaseTextField.vue';
 import BaseDataTable from '../Base/BaseDataTable.vue';
 import BaseDeleteConfirmationDialog from '../Base/BaseDeleteConfirmationDialog.vue';
 import BaseCard from '../Base/BaseCard.vue';
-import BaseButton from '../Base/BaseButton.vue'
 import { useAssigneesStore } from '@/stores/useAssigneesStore';
 
 
@@ -287,5 +286,15 @@ function editItem(index) {
 .table-container td {
   text-align: center;
   white-space: nowrap;
+}
+
+.description-toggle-icon {
+  cursor: pointer;
+  margin-left: 8px;
+  color: #007bff;
+}
+
+.description-toggle-icon:hover {
+  color: #0056b3;
 }
 </style>
