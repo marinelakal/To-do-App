@@ -30,11 +30,13 @@
 
       <v-row>
         <v-col cols="12">
-          <div v-if="type === 'date range'" class="d-flex justify-center">
+          <div v-if="type === 'date range'" class="d-flex justify-column">
             <v-date-input
+              prepend-icon=""
+              variant="outlined"
               v-model="selectedRange"
               label="Select Date Range"
-              max-width="368"
+              max-width="400"
               multiple="range"
               class="date-range"
             ></v-date-input>
@@ -51,10 +53,60 @@
               :events="calendarEvents"
               :view-mode="type !== 'date range' ? type : 'month'"
               :weekdays="weekday"
-            ></v-calendar>
+            >
+              <template v-slot:event="{ event }">
+                <div @click="handleTaskClick(event)" class="event-wrapper" :style="{ backgroundColor: event.color }">
+                  {{ event.title }}
+                </div>
+              </template>
+            </v-calendar>
           </v-sheet>
         </v-col>
       </v-row>
+
+
+      <v-dialog v-model="taskDialog" max-width="400px">
+        <v-card>
+          <v-card-title class="primary--text" style = " background-color:#65bbae ; color:white" >{{ selectedTask.name }}</v-card-title>
+
+          <v-card-text>
+
+            <v-row>
+              <v-col cols="6">
+                <strong>Category:</strong>
+                <p>{{ selectedTask.category }}</p>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="6">
+                <strong>Description:</strong>
+                <p>{{ selectedTask.description }}</p>
+              </v-col>
+            </v-row>
+
+
+            <v-row>
+              <v-col cols="6">
+                <strong>Criticality:</strong>
+                <p :class="getCriticalityClass(selectedTask.criticality)">{{ selectedTask.criticality }}</p>
+              </v-col>
+            </v-row>
+
+
+            <v-row>
+              <v-col cols="6">
+                <strong>Date:</strong>
+                <p>{{ new Date(selectedTask.date).toDateString() }}</p>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-card-actions class="justify-end">
+            <v-btn @click="taskDialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-container>
   </template>
 
@@ -100,14 +152,21 @@
 
   const value = ref([new Date()])
   const selectedRange = ref([])
+  const taskDialog = ref(false)
+  const selectedTask = ref({})
 
   const criticalityColors = {
     Low: 'green',
     Medium: 'orange',
     High: 'red',
-  }
-  
- 
+  };
+
+  const getCriticalityClass = (criticality) => {
+    if (criticality === 'High') return 'red--text';
+    if (criticality === 'Medium') return 'orange--text';
+    return 'green--text';
+  };
+
   const getEventsFromTasks = () => {
     const newEvents = []
     
@@ -118,7 +177,7 @@
       if (!isNaN(taskDate)) {
         
         newEvents.push({
-          title: task.name,
+          title: `${task.name} - ${task.category}`,
           start: taskDate,
           end: taskDate,
           color: criticalityColors[task.criticality] ,
@@ -144,6 +203,14 @@
       )
     } else {
       filteredEvents.value = []
+    }
+  };
+
+  const handleTaskClick = (event) => {
+    const clickedTask = todoStore.todoList.find((task) => `${task.name} - ${task.category}` === event.title);
+    if (clickedTask) {
+      selectedTask.value = clickedTask;
+      taskDialog.value = true;
     }
   }
 
@@ -175,6 +242,26 @@
   <style scoped>
   .date-range{
     margin-top:20px;
+  }
+
+  .event-wrapper {
+    padding: 5px;
+    cursor: pointer;
+    color: white;
+    border-radius: 4px;
+    height: 30px;
+  }
+
+  .red--text {
+    color: red !important;
+  }
+
+  .orange--text {
+    color: orange !important;
+  }
+
+  .green--text {
+    color: green !important;
   }
 
   @media only screen and (max-width: 600px) {
