@@ -89,7 +89,7 @@
             <v-row>
               <v-col cols="6">
                 <strong>Date:</strong>
-                <p>{{ new Date(selectedTask.date).toDateString() }}</p>
+                <p>{{ formatDateToDDMMYYYY(new Date(selectedTask.date)) }}</p>
               </v-col>
             </v-row>
           </v-card-text>
@@ -138,6 +138,15 @@
     if (criticality === 'Medium') return 'orange--text';
     return 'green--text';
   };
+
+  const formatDateToDDMMYYYY = (date) => {
+  if (!date) return '';
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
 
   const getEventsFromTasks = () => {
     const newEvents = []

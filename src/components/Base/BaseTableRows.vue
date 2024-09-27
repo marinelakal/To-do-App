@@ -8,6 +8,9 @@
           <span v-else-if="column.key === 'description'">
             {{ showDescriptionContent ? truncatedDescription( item[column.key] || '') : '' }}
           </span>
+          <span v-else-if="column.key === 'date'">
+            {{ formatDateToDDMMYYYY(item[column.key]) || 'N/A' }}
+          </span>
           <span v-else>
             {{ item[column.key] || 'N/A' }}
           </span>
@@ -41,4 +44,14 @@
       default: () => []
     },
   });
+
+  const formatDateToDDMMYYYY = (dateStr) => {
+    if (!dateStr) return null;
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   </script>
