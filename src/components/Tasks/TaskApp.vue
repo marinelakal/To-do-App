@@ -122,6 +122,7 @@ function importDemoData() {
   border-radius: 20px;
   padding: 0 16px;
   z-index: 999;
+  font-size: 12px;
 }
 
 .table-button:hover,
