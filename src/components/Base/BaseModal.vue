@@ -5,20 +5,19 @@
         :max-width="maxWidth"
       >
         <template #activator="{ props }">
-          <v-btn
-            icon
+          <v-icon
             v-bind="props"
-            class="info-button"
+            color="primary"
+            @click="dialogVisible = true"
+            class="clickable-icon"
           >
-            <v-icon color="white">
-              mdi-information
-            </v-icon>
-          </v-btn>
+            mdi-information-slab-circle
+          </v-icon>
         </template>
   
         <v-card>
           <v-card-title class="headline modal-title">
-            <v-icon color="white" class="mr-2">mdi-information</v-icon>
+            <v-icon color="white" class="mr-2">mdi-information-slab-circle</v-icon>
             {{ title }}
           </v-card-title>
   
@@ -74,14 +73,10 @@
     margin-top: 25px;
     right: 16px;
   }
-  
-  .info-button {
-    background-color: #1565C0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
-  
-  .info-button:hover {
-    background-color: #1E88E5;
+
+  .clickable-icon {
+    cursor: pointer;
+    font-size: 40px;
   }
   
   .modal-title {

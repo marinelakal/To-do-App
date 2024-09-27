@@ -90,15 +90,6 @@ const assigneesStore = useAssigneesStore();
 const screenWidth = ref(window.innerWidth);
 
 
-const descriptionButtonLabel = computed(() => {
-
-  if (screenWidth.value <= 600) {
-    return showDescriptionContent.value ? 'Hide' : 'Show';
-  }
-
-  return showDescriptionContent.value ? 'Hide Description Content' : 'Show Description Content';
-});
-
 
 const updateScreenWidth = () => {
   screenWidth.value = window.innerWidth;
@@ -257,21 +248,6 @@ function editItem(index) {
   color: #ffffff;
 }
 
-.info-btn {
-  border-radius: 20px;
-  transition: background-color 0.3s, color 0.3s;
-  top: 0;
-  right: 0;
-  position: fixed;
-  margin: 16px;
-  width: 300px;
-  z-index: 9999;
-}
-
-.info-btn:hover {
-  background-color: #0056b3;
-  color: #ffffff;
-}
 
 .table-container-icon {
   transition: color 0.3s;

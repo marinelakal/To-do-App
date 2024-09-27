@@ -120,19 +120,4 @@ function truncatedName(name) {
   text-align: left;
 }
 
-.info-btn {
-  border-radius: 20px;
-  transition: background-color 0.3s, color 0.3s;
-  top: 0;
-  right: 0;
-  position: fixed;
-  margin: 16px;
-  width: 300px;
-  z-index: 9999;
-}
-
-.info-btn:hover {
-  background-color: #0056b3;
-  color: #ffffff;
-}
 </style>
