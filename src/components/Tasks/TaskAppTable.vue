@@ -4,14 +4,10 @@
     <BaseCard>
       <template #title>
         <span>Tasks</span>
-        <v-icon
-            v-if="hasTasks"
-            @click="toggleDescriptionContent"
-            :title="descriptionButtonLabel"
-            class="description-toggle-icon"
-          >
-            {{ showDescriptionContent ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
-          </v-icon>
+        <div v-if="hasTasks" @click="toggleDescriptionContent" class="description-toggle-icon">
+          <v-icon>{{ showDescriptionContent ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+          <span>{{ showDescriptionContent ? 'Hide' : 'Show' }} Description</span>
+        </div>
       </template>
       <template #content>
         <BaseTextField
