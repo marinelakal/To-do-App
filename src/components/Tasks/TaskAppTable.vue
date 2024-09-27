@@ -4,14 +4,10 @@
     <BaseCard>
       <template #title>
         <span>Tasks</span>
-        <v-icon
-            v-if="hasTasks"
-            @click="toggleDescriptionContent"
-            :title="descriptionButtonLabel"
-            class="description-toggle-icon"
-          >
-            {{ showDescriptionContent ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
-          </v-icon>
+        <div v-if="hasTasks" :title="descriptionButtonLabel" @click="toggleDescriptionContent" class="description-toggle-icon">
+          <v-icon>{{ showDescriptionContent ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+          <span>{{ showDescriptionContent ? 'Hide' : 'Show' }} Description</span>
+        </div>
       </template>
       <template #content>
         <BaseTextField
@@ -124,6 +120,15 @@ const filteredItems = computed(() => {
 });
 
 const hasTasks = computed(() => todoStore.todoList.length > 0);
+
+const descriptionButtonLabel = computed(() => {
+
+if (screenWidth.value <= 600) {
+  return showDescriptionContent.value ? 'Hide' : 'Show';
+}
+
+return showDescriptionContent.value ? 'Hide Description ' : 'Show Description ';
+});
 
 // Methods
 
@@ -272,11 +277,19 @@ function editItem(index) {
 
 .description-toggle-icon {
   cursor: pointer;
-  margin-left: 8px;
   color: #007bff;
 }
 
 .description-toggle-icon:hover {
   color: #0056b3;
+}
+
+@media only screen and (max-width: 600px) {
+  .description-toggle-icon {
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+
+
 }
 </style>
