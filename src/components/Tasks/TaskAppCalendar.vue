@@ -1,30 +1,19 @@
 <template>
     <v-container fluid>
-      <v-row>
-        <v-col cols="12" md="8" lg="6">
-          <v-sheet class="d-flex" :width="screenWidth < 960 ? '100%' : '800px'" height="54" tile>
-            <v-select
-              v-model="type"
-              :items="types"
-              class="ma-2"
-              label="View Mode"
-              variant="outlined"
-              dense
-              hide-details
-            ></v-select>
-            <v-select
-              v-if="['month', 'week', 'day'].includes(type)"
-              v-model="selectedWeekday"
-              :items="weekdays"
-              item-text="title"
-              item-value="title"
-              class="ma-2"
-              label="weekdays"
-              variant="outlined"
-              dense
-              hide-details
-            ></v-select>
-          </v-sheet>
+      <v-row class="px-2" align="center" justify="space-between" >
+        <v-col class="text-h5 center" cols="12" md="4">
+          <v-row class="center">
+            <div class="px-2 center">Calendar</div>
+            <v-spacer></v-spacer>
+          </v-row>
+        </v-col>
+        <v-col cols="12" md="4"  >
+          <v-btn-toggle v-model="type" class="btn-toggle-container" mandatory>
+            <v-btn value="month">Month</v-btn>
+            <v-btn value="week">Week</v-btn>
+            <v-btn value="day">Day</v-btn>
+            <v-btn value="date range">Date Range</v-btn>
+          </v-btn-toggle>
         </v-col>
       </v-row>
 
@@ -55,7 +44,7 @@
               :weekdays="weekday"
             >
               <template v-slot:event="{ event }">
-                <div @click="handleTaskClick(event)" class="event-wrapper" :style="{ backgroundColor: event.color }">
+                <div @click="handleTaskClick(event)" class="event-wrapper" :style="{ backgroundColor: event.isDone ? '#C8C8C8' : event.color }">
                   {{ event.title }}
                 </div>
               </template>
@@ -67,7 +56,10 @@
 
       <v-dialog v-model="taskDialog" max-width="400px">
         <v-card>
-          <v-card-title class="primary--text" style = " background-color:#65bbae ; color:white" >{{ selectedTask.name }}</v-card-title>
+          <v-card-title class="primary--text" style="background-color:#65bbae ; color:white">
+            {{ selectedTask.name }}
+            <v-icon v-if="selectedTask.isDone" style="margin-left: 8px; font-size: 18px;">mdi-check</v-icon>
+          </v-card-title>
 
           <v-card-text>
 
@@ -111,20 +103,13 @@
   </template>
 
   <script setup>
-  import { ref, onMounted, watch , computed } from 'vue'
+  import { ref, onMounted, watch } from 'vue'
   import { useTodoListStore } from '@/stores/useTodoListStore'
 
   const todoStore = useTodoListStore()
 
   const type = ref('month')
-  const types = ['month', 'week', 'day', 'date range']
   const weekday = ref([0, 1, 2, 3, 4, 5, 6])
-  const weekdays = [
-    { title: 'Sun - Sat', value: [0, 1, 2, 3, 4, 5, 6] },
-    { title: 'Mon - Sun', value: [1, 2, 3, 4, 5, 6, 0] },
-    { title: 'Mon - Fri', value: [1, 2, 3, 4, 5] },
-    { title: 'Mon, Wed, Fri', value: [1, 3, 5] },
-  ]
 
   // Screen width ref to adjust the layout
   const screenWidth = ref(window.innerWidth)
@@ -132,19 +117,6 @@
     screenWidth.value = window.innerWidth
   })
 
-  // Computed property to get and set the weekday title
-  const selectedWeekday = computed({
-    get() {
-      const found = weekdays.find(w => JSON.stringify(w.value) === JSON.stringify(weekday.value));
-      return found ? found.title : '';
-    },
-    set(title) {
-      const found = weekdays.find(w => w.title === title);
-      if (found) {
-        weekday.value = found.value;
-      }
-    }
-  });
 
   const events = ref([])
   
@@ -181,6 +153,7 @@
           start: taskDate,
           end: taskDate,
           color: criticalityColors[task.criticality] ,
+          isDone: task.isDone,
           allDay: false,
         })
       } else {
@@ -265,6 +238,17 @@
   }
 
   @media only screen and (max-width: 600px) {
+  .btn-toggle-container {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .v-btn {
+    font-size: 0.7em;
+    padding: 0%;
+    margin: 0%;
+  }
+
     .date-range {
       max-width: 100% !important;
     }

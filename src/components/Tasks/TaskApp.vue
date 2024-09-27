@@ -133,21 +133,21 @@ function importDemoData() {
 
 @media (max-width: 390px) {
   .import-button {
-    right: 10px;
+    right: -5px;
     bottom: 20px;
     width: 52px;
     height: 52px;
   }
 
   .table-button {
-    right: 10px;
+    right: -5px;
     bottom: 110px;
     width: 52px;
     height: 52px;
   }
 
   .calendar-button {
-    right: 10px;
+    right: -5px;
     bottom: 180px;
     width: 52px;
     height: 52px;

@@ -23,6 +23,8 @@ export const useTodoListStore = defineStore('todoList', {
         todo.important = false;
       }
 
+      todo.isDone = false;
+
       this.todoList.push(todo);
     },
     deleteTask(index) {
@@ -79,6 +81,17 @@ export const useTodoListStore = defineStore('todoList', {
         }
         return task;
       });
+    },
+    toggleTaskDone(index) {
+      if (index < 0 || index >= this.todoList.length) {
+        console.error('Invalid index for toggling done status:', index);
+        return;
+      }
+
+      const item = this.todoList[index];
+      if (item) {
+        item.isDone = !item.isDone;
+      }
     },
     setEditTaskIndex(index) {
       this.editTaskIndex = index;
