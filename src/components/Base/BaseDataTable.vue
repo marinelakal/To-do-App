@@ -39,11 +39,13 @@
             />
           </td>
           <td v-else-if="column.key === 'isDone'">
-            <input
-              type="checkbox"
-              :checked="item.isDone"
+            <v-checkbox
+              color="primary"
+              v-model="item.isDone"
               @change="toggleTaskDone(item, index)"
-            />
+              hide-details
+              class="small-checkbox"
+            ></v-checkbox>
           </td>
         </template>
         </tr>
