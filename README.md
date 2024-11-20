@@ -5,6 +5,19 @@
 ## Description
 
 The TODO App is a task management system designed to help users organize and track their tasks efficiently. It allows users to create, edit, and delete tasks, assign them to categories and assignees, and view tasks in either table or calendar formats. Additional features include task duplication, setting task importance levels, and importing demo data for testing purposes. With options such as managing assignees, searching tasks, and receiving helpful information through modals for smooth task handling.
+![image](https://github.com/user-attachments/assets/b1d11776-a446-4551-a3dd-f1eaf54039d2)
+![image](https://github.com/user-attachments/assets/b1efd932-614d-41aa-8747-1b2629176af9)
+![image](https://github.com/user-attachments/assets/7f17f3c1-a122-46e9-a9f2-64044f68980d)
+![image](https://github.com/user-attachments/assets/a2325703-328b-415f-8347-0f475c3344c5)
+![image](https://github.com/user-attachments/assets/41418523-207b-4fe0-89a8-9ea918fd5e1f)
+![image](https://github.com/user-attachments/assets/f831256e-1179-4b72-9eb6-bd81438acdde)
+![image](https://github.com/user-attachments/assets/8f003b07-defe-4701-8c72-cd9fb5359ba9)
+![image](https://github.com/user-attachments/assets/1915bba3-a94e-41b2-8ec2-53f61ba866d3)
+
+
+
+
+
 
 &nbsp;
 
