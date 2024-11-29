@@ -1,0 +1,79 @@
+<template>
+  <v-app>
+    <v-main class="welcome-container">
+      <v-container class="d-flex justify-center align-center fill-height pa-0">
+        <v-row align="center" justify="center" class="text-center">
+          <v-col cols="12" md="8" lg="6">
+            <BaseCard class="pa-6" style="max-width: 600px;">
+              <template #title>
+                <div class="title-text font-weight-bold" style="color: #65bbae;">
+                  Welcome to the TODO App!
+                </div>
+              </template>
+              <template #content>
+                <div class="text-body-1" style="color: #555555;">
+                  This application helps you manage your tasks efficiently. You can navigate through the menu to add new tasks, categorize them, and keep track of your to-dos. Get started by clicking "Get Started" or directly from "Tasks" or "Categories" in the navigation drawer.
+                </div>
+                <BaseButton
+                  label="Get Started"
+                  color="primary"
+                  labelColor="white"
+                  :disabled="false"
+                  to="/tasks"
+                />
+              </template>
+            </BaseCard>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
+</template>
+
+<script setup>
+import { onMounted, onBeforeUnmount } from 'vue';
+import BaseCard from '../Base/BaseCard.vue';
+import BaseButton from '../Base/BaseButton.vue';
+
+// Add a class to the body element when this page is mounted
+onMounted(() => {
+  document.body.classList.add('no-scroll');
+});
+
+// Remove the class when the component is unmounted
+onBeforeUnmount(() => {
+  document.body.classList.remove('no-scroll');
+});
+</script>
+
+<style scoped>
+.welcome-container {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  
+}
+
+.fill-height {
+  height: 100vh;
+}
+
+@media only screen and (min-width: 600px) {
+  .title-text {
+    font-size: 30px; /* Tablets */
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .title-text {
+    font-size: 35px; /* Laptops and desktops */
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .title-text {
+    font-size: 40px; /* Large screens */
+  }
+}
+</style>
